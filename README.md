@@ -1,6 +1,7 @@
 # TinyAI
 
 Title: TinyAI
+
 Team Members: Rajveer Sodhi, Aalyaan Ali, Tito Fleming, Benjamin Peckham
 
 ## **Introduction**
@@ -66,9 +67,13 @@ As for our dataset, we will use a filtered and augmented subset of Ocra-Math-Wor
 ## **Division of Labor**
 
 Aalyaan: Data preprocessing and data pipeline construction 
+
 Ben: Transformer model construction 
+
 Rajveer: TRM implementation (Recursion added to transformer)
+
 Richard: Training and testing script, metrics, and analysis reports
+
 
 
 
