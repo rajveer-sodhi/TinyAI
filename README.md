@@ -16,8 +16,6 @@ However, TRMs are designed using CNNs and act on spatial tasks, not sequential. 
 
 ## **Related Work** 
 
-Please read and briefly summarize (no more than one paragraph) at least one paper/article/blog relevant to your topic beyond the paper you are re-implementing/novel idea you are researching.
-
 A closely related work is Self-Refine: Iterative Refinement with Self-Feedback (Madaan et al., NeurIPS 2023). The authors implement a test-time framework where the LLM acts as a “generator, refiner, and feedback provider” on its own output. This is an attempt to improve on the often-poor initial outputs given by an LLM without additional training. This feedback-for-refining loop was evaluated on a variety of tasks, like mathematical reasoning or dialog response generation. They found consistent improvements in performance of ~20% on task performance. At a high level, Self-Refine relates to our work as it shows the iterative process of improvement on an answer conditioned on previous outputs can significantly improve performance. This idea is not very far from our intended work with Tiny Recursive Models. 
 
 ## **Data**
