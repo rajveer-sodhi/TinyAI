@@ -1,0 +1,5 @@
+**/bucket_b.json
+key.env
+__pycache__/
+*.pyc
+.DS_Store
