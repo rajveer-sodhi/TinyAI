@@ -126,15 +126,31 @@ class RecursiveTransformer(keras.Model):
     def call(self, inputs, training = False):
         embeddings = self.embedding(inputs, training = training)
         
-        batch_size = tf.shape(inputs)[0]
+        batch_sz = tf.shape(inputs)[0]
         seq_len = tf.shape(inputs)[1]
         
-        y = tf.tile(self.y0, [batch_size, seq_len, 1])
-        z = tf.tile(self.z0, [batch_size, seq_len, 1])
+        y = tf.tile(self.y0, [batch_sz, seq_len, 1])
+        z = tf.tile(self.z0, [batch_sz, seq_len, 1])
         
-        y, z, logits, q_logit = self.recursive_reasoning(embeddings, y, z, training = training)
-        
-        return logits
+        if training:
+            y, z, logits, q_logit = self.recursive_reasoning(embeddings, y, z, training = True)
+            return logits
+        else:
+            steps = 0
+            halted = tf.zeros((batch_sz, ), dtype = tf.bool)
+            prev_logits = None
+            
+            while True:
+                y, z, logits, q_logit = self.recursive_reasoning(embeddings, y, z, training = False)
+                prev_logits = logits
+                halt_prob = tf.sigmoid(q_logit)
+                halted = tf.logical_or(halted, halt_prob > self.halt_exploration_prob)
+                
+                steps += 1
+                if tf.reduce_all(halted) or (steps >= self.halt_max_steps):
+                    break
+            
+            return prev_logits
 
     def get_config(self):
         config = super().get_config()
