@@ -1,3 +1,14 @@
-tensorflow>=2.13.0
+# TinyAI Requirements
+# For OSCAR, use setup_oscar_env.sh instead of pip install -r requirements.txt
+
+# Core ML Framework
+tensorflow==2.15.0
 numpy>=1.24.0
+
+# Data Processing
+datasets>=2.14.0
+openai>=1.0.0  # For data augmentation in preprocessing
+
+# Utilities
+tqdm>=4.65.0
 
