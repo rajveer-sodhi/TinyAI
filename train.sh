@@ -29,6 +29,9 @@ echo ""
 module load miniconda3/23.11.0s
 source activate tinyai
 
+# Install wandb if not already installed (for experiment tracking)
+pip install wandb -q 2>/dev/null || true
+
 # Check GPU allocation
 echo "GPU Information:"
 nvidia-smi
@@ -41,7 +44,6 @@ echo ""
 
 # Create output directories
 mkdir -p slurm_logs
-mkdir -p output/logs
 mkdir -p output/checkpoints/control
 mkdir -p output/checkpoints/recursive
 
@@ -95,16 +97,11 @@ echo "  batch_size: $BATCH_SIZE"
 echo "  learning_rate: $LEARNING_RATE"
 echo "  max_seq_length: $MAX_SEQ_LENGTH"
 echo ""
-echo "TensorBoard logs will be written to:"
-echo "  - Control: $OUTPUT_DIR/logs/control/"
-echo "  - Recursive: $OUTPUT_DIR/logs/recursive/"
-echo ""
-echo "To view TensorBoard DURING training:"
-echo "  1. On your LOCAL machine, run:"
-echo "     ssh -L 6006:localhost:6006 your_username@ssh.oscar.brown.edu"
-echo "  2. On OSCAR (in another terminal), run:"
-echo "     bash tensorboard.sh"
-echo "  3. Open http://localhost:6006 in your browser"
+echo "To monitor training with WandB:"
+echo "  1. First, log in to WandB (one time only):"
+echo "     python wandb_login.py"
+echo "  2. Then view metrics at: https://wandb.ai"
+echo "  (No port forwarding needed - metrics upload automatically!)"
 echo ""
 
 # Run the training script

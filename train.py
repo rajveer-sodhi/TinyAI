@@ -13,6 +13,10 @@ import numpy as np
 import tensorflow as tf
 from tensorflow import keras
 
+# WandB for experiment tracking
+import wandb
+
+
 # Add components directory to path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'components'))
 
@@ -240,14 +244,23 @@ def train_control_transformer(
     print("="*60 + "\n")
     
     os.makedirs(checkpoint_dir, exist_ok=True)
-    os.makedirs(log_dir, exist_ok=True)
     
     # Setup optimizer
     optimizer = keras.optimizers.AdamW(learning_rate=learning_rate, weight_decay=0.01)
     
-    # Setup TensorBoard logging
-    train_summary_writer = tf.summary.create_file_writer(os.path.join(log_dir, 'train'))
-    val_summary_writer = tf.summary.create_file_writer(os.path.join(log_dir, 'val'))
+    # Setup WandB
+    wandb.init(
+        project="tinyai",
+        name="control-transformer",
+        config={
+            "model": "control_transformer",
+            "learning_rate": learning_rate,
+            "epochs": epochs,
+            "d_model": model.d_model,
+            "num_layers": model.num_layers,
+            "num_heads": model.num_heads,
+        }
+    )
     
     train_metrics = TrainingMetrics()
     val_metrics = TrainingMetrics()
@@ -287,10 +300,12 @@ def train_control_transformer(
             train_metrics.update(loss, accuracy)
             global_step += 1
             
-            # Log to TensorBoard
-            with train_summary_writer.as_default():
-                tf.summary.scalar('loss', loss, step=global_step)
-                tf.summary.scalar('accuracy', accuracy, step=global_step)
+            # Log to WandB
+            wandb.log({
+                'train/loss': float(loss),
+                'train/accuracy': float(accuracy),
+                'train/step': global_step
+            })
             
             if (batch_idx + 1) % 50 == 0:
                 print(f"  Batch {batch_idx + 1}: Loss={loss:.4f}, Acc={accuracy:.4f}")
@@ -301,9 +316,12 @@ def train_control_transformer(
             loss, accuracy = val_step(inputs, targets)
             val_metrics.update(loss, accuracy)
         
-        with val_summary_writer.as_default():
-            tf.summary.scalar('loss', val_metrics.avg_loss, step=epoch)
-            tf.summary.scalar('accuracy', val_metrics.avg_accuracy, step=epoch)
+        # Log to WandB
+        wandb.log({
+            'val/loss': float(val_metrics.avg_loss),
+            'val/accuracy': float(val_metrics.avg_accuracy),
+            'epoch': epoch + 1
+        })
         
         print(f"\n  Train Loss: {train_metrics.avg_loss:.4f}, Train Acc: {train_metrics.avg_accuracy:.4f}")
         print(f"  Val Loss: {val_metrics.avg_loss:.4f}, Val Acc: {val_metrics.avg_accuracy:.4f}")
@@ -321,6 +339,9 @@ def train_control_transformer(
     # Save final model
     model.save_weights(os.path.join(checkpoint_dir, 'final_model.weights.h5'))
     print(f"\n✓ Training complete. Best validation loss: {best_val_loss:.4f}")
+    
+    # Finish WandB run
+    wandb.finish()
     
     return {
         'best_val_loss': best_val_loss,
@@ -362,15 +383,28 @@ def train_recursive_transformer(
     print("="*60 + "\n")
     
     os.makedirs(checkpoint_dir, exist_ok=True)
-    os.makedirs(log_dir, exist_ok=True)
     
     # Setup optimizer
     optimizer = keras.optimizers.AdamW(learning_rate=learning_rate, weight_decay=0.01)
     model.compile(optimizer=optimizer)
     
-    # Setup TensorBoard logging
-    train_summary_writer = tf.summary.create_file_writer(os.path.join(log_dir, 'train'))
-    val_summary_writer = tf.summary.create_file_writer(os.path.join(log_dir, 'val'))
+    # Setup WandB
+    wandb.init(
+        project="tinyai",
+        name="recursive-transformer",
+        config={
+            "model": "recursive_transformer",
+            "learning_rate": learning_rate,
+            "epochs": epochs,
+            "d_model": model.d_model,
+            "num_layers": model.num_layers,
+            "num_heads": model.num_heads,
+            "deep_rec_cycles": model.deep_rec_cycles,
+            "num_l_steps": model.num_l_steps,
+            "deep_sup_steps": model.deep_sup_steps,
+            "act_loss_weight": model.act_loss_weight,
+        }
+    )
     
     train_metrics = TrainingMetrics()
     val_metrics = TrainingMetrics()
@@ -407,10 +441,12 @@ def train_recursive_transformer(
             train_metrics.update(loss, accuracy)
             global_step += 1
             
-            # Log to TensorBoard
-            with train_summary_writer.as_default():
-                tf.summary.scalar('loss', loss, step=global_step)
-                tf.summary.scalar('accuracy', accuracy, step=global_step)
+            # Log to WandB
+            wandb.log({
+                'train/loss': float(loss),
+                'train/accuracy': float(accuracy),
+                'train/step': global_step
+            })
             
             if (batch_idx + 1) % 50 == 0:
                 print(f"  Batch {batch_idx + 1}: Loss={loss:.4f}, Acc={accuracy:.4f}")
@@ -421,9 +457,12 @@ def train_recursive_transformer(
             loss, accuracy = val_step(inputs, targets)
             val_metrics.update(loss, accuracy)
         
-        with val_summary_writer.as_default():
-            tf.summary.scalar('loss', val_metrics.avg_loss, step=epoch)
-            tf.summary.scalar('accuracy', val_metrics.avg_accuracy, step=epoch)
+        # Log to WandB
+        wandb.log({
+            'val/loss': float(val_metrics.avg_loss),
+            'val/accuracy': float(val_metrics.avg_accuracy),
+            'epoch': epoch + 1
+        })
         
         print(f"\n  Train Loss: {train_metrics.avg_loss:.4f}, Train Acc: {train_metrics.avg_accuracy:.4f}")
         print(f"  Val Loss: {val_metrics.avg_loss:.4f}, Val Acc: {val_metrics.avg_accuracy:.4f}")
@@ -441,6 +480,9 @@ def train_recursive_transformer(
     # Save final model
     model.save_weights(os.path.join(checkpoint_dir, 'final_model.weights.h5'))
     print(f"\n✓ Training complete. Best validation loss: {best_val_loss:.4f}")
+    
+    # Finish WandB run
+    wandb.finish()
     
     return {
         'best_val_loss': best_val_loss,

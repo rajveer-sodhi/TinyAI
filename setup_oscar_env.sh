@@ -68,6 +68,8 @@ echo "   - datasets (for data loading)"
 pip install --quiet datasets
 echo "   - openai (for data augmentation)"
 pip install --quiet openai
+echo "   - wandb (for experiment tracking)"
+pip install --quiet wandb
 echo -e "${GREEN}All packages installed :)${NC}"
 echo ""
 
