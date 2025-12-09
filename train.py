@@ -249,18 +249,24 @@ def train_control_transformer(
     optimizer = keras.optimizers.AdamW(learning_rate=learning_rate, weight_decay=0.01)
     
     # Setup WandB
-    wandb.init(
-        project="tinyai",
-        name="control-transformer",
-        config={
-            "model": "control_transformer",
-            "learning_rate": learning_rate,
-            "epochs": epochs,
-            "d_model": model.d_model,
-            "num_layers": model.num_layers,
-            "num_heads": model.num_heads,
-        }
-    )
+    try:
+        wandb.init(
+            project="tinyai",
+            name="control-transformer",
+            config={
+                "model": "control_transformer",
+                "learning_rate": learning_rate,
+                "epochs": epochs,
+                "d_model": model.d_model,
+                "num_layers": model.num_layers,
+                "num_heads": model.num_heads,
+            }
+        )
+        use_wandb = True
+    except Exception as e:
+        print(f"Warning: WandB initialization failed: {e}")
+        print("Continuing without WandB logging...")
+        use_wandb = False
     
     train_metrics = TrainingMetrics()
     val_metrics = TrainingMetrics()
@@ -301,11 +307,12 @@ def train_control_transformer(
             global_step += 1
             
             # Log to WandB
-            wandb.log({
-                'train/loss': float(loss),
-                'train/accuracy': float(accuracy),
-                'train/step': global_step
-            })
+            if use_wandb:
+                wandb.log({
+                    'train/loss': float(loss),
+                    'train/accuracy': float(accuracy),
+                    'train/step': global_step
+                })
             
             if (batch_idx + 1) % 50 == 0:
                 print(f"  Batch {batch_idx + 1}: Loss={loss:.4f}, Acc={accuracy:.4f}")
@@ -317,11 +324,12 @@ def train_control_transformer(
             val_metrics.update(loss, accuracy)
         
         # Log to WandB
-        wandb.log({
-            'val/loss': float(val_metrics.avg_loss),
-            'val/accuracy': float(val_metrics.avg_accuracy),
-            'epoch': epoch + 1
-        })
+        if use_wandb:
+            wandb.log({
+                'val/loss': float(val_metrics.avg_loss),
+                'val/accuracy': float(val_metrics.avg_accuracy),
+                'epoch': epoch + 1
+            })
         
         print(f"\n  Train Loss: {train_metrics.avg_loss:.4f}, Train Acc: {train_metrics.avg_accuracy:.4f}")
         print(f"  Val Loss: {val_metrics.avg_loss:.4f}, Val Acc: {val_metrics.avg_accuracy:.4f}")
@@ -341,7 +349,8 @@ def train_control_transformer(
     print(f"\n✓ Training complete. Best validation loss: {best_val_loss:.4f}")
     
     # Finish WandB run
-    wandb.finish()
+    if use_wandb:
+        wandb.finish()
     
     return {
         'best_val_loss': best_val_loss,
@@ -389,22 +398,28 @@ def train_recursive_transformer(
     model.compile(optimizer=optimizer)
     
     # Setup WandB
-    wandb.init(
-        project="tinyai",
-        name="recursive-transformer",
-        config={
-            "model": "recursive_transformer",
-            "learning_rate": learning_rate,
-            "epochs": epochs,
-            "d_model": model.d_model,
-            "num_layers": model.num_layers,
-            "num_heads": model.num_heads,
-            "deep_rec_cycles": model.deep_rec_cycles,
-            "num_l_steps": model.num_l_steps,
-            "deep_sup_steps": model.deep_sup_steps,
-            "act_loss_weight": model.act_loss_weight,
-        }
-    )
+    try:
+        wandb.init(
+            project="tinyai",
+            name="recursive-transformer",
+            config={
+                "model": "recursive_transformer",
+                "learning_rate": learning_rate,
+                "epochs": epochs,
+                "d_model": model.d_model,
+                "num_layers": model.num_layers,
+                "num_heads": model.num_heads,
+                "deep_rec_cycles": model.deep_rec_cycles,
+                "num_l_steps": model.num_l_steps,
+                "deep_sup_steps": model.deep_sup_steps,
+                "act_loss_weight": model.act_loss_weight,
+            }
+        )
+        use_wandb = True
+    except Exception as e:
+        print(f"Warning: WandB initialization failed: {e}")
+        print("Continuing without WandB logging...")
+        use_wandb = False
     
     train_metrics = TrainingMetrics()
     val_metrics = TrainingMetrics()
@@ -442,11 +457,12 @@ def train_recursive_transformer(
             global_step += 1
             
             # Log to WandB
-            wandb.log({
-                'train/loss': float(loss),
-                'train/accuracy': float(accuracy),
-                'train/step': global_step
-            })
+            if use_wandb:
+                wandb.log({
+                    'train/loss': float(loss),
+                    'train/accuracy': float(accuracy),
+                    'train/step': global_step
+                })
             
             if (batch_idx + 1) % 50 == 0:
                 print(f"  Batch {batch_idx + 1}: Loss={loss:.4f}, Acc={accuracy:.4f}")
@@ -458,11 +474,12 @@ def train_recursive_transformer(
             val_metrics.update(loss, accuracy)
         
         # Log to WandB
-        wandb.log({
-            'val/loss': float(val_metrics.avg_loss),
-            'val/accuracy': float(val_metrics.avg_accuracy),
-            'epoch': epoch + 1
-        })
+        if use_wandb:
+            wandb.log({
+                'val/loss': float(val_metrics.avg_loss),
+                'val/accuracy': float(val_metrics.avg_accuracy),
+                'epoch': epoch + 1
+            })
         
         print(f"\n  Train Loss: {train_metrics.avg_loss:.4f}, Train Acc: {train_metrics.avg_accuracy:.4f}")
         print(f"  Val Loss: {val_metrics.avg_loss:.4f}, Val Acc: {val_metrics.avg_accuracy:.4f}")
@@ -482,7 +499,8 @@ def train_recursive_transformer(
     print(f"\n✓ Training complete. Best validation loss: {best_val_loss:.4f}")
     
     # Finish WandB run
-    wandb.finish()
+    if use_wandb:
+        wandb.finish()
     
     return {
         'best_val_loss': best_val_loss,
