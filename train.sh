@@ -27,10 +27,28 @@ echo ""
 
 # Load conda environment
 module load miniconda3/23.11.0s
-source activate tinyai
 
-# Install wandb if not already installed (for experiment tracking)
-pip install wandb -q 2>/dev/null || true
+# Initialize conda for bash shell
+eval "$(conda shell.bash hook)"
+
+# Activate environment
+conda activate tinyai
+
+# Verify environment is active and Python path
+echo "Python location: $(which python)"
+echo "Python version: $(python --version)"
+echo "Conda environment: $CONDA_DEFAULT_ENV"
+
+# Install/verify required packages
+echo "Installing/verifying required packages..."
+pip install --quiet --upgrade pip
+pip install --quiet tensorflow==2.15.0 numpy tqdm datasets openai wandb
+
+# Verify TensorFlow can be imported
+python -c "import tensorflow as tf; import numpy as np; print(f'TensorFlow {tf.__version__} and NumPy {np.__version__} imported successfully')" || {
+    echo "ERROR: Failed to import TensorFlow or NumPy"
+    exit 1
+}
 
 # Check GPU allocation
 echo "GPU Information:"
