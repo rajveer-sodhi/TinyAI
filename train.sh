@@ -1,0 +1,146 @@
+#!/bin/bash
+
+#SBATCH --nodes=1               # node count
+#SBATCH -p gpu --gres=gpu:1     # number of gpus per node
+#SBATCH --ntasks-per-node=1     # total number of tasks across all nodes
+#SBATCH --cpus-per-task=4       # cpu-cores per task (>1 if multi-threaded tasks)
+#SBATCH -t 04:00:00             # total run time limit (HH:MM:SS)
+#SBATCH --mem=32000MB           # 32GB memory
+#SBATCH --job-name='TinyAI'
+#SBATCH --output=slurm_logs/R-%x.%j.out
+#SBATCH --error=slurm_logs/R-%x.%j.err
+
+# Force unbuffered output
+export PYTHONUNBUFFERED=1
+export PYTHONIOENCODING=utf-8
+
+# TensorFlow GPU settings
+export TF_FORCE_GPU_ALLOW_GROWTH=true
+
+echo ""
+echo "=========================================="
+echo "Job started at: $(date)"
+echo "Job ID: $SLURM_JOB_ID"
+echo "Node: $SLURM_NODELIST"
+echo "=========================================="
+echo ""
+
+# Load conda environment
+module load miniconda3/23.11.0s
+source activate tinyai
+
+# Check GPU allocation
+echo "GPU Information:"
+nvidia-smi
+echo ""
+
+# Test TensorFlow GPU detection
+echo "TensorFlow GPU Detection:"
+python -c "import tensorflow as tf; print('TF version:', tf.__version__); print('Built with CUDA:', tf.test.is_built_with_cuda()); print('GPUs detected:', len(tf.config.list_physical_devices('GPU'))); print('GPU devices:', tf.config.list_physical_devices('GPU'))"
+echo ""
+
+# Create output directories
+mkdir -p slurm_logs
+mkdir -p output/logs
+mkdir -p output/checkpoints/control
+mkdir -p output/checkpoints/recursive
+
+# ============================================================================
+# Training Configuration
+# ============================================================================
+
+# Model hyperparameters
+D_MODEL=256
+NUM_LAYERS=2
+NUM_HEADS=4
+FF_DIM=512
+DROPOUT=0.1
+
+# Recursive model specific
+DEEP_REC_CYCLES=3
+NUM_L_STEPS=6
+DEEP_SUP_STEPS=4
+ACT_LOSS_WEIGHT=0.1
+
+# Training hyperparameters
+EPOCHS=20
+BATCH_SIZE=32
+LEARNING_RATE=1e-4
+MAX_SEQ_LENGTH=256
+
+# Paths
+DATA_PATH="preprocessing/data/final_train_data.txt"
+VOCAB_PATH="preprocessing/data/vocab.json"
+OUTPUT_DIR="output"
+
+# Parse command line arguments passed through sbatch
+EXTRA_ARGS=""
+for arg in "$@"; do
+    EXTRA_ARGS="$EXTRA_ARGS $arg"
+done
+
+echo "=========================================="
+echo "Starting main Python script at $(date)"
+echo "=========================================="
+echo ""
+echo "Configuration:"
+echo "  d_model: $D_MODEL"
+echo "  num_layers: $NUM_LAYERS"
+echo "  num_heads: $NUM_HEADS"
+echo "  ff_dim: $FF_DIM"
+echo "  deep_rec_cycles: $DEEP_REC_CYCLES"
+echo "  num_l_steps: $NUM_L_STEPS"
+echo "  epochs: $EPOCHS"
+echo "  batch_size: $BATCH_SIZE"
+echo "  learning_rate: $LEARNING_RATE"
+echo "  max_seq_length: $MAX_SEQ_LENGTH"
+echo ""
+echo "TensorBoard logs will be written to:"
+echo "  - Control: $OUTPUT_DIR/logs/control/"
+echo "  - Recursive: $OUTPUT_DIR/logs/recursive/"
+echo ""
+echo "To view TensorBoard DURING training:"
+echo "  1. On your LOCAL machine, run:"
+echo "     ssh -L 6006:localhost:6006 your_username@ssh.oscar.brown.edu"
+echo "  2. On OSCAR (in another terminal), run:"
+echo "     bash tensorboard.sh"
+echo "  3. Open http://localhost:6006 in your browser"
+echo ""
+
+# Run the training script
+python -u train.py \
+    --data_path "$DATA_PATH" \
+    --vocab_path "$VOCAB_PATH" \
+    --output_dir "$OUTPUT_DIR" \
+    --d_model $D_MODEL \
+    --num_layers $NUM_LAYERS \
+    --num_heads $NUM_HEADS \
+    --ff_dim $FF_DIM \
+    --dropout_rate $DROPOUT \
+    --deep_rec_cycles $DEEP_REC_CYCLES \
+    --num_l_steps $NUM_L_STEPS \
+    --deep_sup_steps $DEEP_SUP_STEPS \
+    --act_loss_weight $ACT_LOSS_WEIGHT \
+    --epochs $EPOCHS \
+    --batch_size $BATCH_SIZE \
+    --learning_rate $LEARNING_RATE \
+    --max_seq_length $MAX_SEQ_LENGTH \
+    $EXTRA_ARGS
+
+EXIT_CODE=$?
+
+echo ""
+echo "=========================================="
+echo "Python script finished at $(date)"
+echo "Exit code: $EXIT_CODE"
+echo "=========================================="
+
+# Print final results if available
+if [ -f "output/training_results.json" ]; then
+    echo ""
+    echo "Training Results:"
+    cat output/training_results.json
+fi
+
+exit $EXIT_CODE
+
