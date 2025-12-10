@@ -70,10 +70,10 @@ mkdir -p output/checkpoints/recursive
 # ============================================================================
 
 # Model hyperparameters (leaner for recursive stability)
-D_MODEL=64
-NUM_LAYERS=2
-NUM_HEADS=3
-FF_DIM=64
+D_MODEL=32
+NUM_LAYERS=1
+NUM_HEADS=2
+FF_DIM=32
 DROPOUT=0.1
 
 # Recursive model specific (reduced to lower memory)

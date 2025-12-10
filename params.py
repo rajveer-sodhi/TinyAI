@@ -12,10 +12,10 @@ RecursiveTransformer = rt.RecursiveTransformer
 
 # Config from train.sh (current)
 vocab_size = len(json.load(open("preprocessing/data/vocab.json")))
-D_MODEL = 64
+D_MODEL = 32
 NUM_LAYERS = 2
 NUM_HEADS = 3
-FF_DIM = 64
+FF_DIM = 32
 DROPOUT = 0.1
 MAX_SEQ_LENGTH = 128
 
