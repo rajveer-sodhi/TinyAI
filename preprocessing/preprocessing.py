@@ -27,9 +27,9 @@ if not OPENAI_API_KEY:
     except Exception:
         pass
 OUTPUT_DIR = "data"
-NUM_TO_AUGMENT = 1000
+NUM_TO_AUGMENT = 10
 MAX_NUMBER_LIMIT = 1000
-MAX_TEXT_LENGTH = 600
+MAX_TEXT_LENGTH = 500
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
