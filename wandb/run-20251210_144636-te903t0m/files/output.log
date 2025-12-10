@@ -1,0 +1,528 @@
+
+Epoch 1/15
+----------------------------------------
+  Batch 50: Loss=8.6427, TokenAcc=0.0214, ExactMatch=0.0000
+  Batch 100: Loss=8.1975, TokenAcc=0.0429, ExactMatch=0.0000
+  Batch 150: Loss=7.7458, TokenAcc=0.0343, ExactMatch=0.0000
+  Batch 200: Loss=7.3050, TokenAcc=0.0274, ExactMatch=0.0000
+  Batch 250: Loss=6.8867, TokenAcc=0.0346, ExactMatch=0.0000
+  Batch 300: Loss=6.7306, TokenAcc=0.0323, ExactMatch=0.0000
+  Batch 350: Loss=6.5978, TokenAcc=0.0329, ExactMatch=0.0000
+  Batch 400: Loss=6.1244, TokenAcc=0.0460, ExactMatch=0.0000
+  Batch 450: Loss=6.1099, TokenAcc=0.0373, ExactMatch=0.0000
+  Batch 500: Loss=6.1800, TokenAcc=0.0426, ExactMatch=0.0000
+  Batch 550: Loss=6.0747, TokenAcc=0.0310, ExactMatch=0.0000
+  Batch 600: Loss=6.1245, TokenAcc=0.0369, ExactMatch=0.0000
+  Batch 650: Loss=6.1011, TokenAcc=0.0592, ExactMatch=0.0000
+  Batch 700: Loss=5.9785, TokenAcc=0.0925, ExactMatch=0.0000
+  Batch 750: Loss=5.9577, TokenAcc=0.1085, ExactMatch=0.0000
+  Batch 800: Loss=6.0817, TokenAcc=0.1101, ExactMatch=0.0000
+  Batch 850: Loss=5.9418, TokenAcc=0.1252, ExactMatch=0.0000
+  Batch 900: Loss=5.8799, TokenAcc=0.1125, ExactMatch=0.0000
+  Batch 950: Loss=5.6929, TokenAcc=0.1690, ExactMatch=0.0000
+  Batch 1000: Loss=5.7844, TokenAcc=0.1601, ExactMatch=0.0000
+  Batch 1050: Loss=5.7287, TokenAcc=0.1608, ExactMatch=0.0000
+  Batch 1100: Loss=5.6503, TokenAcc=0.1718, ExactMatch=0.0000
+  Batch 1150: Loss=5.4649, TokenAcc=0.1788, ExactMatch=0.0000
+  Batch 1200: Loss=5.4525, TokenAcc=0.1841, ExactMatch=0.0000
+  Batch 1250: Loss=5.3227, TokenAcc=0.1700, ExactMatch=0.0000
+  Batch 1300: Loss=5.2480, TokenAcc=0.1981, ExactMatch=0.0000
+  Batch 1350: Loss=5.4127, TokenAcc=0.2075, ExactMatch=0.0000
+  Batch 1400: Loss=4.8793, TokenAcc=0.2507, ExactMatch=0.0000
+
+  Train Loss: 6.2084, Token Acc: 0.0997, Exact Match: 0.0000
+  Val Loss: 5.1330, Token Acc: 0.2125, Exact Match: 0.0000
+  ✓ Saved best model (val_loss=5.1330)
+
+Epoch 2/15
+----------------------------------------
+  Batch 50: Loss=5.1133, TokenAcc=0.2033, ExactMatch=0.0000
+  Batch 100: Loss=4.8697, TokenAcc=0.2379, ExactMatch=0.0000
+  Batch 150: Loss=5.0099, TokenAcc=0.2359, ExactMatch=0.0000
+  Batch 200: Loss=4.8904, TokenAcc=0.2442, ExactMatch=0.0000
+  Batch 250: Loss=4.8916, TokenAcc=0.2348, ExactMatch=0.0000
+  Batch 300: Loss=4.8187, TokenAcc=0.2272, ExactMatch=0.0000
+  Batch 350: Loss=4.6350, TokenAcc=0.2635, ExactMatch=0.0000
+  Batch 400: Loss=4.7954, TokenAcc=0.2566, ExactMatch=0.0000
+  Batch 450: Loss=4.6809, TokenAcc=0.2644, ExactMatch=0.0000
+  Batch 500: Loss=4.7662, TokenAcc=0.2713, ExactMatch=0.0000
+  Batch 550: Loss=4.7176, TokenAcc=0.2452, ExactMatch=0.0000
+  Batch 600: Loss=4.9250, TokenAcc=0.2269, ExactMatch=0.0000
+  Batch 650: Loss=4.6390, TokenAcc=0.2823, ExactMatch=0.0000
+  Batch 700: Loss=4.7018, TokenAcc=0.2865, ExactMatch=0.0000
+  Batch 750: Loss=4.6526, TokenAcc=0.2563, ExactMatch=0.0000
+  Batch 800: Loss=4.6186, TokenAcc=0.2739, ExactMatch=0.0000
+  Batch 850: Loss=4.5341, TokenAcc=0.2597, ExactMatch=0.0000
+  Batch 900: Loss=4.6095, TokenAcc=0.2735, ExactMatch=0.0000
+  Batch 950: Loss=4.3567, TokenAcc=0.2809, ExactMatch=0.0000
+  Batch 1000: Loss=4.4080, TokenAcc=0.2792, ExactMatch=0.0000
+  Batch 1050: Loss=4.7815, TokenAcc=0.2558, ExactMatch=0.0000
+  Batch 1100: Loss=4.3162, TokenAcc=0.2577, ExactMatch=0.0000
+  Batch 1150: Loss=4.3692, TokenAcc=0.2846, ExactMatch=0.0000
+  Batch 1200: Loss=4.1819, TokenAcc=0.3136, ExactMatch=0.0000
+  Batch 1250: Loss=4.4112, TokenAcc=0.2457, ExactMatch=0.0000
+  Batch 1300: Loss=4.3263, TokenAcc=0.2994, ExactMatch=0.0000
+  Batch 1350: Loss=4.5995, TokenAcc=0.2777, ExactMatch=0.0000
+  Batch 1400: Loss=4.2256, TokenAcc=0.3106, ExactMatch=0.0000
+
+  Train Loss: 4.6793, Token Acc: 0.2533, Exact Match: 0.0000
+  Val Loss: 4.2686, Token Acc: 0.2805, Exact Match: 0.0000
+  ✓ Saved best model (val_loss=4.2686)
+
+Epoch 3/15
+----------------------------------------
+  Batch 50: Loss=3.8628, TokenAcc=0.2965, ExactMatch=0.0000
+  Batch 100: Loss=3.9865, TokenAcc=0.2739, ExactMatch=0.0000
+  Batch 150: Loss=3.9441, TokenAcc=0.3055, ExactMatch=0.0000
+  Batch 200: Loss=4.4614, TokenAcc=0.2533, ExactMatch=0.0000
+  Batch 250: Loss=4.4196, TokenAcc=0.2817, ExactMatch=0.0000
+  Batch 300: Loss=4.1441, TokenAcc=0.2865, ExactMatch=0.0000
+  Batch 350: Loss=4.2569, TokenAcc=0.2801, ExactMatch=0.0000
+  Batch 400: Loss=4.0304, TokenAcc=0.2861, ExactMatch=0.0000
+  Batch 450: Loss=4.0212, TokenAcc=0.3146, ExactMatch=0.0000
+  Batch 500: Loss=4.3309, TokenAcc=0.2723, ExactMatch=0.0000
+  Batch 550: Loss=4.0850, TokenAcc=0.2844, ExactMatch=0.0000
+  Batch 600: Loss=4.0735, TokenAcc=0.3005, ExactMatch=0.0000
+  Batch 650: Loss=3.9963, TokenAcc=0.2701, ExactMatch=0.0000
+  Batch 700: Loss=4.1845, TokenAcc=0.2831, ExactMatch=0.0000
+  Batch 750: Loss=4.0433, TokenAcc=0.3167, ExactMatch=0.0000
+  Batch 800: Loss=4.2329, TokenAcc=0.2805, ExactMatch=0.0000
+  Batch 850: Loss=4.0303, TokenAcc=0.3000, ExactMatch=0.0000
+  Batch 900: Loss=3.9768, TokenAcc=0.2837, ExactMatch=0.0000
+  Batch 950: Loss=3.9499, TokenAcc=0.2877, ExactMatch=0.0000
+  Batch 1000: Loss=4.0779, TokenAcc=0.2987, ExactMatch=0.0000
+  Batch 1050: Loss=4.3589, TokenAcc=0.2613, ExactMatch=0.0000
+  Batch 1100: Loss=3.9599, TokenAcc=0.2606, ExactMatch=0.0000
+  Batch 1150: Loss=4.0590, TokenAcc=0.2824, ExactMatch=0.0000
+  Batch 1200: Loss=3.8839, TokenAcc=0.2721, ExactMatch=0.0000
+  Batch 1250: Loss=3.7932, TokenAcc=0.3098, ExactMatch=0.0000
+  Batch 1300: Loss=4.2092, TokenAcc=0.2802, ExactMatch=0.0000
+  Batch 1350: Loss=4.0004, TokenAcc=0.2786, ExactMatch=0.0000
+  Batch 1400: Loss=4.0575, TokenAcc=0.2824, ExactMatch=0.0000
+
+  Train Loss: 4.1321, Token Acc: 0.2879, Exact Match: 0.0000
+  Val Loss: 3.9363, Token Acc: 0.3061, Exact Match: 0.0000
+  ✓ Saved best model (val_loss=3.9363)
+
+Epoch 4/15
+----------------------------------------
+  Batch 50: Loss=3.8534, TokenAcc=0.2921, ExactMatch=0.0000
+  Batch 100: Loss=3.7718, TokenAcc=0.3123, ExactMatch=0.0000
+  Batch 150: Loss=3.8437, TokenAcc=0.3054, ExactMatch=0.0000
+  Batch 200: Loss=4.2526, TokenAcc=0.3004, ExactMatch=0.0000
+  Batch 250: Loss=4.1934, TokenAcc=0.3153, ExactMatch=0.0000
+  Batch 300: Loss=4.0534, TokenAcc=0.2854, ExactMatch=0.0000
+  Batch 350: Loss=4.0334, TokenAcc=0.2666, ExactMatch=0.0000
+  Batch 400: Loss=3.6969, TokenAcc=0.3409, ExactMatch=0.0000
+  Batch 450: Loss=4.1443, TokenAcc=0.2857, ExactMatch=0.0000
+  Batch 500: Loss=3.8339, TokenAcc=0.3003, ExactMatch=0.0000
+  Batch 550: Loss=3.9566, TokenAcc=0.3008, ExactMatch=0.0000
+  Batch 600: Loss=3.9872, TokenAcc=0.3160, ExactMatch=0.0000
+  Batch 650: Loss=3.7868, TokenAcc=0.3103, ExactMatch=0.0000
+  Batch 700: Loss=3.8367, TokenAcc=0.2988, ExactMatch=0.0000
+  Batch 750: Loss=3.9480, TokenAcc=0.3075, ExactMatch=0.0000
+  Batch 800: Loss=4.1356, TokenAcc=0.3021, ExactMatch=0.0000
+  Batch 850: Loss=3.8414, TokenAcc=0.3130, ExactMatch=0.0000
+  Batch 900: Loss=3.6936, TokenAcc=0.3465, ExactMatch=0.0000
+  Batch 950: Loss=4.2497, TokenAcc=0.2874, ExactMatch=0.0000
+  Batch 1000: Loss=3.6537, TokenAcc=0.3206, ExactMatch=0.0000
+  Batch 1050: Loss=4.1673, TokenAcc=0.3227, ExactMatch=0.0000
+  Batch 1100: Loss=3.7277, TokenAcc=0.3033, ExactMatch=0.0000
+  Batch 1150: Loss=3.4154, TokenAcc=0.3499, ExactMatch=0.0000
+  Batch 1200: Loss=3.8513, TokenAcc=0.3365, ExactMatch=0.0000
+  Batch 1250: Loss=3.7972, TokenAcc=0.2905, ExactMatch=0.0000
+  Batch 1300: Loss=3.2887, TokenAcc=0.3669, ExactMatch=0.0000
+  Batch 1350: Loss=3.7958, TokenAcc=0.3003, ExactMatch=0.0000
+  Batch 1400: Loss=4.0409, TokenAcc=0.3080, ExactMatch=0.0000
+
+  Train Loss: 3.8597, Token Acc: 0.3087, Exact Match: 0.0000
+  Val Loss: 3.7184, Token Acc: 0.3264, Exact Match: 0.0000
+  ✓ Saved best model (val_loss=3.7184)
+
+Epoch 5/15
+----------------------------------------
+  Batch 50: Loss=3.5222, TokenAcc=0.3500, ExactMatch=0.0000
+  Batch 100: Loss=3.2707, TokenAcc=0.3775, ExactMatch=0.0000
+  Batch 150: Loss=3.6396, TokenAcc=0.3267, ExactMatch=0.0000
+  Batch 200: Loss=3.7533, TokenAcc=0.3227, ExactMatch=0.0000
+  Batch 250: Loss=3.4452, TokenAcc=0.3470, ExactMatch=0.0000
+  Batch 300: Loss=4.0411, TokenAcc=0.2795, ExactMatch=0.0000
+  Batch 350: Loss=4.0246, TokenAcc=0.2803, ExactMatch=0.0000
+  Batch 400: Loss=3.5496, TokenAcc=0.3523, ExactMatch=0.0000
+  Batch 450: Loss=3.6913, TokenAcc=0.3399, ExactMatch=0.0000
+  Batch 500: Loss=3.7237, TokenAcc=0.3190, ExactMatch=0.0000
+  Batch 550: Loss=3.5067, TokenAcc=0.3521, ExactMatch=0.0000
+  Batch 600: Loss=3.7566, TokenAcc=0.3004, ExactMatch=0.0000
+  Batch 650: Loss=3.6447, TokenAcc=0.3293, ExactMatch=0.0000
+  Batch 700: Loss=3.9343, TokenAcc=0.2962, ExactMatch=0.0000
+  Batch 750: Loss=3.5967, TokenAcc=0.3279, ExactMatch=0.0000
+  Batch 800: Loss=4.0723, TokenAcc=0.2935, ExactMatch=0.0000
+  Batch 850: Loss=3.8716, TokenAcc=0.2674, ExactMatch=0.0000
+  Batch 900: Loss=3.5623, TokenAcc=0.3434, ExactMatch=0.0000
+  Batch 950: Loss=3.4572, TokenAcc=0.3325, ExactMatch=0.0000
+  Batch 1000: Loss=3.3906, TokenAcc=0.3405, ExactMatch=0.0000
+  Batch 1050: Loss=3.5121, TokenAcc=0.3267, ExactMatch=0.0000
+  Batch 1100: Loss=3.6130, TokenAcc=0.3593, ExactMatch=0.0000
+  Batch 1150: Loss=3.4852, TokenAcc=0.3204, ExactMatch=0.0000
+  Batch 1200: Loss=3.0902, TokenAcc=0.3676, ExactMatch=0.0000
+  Batch 1250: Loss=3.7278, TokenAcc=0.2969, ExactMatch=0.0000
+  Batch 1300: Loss=3.7021, TokenAcc=0.3462, ExactMatch=0.0000
+  Batch 1350: Loss=3.5750, TokenAcc=0.3538, ExactMatch=0.0000
+  Batch 1400: Loss=3.4784, TokenAcc=0.3392, ExactMatch=0.0000
+
+  Train Loss: 3.6617, Token Acc: 0.3259, Exact Match: 0.0000
+  Val Loss: 3.5398, Token Acc: 0.3464, Exact Match: 0.0000
+  ✓ Saved best model (val_loss=3.5398)
+
+Epoch 6/15
+----------------------------------------
+  Batch 50: Loss=3.2761, TokenAcc=0.3829, ExactMatch=0.0000
+  Batch 100: Loss=3.4939, TokenAcc=0.3363, ExactMatch=0.0000
+  Batch 150: Loss=3.5254, TokenAcc=0.3320, ExactMatch=0.0000
+  Batch 200: Loss=3.0956, TokenAcc=0.3652, ExactMatch=0.0000
+  Batch 250: Loss=3.3231, TokenAcc=0.3598, ExactMatch=0.0000
+  Batch 300: Loss=3.4937, TokenAcc=0.3308, ExactMatch=0.0000
+  Batch 350: Loss=3.3312, TokenAcc=0.3356, ExactMatch=0.0000
+  Batch 400: Loss=3.8135, TokenAcc=0.3101, ExactMatch=0.0000
+  Batch 450: Loss=3.6324, TokenAcc=0.3418, ExactMatch=0.0000
+  Batch 500: Loss=3.5792, TokenAcc=0.3302, ExactMatch=0.0000
+  Batch 550: Loss=3.4277, TokenAcc=0.3543, ExactMatch=0.0000
+  Batch 600: Loss=3.1616, TokenAcc=0.3438, ExactMatch=0.0000
+  Batch 650: Loss=3.3548, TokenAcc=0.3492, ExactMatch=0.0000
+  Batch 700: Loss=3.7509, TokenAcc=0.3318, ExactMatch=0.0000
+  Batch 750: Loss=3.4794, TokenAcc=0.3234, ExactMatch=0.0000
+  Batch 800: Loss=3.2281, TokenAcc=0.3742, ExactMatch=0.0000
+  Batch 850: Loss=3.0986, TokenAcc=0.3930, ExactMatch=0.0000
+  Batch 900: Loss=3.4029, TokenAcc=0.3814, ExactMatch=0.0000
+  Batch 950: Loss=3.5504, TokenAcc=0.3547, ExactMatch=0.0000
+  Batch 1000: Loss=3.3169, TokenAcc=0.3509, ExactMatch=0.0000
+  Batch 1050: Loss=3.6552, TokenAcc=0.3222, ExactMatch=0.0000
+  Batch 1100: Loss=3.7530, TokenAcc=0.3487, ExactMatch=0.0000
+  Batch 1150: Loss=3.5800, TokenAcc=0.3502, ExactMatch=0.0000
+  Batch 1200: Loss=3.3148, TokenAcc=0.3818, ExactMatch=0.0000
+  Batch 1250: Loss=3.5004, TokenAcc=0.3649, ExactMatch=0.0000
+  Batch 1300: Loss=3.4075, TokenAcc=0.3389, ExactMatch=0.0000
+  Batch 1350: Loss=3.2732, TokenAcc=0.3515, ExactMatch=0.0000
+  Batch 1400: Loss=3.3619, TokenAcc=0.3597, ExactMatch=0.0000
+
+  Train Loss: 3.4887, Token Acc: 0.3448, Exact Match: 0.0000
+  Val Loss: 3.3719, Token Acc: 0.3678, Exact Match: 0.0000
+  ✓ Saved best model (val_loss=3.3719)
+
+Epoch 7/15
+----------------------------------------
+  Batch 50: Loss=3.6150, TokenAcc=0.3124, ExactMatch=0.0000
+  Batch 100: Loss=3.4598, TokenAcc=0.3608, ExactMatch=0.0000
+  Batch 150: Loss=3.1278, TokenAcc=0.3946, ExactMatch=0.0000
+  Batch 200: Loss=3.4664, TokenAcc=0.3677, ExactMatch=0.0000
+  Batch 250: Loss=3.5625, TokenAcc=0.3199, ExactMatch=0.0000
+  Batch 300: Loss=3.1210, TokenAcc=0.4131, ExactMatch=0.0000
+  Batch 350: Loss=3.7630, TokenAcc=0.3202, ExactMatch=0.0000
+  Batch 400: Loss=3.4154, TokenAcc=0.3643, ExactMatch=0.0000
+  Batch 450: Loss=3.4130, TokenAcc=0.3727, ExactMatch=0.0000
+  Batch 500: Loss=3.4830, TokenAcc=0.3266, ExactMatch=0.0000
+  Batch 550: Loss=3.2637, TokenAcc=0.3827, ExactMatch=0.0000
+  Batch 600: Loss=3.3081, TokenAcc=0.3784, ExactMatch=0.0000
+  Batch 650: Loss=3.2579, TokenAcc=0.3511, ExactMatch=0.0000
+  Batch 700: Loss=3.3204, TokenAcc=0.3277, ExactMatch=0.0000
+  Batch 750: Loss=3.0253, TokenAcc=0.4031, ExactMatch=0.0000
+  Batch 800: Loss=3.6533, TokenAcc=0.3527, ExactMatch=0.0000
+  Batch 850: Loss=3.2323, TokenAcc=0.3779, ExactMatch=0.0000
+  Batch 900: Loss=3.3052, TokenAcc=0.3952, ExactMatch=0.0000
+  Batch 950: Loss=3.2199, TokenAcc=0.3840, ExactMatch=0.0000
+  Batch 1000: Loss=3.2592, TokenAcc=0.4020, ExactMatch=0.0000
+  Batch 1050: Loss=3.0308, TokenAcc=0.3711, ExactMatch=0.0000
+  Batch 1100: Loss=3.1953, TokenAcc=0.3916, ExactMatch=0.0000
+  Batch 1150: Loss=3.4897, TokenAcc=0.3430, ExactMatch=0.0000
+  Batch 1200: Loss=3.3343, TokenAcc=0.3737, ExactMatch=0.0000
+  Batch 1250: Loss=3.2299, TokenAcc=0.3855, ExactMatch=0.0000
+  Batch 1300: Loss=3.1222, TokenAcc=0.3770, ExactMatch=0.0000
+  Batch 1350: Loss=3.1654, TokenAcc=0.3718, ExactMatch=0.0000
+  Batch 1400: Loss=2.9244, TokenAcc=0.3929, ExactMatch=0.0000
+
+  Train Loss: 3.3195, Token Acc: 0.3673, Exact Match: 0.0000
+  Val Loss: 3.1936, Token Acc: 0.3980, Exact Match: 0.0000
+  ✓ Saved best model (val_loss=3.1936)
+
+Epoch 8/15
+----------------------------------------
+  Batch 50: Loss=2.9664, TokenAcc=0.4039, ExactMatch=0.0000
+  Batch 100: Loss=3.1098, TokenAcc=0.3840, ExactMatch=0.0000
+  Batch 150: Loss=3.7204, TokenAcc=0.3425, ExactMatch=0.0000
+  Batch 200: Loss=3.1314, TokenAcc=0.3883, ExactMatch=0.0000
+  Batch 250: Loss=3.0841, TokenAcc=0.4179, ExactMatch=0.0000
+  Batch 300: Loss=3.5492, TokenAcc=0.3594, ExactMatch=0.0000
+  Batch 350: Loss=2.9623, TokenAcc=0.4324, ExactMatch=0.0000
+  Batch 400: Loss=2.9990, TokenAcc=0.3859, ExactMatch=0.0000
+  Batch 450: Loss=3.0804, TokenAcc=0.4132, ExactMatch=0.0000
+  Batch 500: Loss=3.3685, TokenAcc=0.3636, ExactMatch=0.0000
+  Batch 550: Loss=3.0535, TokenAcc=0.4093, ExactMatch=0.0000
+  Batch 600: Loss=2.9958, TokenAcc=0.4157, ExactMatch=0.0000
+  Batch 650: Loss=2.9915, TokenAcc=0.4106, ExactMatch=0.0000
+  Batch 700: Loss=3.1029, TokenAcc=0.4226, ExactMatch=0.0000
+  Batch 750: Loss=3.1000, TokenAcc=0.4086, ExactMatch=0.0000
+  Batch 800: Loss=3.1315, TokenAcc=0.4075, ExactMatch=0.0000
+  Batch 850: Loss=3.2510, TokenAcc=0.3801, ExactMatch=0.0000
+  Batch 900: Loss=3.1016, TokenAcc=0.3770, ExactMatch=0.0000
+  Batch 950: Loss=3.0159, TokenAcc=0.4444, ExactMatch=0.0000
+  Batch 1000: Loss=2.9998, TokenAcc=0.4108, ExactMatch=0.0000
+  Batch 1050: Loss=3.0312, TokenAcc=0.3890, ExactMatch=0.0000
+  Batch 1100: Loss=4.0178, TokenAcc=0.3180, ExactMatch=0.0000
+  Batch 1150: Loss=2.9149, TokenAcc=0.4347, ExactMatch=0.0000
+  Batch 1200: Loss=2.9388, TokenAcc=0.4225, ExactMatch=0.0000
+  Batch 1250: Loss=2.9903, TokenAcc=0.3765, ExactMatch=0.0000
+  Batch 1300: Loss=3.0854, TokenAcc=0.3890, ExactMatch=0.0000
+  Batch 1350: Loss=3.3220, TokenAcc=0.3894, ExactMatch=0.0000
+  Batch 1400: Loss=2.8258, TokenAcc=0.4504, ExactMatch=0.0000
+
+  Train Loss: 3.1398, Token Acc: 0.3950, Exact Match: 0.0000
+  Val Loss: 2.9899, Token Acc: 0.4328, Exact Match: 0.0000
+  ✓ Saved best model (val_loss=2.9899)
+
+Epoch 9/15
+----------------------------------------
+  Batch 50: Loss=3.0189, TokenAcc=0.4541, ExactMatch=0.0000
+  Batch 100: Loss=2.8147, TokenAcc=0.4121, ExactMatch=0.0000
+  Batch 150: Loss=3.0638, TokenAcc=0.3899, ExactMatch=0.0000
+  Batch 200: Loss=3.1231, TokenAcc=0.3881, ExactMatch=0.0000
+  Batch 250: Loss=3.3371, TokenAcc=0.3621, ExactMatch=0.0000
+  Batch 300: Loss=2.7564, TokenAcc=0.4415, ExactMatch=0.0000
+  Batch 350: Loss=3.0180, TokenAcc=0.4434, ExactMatch=0.0000
+  Batch 400: Loss=3.0976, TokenAcc=0.3992, ExactMatch=0.0000
+  Batch 450: Loss=2.5979, TokenAcc=0.4429, ExactMatch=0.0000
+  Batch 500: Loss=2.9158, TokenAcc=0.4409, ExactMatch=0.0000
+  Batch 550: Loss=3.0390, TokenAcc=0.4685, ExactMatch=0.0000
+  Batch 600: Loss=3.1396, TokenAcc=0.4248, ExactMatch=0.0000
+  Batch 650: Loss=2.9303, TokenAcc=0.4148, ExactMatch=0.0000
+  Batch 700: Loss=2.5364, TokenAcc=0.4905, ExactMatch=0.0000
+  Batch 750: Loss=2.7188, TokenAcc=0.4839, ExactMatch=0.0000
+  Batch 800: Loss=3.1744, TokenAcc=0.4193, ExactMatch=0.0000
+  Batch 850: Loss=2.9393, TokenAcc=0.4311, ExactMatch=0.0000
+  Batch 900: Loss=2.7492, TokenAcc=0.4521, ExactMatch=0.0000
+  Batch 950: Loss=3.3076, TokenAcc=0.3949, ExactMatch=0.0000
+  Batch 1000: Loss=2.9559, TokenAcc=0.4127, ExactMatch=0.0000
+  Batch 1050: Loss=2.5268, TokenAcc=0.4843, ExactMatch=0.0000
+  Batch 1100: Loss=2.6018, TokenAcc=0.4811, ExactMatch=0.0000
+  Batch 1150: Loss=2.3958, TokenAcc=0.4841, ExactMatch=0.0000
+  Batch 1200: Loss=2.9066, TokenAcc=0.4676, ExactMatch=0.0000
+  Batch 1250: Loss=2.5176, TokenAcc=0.4960, ExactMatch=0.0000
+  Batch 1300: Loss=3.2663, TokenAcc=0.4196, ExactMatch=0.0000
+  Batch 1350: Loss=3.1092, TokenAcc=0.4082, ExactMatch=0.0000
+  Batch 1400: Loss=2.5075, TokenAcc=0.5227, ExactMatch=0.0000
+
+  Train Loss: 2.9197, Token Acc: 0.4355, Exact Match: 0.0000
+  Val Loss: 2.6272, Token Acc: 0.5162, Exact Match: 0.0000
+  ✓ Saved best model (val_loss=2.6272)
+
+Epoch 10/15
+----------------------------------------
+  Batch 50: Loss=2.8054, TokenAcc=0.5082, ExactMatch=0.0000
+  Batch 100: Loss=2.3511, TokenAcc=0.5461, ExactMatch=0.0000
+  Batch 150: Loss=2.6826, TokenAcc=0.5074, ExactMatch=0.0000
+  Batch 200: Loss=3.0474, TokenAcc=0.4347, ExactMatch=0.0000
+  Batch 250: Loss=2.6559, TokenAcc=0.5108, ExactMatch=0.0000
+  Batch 300: Loss=2.7645, TokenAcc=0.4739, ExactMatch=0.0000
+  Batch 350: Loss=2.3833, TokenAcc=0.5296, ExactMatch=0.0000
+  Batch 400: Loss=2.7543, TokenAcc=0.4917, ExactMatch=0.0000
+  Batch 450: Loss=2.4216, TokenAcc=0.5198, ExactMatch=0.0000
+  Batch 500: Loss=2.7414, TokenAcc=0.4850, ExactMatch=0.0000
+  Batch 550: Loss=2.3381, TokenAcc=0.5531, ExactMatch=0.0000
+  Batch 600: Loss=2.6632, TokenAcc=0.5221, ExactMatch=0.0000
+  Batch 650: Loss=2.5980, TokenAcc=0.5239, ExactMatch=0.0000
+  Batch 700: Loss=2.5183, TokenAcc=0.5192, ExactMatch=0.0000
+  Batch 750: Loss=2.4978, TokenAcc=0.5183, ExactMatch=0.0000
+  Batch 800: Loss=2.4839, TokenAcc=0.5397, ExactMatch=0.0000
+  Batch 850: Loss=2.5210, TokenAcc=0.5571, ExactMatch=0.0000
+  Batch 900: Loss=2.2660, TokenAcc=0.5621, ExactMatch=0.0000
+  Batch 950: Loss=2.0086, TokenAcc=0.6259, ExactMatch=0.0000
+  Batch 1000: Loss=2.2615, TokenAcc=0.5808, ExactMatch=0.0000
+  Batch 1050: Loss=2.4914, TokenAcc=0.5464, ExactMatch=0.0000
+  Batch 1100: Loss=2.3948, TokenAcc=0.5714, ExactMatch=0.0000
+  Batch 1150: Loss=2.1179, TokenAcc=0.6073, ExactMatch=0.0000
+  Batch 1200: Loss=2.3074, TokenAcc=0.5846, ExactMatch=0.0000
+  Batch 1250: Loss=2.1517, TokenAcc=0.6347, ExactMatch=0.0000
+  Batch 1300: Loss=2.2875, TokenAcc=0.5930, ExactMatch=0.0000
+  Batch 1350: Loss=2.5678, TokenAcc=0.5800, ExactMatch=0.0000
+  Batch 1400: Loss=2.4659, TokenAcc=0.5890, ExactMatch=0.0000
+
+  Train Loss: 2.4955, Token Acc: 0.5359, Exact Match: 0.0000
+  Val Loss: 1.8202, Token Acc: 0.6987, Exact Match: 0.0000
+  ✓ Saved best model (val_loss=1.8202)
+
+Epoch 11/15
+----------------------------------------
+  Batch 50: Loss=1.8875, TokenAcc=0.6692, ExactMatch=0.0000
+  Batch 100: Loss=2.5725, TokenAcc=0.6008, ExactMatch=0.0000
+  Batch 150: Loss=2.2037, TokenAcc=0.6112, ExactMatch=0.0000
+  Batch 200: Loss=2.0672, TokenAcc=0.6430, ExactMatch=0.0000
+  Batch 250: Loss=1.6340, TokenAcc=0.7025, ExactMatch=0.0000
+  Batch 300: Loss=1.7924, TokenAcc=0.6456, ExactMatch=0.0000
+  Batch 350: Loss=1.8080, TokenAcc=0.6733, ExactMatch=0.0000
+  Batch 400: Loss=1.4327, TokenAcc=0.7057, ExactMatch=0.0000
+  Batch 450: Loss=1.5092, TokenAcc=0.7175, ExactMatch=0.0000
+  Batch 500: Loss=2.1501, TokenAcc=0.6454, ExactMatch=0.0000
+  Batch 550: Loss=1.9344, TokenAcc=0.6674, ExactMatch=0.0000
+  Batch 600: Loss=1.8620, TokenAcc=0.6728, ExactMatch=0.0000
+  Batch 650: Loss=1.9316, TokenAcc=0.6649, ExactMatch=0.0000
+  Batch 700: Loss=1.6814, TokenAcc=0.7227, ExactMatch=0.0000
+  Batch 750: Loss=1.8027, TokenAcc=0.6688, ExactMatch=0.0000
+  Batch 800: Loss=1.6114, TokenAcc=0.7205, ExactMatch=0.0000
+  Batch 850: Loss=1.8649, TokenAcc=0.6819, ExactMatch=0.0000
+  Batch 900: Loss=1.6275, TokenAcc=0.7254, ExactMatch=0.0000
+  Batch 950: Loss=1.6852, TokenAcc=0.7078, ExactMatch=0.0000
+  Batch 1000: Loss=1.7075, TokenAcc=0.6965, ExactMatch=0.0000
+  Batch 1050: Loss=1.6014, TokenAcc=0.7265, ExactMatch=0.0000
+  Batch 1100: Loss=1.5377, TokenAcc=0.7261, ExactMatch=0.0000
+  Batch 1150: Loss=1.3323, TokenAcc=0.7751, ExactMatch=0.0000
+  Batch 1200: Loss=1.7690, TokenAcc=0.7038, ExactMatch=0.0000
+  Batch 1250: Loss=1.5956, TokenAcc=0.7310, ExactMatch=0.0000
+  Batch 1300: Loss=1.2972, TokenAcc=0.7716, ExactMatch=0.0000
+  Batch 1350: Loss=1.5180, TokenAcc=0.7366, ExactMatch=0.0000
+  Batch 1400: Loss=1.4169, TokenAcc=0.7372, ExactMatch=0.0000
+
+  Train Loss: 1.8110, Token Acc: 0.6868, Exact Match: 0.0000
+  Val Loss: 1.0954, Token Acc: 0.8350, Exact Match: 0.0000
+  ✓ Saved best model (val_loss=1.0954)
+
+Epoch 12/15
+----------------------------------------
+  Batch 50: Loss=1.4191, TokenAcc=0.7552, ExactMatch=0.0000
+  Batch 100: Loss=1.3541, TokenAcc=0.7699, ExactMatch=0.0000
+  Batch 150: Loss=1.3748, TokenAcc=0.7720, ExactMatch=0.0000
+  Batch 200: Loss=1.6213, TokenAcc=0.7258, ExactMatch=0.0000
+  Batch 250: Loss=1.3594, TokenAcc=0.7854, ExactMatch=0.0000
+  Batch 300: Loss=1.3481, TokenAcc=0.7639, ExactMatch=0.0000
+  Batch 350: Loss=1.5631, TokenAcc=0.7586, ExactMatch=0.0000
+  Batch 400: Loss=1.5442, TokenAcc=0.7737, ExactMatch=0.0000
+  Batch 450: Loss=0.9876, TokenAcc=0.8424, ExactMatch=0.0000
+  Batch 500: Loss=1.4614, TokenAcc=0.7767, ExactMatch=0.0000
+  Batch 550: Loss=1.3904, TokenAcc=0.7778, ExactMatch=0.0000
+  Batch 600: Loss=1.3129, TokenAcc=0.7756, ExactMatch=0.0000
+  Batch 650: Loss=1.1393, TokenAcc=0.8154, ExactMatch=0.0000
+  Batch 700: Loss=1.4378, TokenAcc=0.7775, ExactMatch=0.0000
+  Batch 750: Loss=1.4953, TokenAcc=0.7676, ExactMatch=0.0000
+  Batch 800: Loss=1.1508, TokenAcc=0.8192, ExactMatch=0.0000
+  Batch 850: Loss=0.9286, TokenAcc=0.8471, ExactMatch=0.0000
+  Batch 900: Loss=1.3880, TokenAcc=0.7749, ExactMatch=0.0000
+  Batch 950: Loss=0.7534, TokenAcc=0.8740, ExactMatch=0.0000
+  Batch 1000: Loss=1.4235, TokenAcc=0.7523, ExactMatch=0.0000
+  Batch 1050: Loss=1.0143, TokenAcc=0.8355, ExactMatch=0.0000
+  Batch 1100: Loss=1.2257, TokenAcc=0.8063, ExactMatch=0.0000
+  Batch 1150: Loss=1.5010, TokenAcc=0.7710, ExactMatch=0.0000
+  Batch 1200: Loss=0.9421, TokenAcc=0.8582, ExactMatch=0.0000
+  Batch 1250: Loss=0.9685, TokenAcc=0.8573, ExactMatch=0.0000
+  Batch 1300: Loss=0.8773, TokenAcc=0.8671, ExactMatch=0.0000
+  Batch 1350: Loss=1.1459, TokenAcc=0.8240, ExactMatch=0.0000
+  Batch 1400: Loss=1.1078, TokenAcc=0.8156, ExactMatch=0.0000
+
+  Train Loss: 1.2354, Token Acc: 0.7996, Exact Match: 0.0000
+  Val Loss: 0.7059, Token Acc: 0.9037, Exact Match: 0.0000
+  ✓ Saved best model (val_loss=0.7059)
+
+Epoch 13/15
+----------------------------------------
+  Batch 50: Loss=0.8079, TokenAcc=0.8573, ExactMatch=0.0000
+  Batch 100: Loss=0.9140, TokenAcc=0.8397, ExactMatch=0.0000
+  Batch 150: Loss=1.1503, TokenAcc=0.8211, ExactMatch=0.0000
+  Batch 200: Loss=0.9545, TokenAcc=0.8561, ExactMatch=0.0000
+  Batch 250: Loss=0.9614, TokenAcc=0.8508, ExactMatch=0.0000
+  Batch 300: Loss=0.7101, TokenAcc=0.8953, ExactMatch=0.0000
+  Batch 350: Loss=0.8625, TokenAcc=0.8785, ExactMatch=0.0000
+  Batch 400: Loss=0.7436, TokenAcc=0.8776, ExactMatch=0.0000
+  Batch 450: Loss=1.0196, TokenAcc=0.8267, ExactMatch=0.0000
+  Batch 500: Loss=0.8542, TokenAcc=0.8801, ExactMatch=0.0000
+  Batch 550: Loss=0.6464, TokenAcc=0.8947, ExactMatch=0.0000
+  Batch 600: Loss=0.8717, TokenAcc=0.8710, ExactMatch=0.0000
+  Batch 650: Loss=0.9722, TokenAcc=0.8671, ExactMatch=0.0000
+  Batch 700: Loss=0.6179, TokenAcc=0.9060, ExactMatch=0.0000
+  Batch 750: Loss=0.8399, TokenAcc=0.8725, ExactMatch=0.0000
+  Batch 800: Loss=0.9899, TokenAcc=0.8622, ExactMatch=0.0000
+  Batch 850: Loss=1.1037, TokenAcc=0.8356, ExactMatch=0.0000
+  Batch 900: Loss=0.7308, TokenAcc=0.8851, ExactMatch=0.0000
+  Batch 950: Loss=0.5978, TokenAcc=0.8937, ExactMatch=0.0000
+  Batch 1000: Loss=0.9309, TokenAcc=0.8562, ExactMatch=0.0000
+  Batch 1050: Loss=0.9316, TokenAcc=0.8566, ExactMatch=0.0000
+  Batch 1100: Loss=0.6049, TokenAcc=0.8999, ExactMatch=0.0000
+  Batch 1150: Loss=0.6694, TokenAcc=0.9087, ExactMatch=0.0000
+  Batch 1200: Loss=0.7717, TokenAcc=0.8966, ExactMatch=0.0000
+  Batch 1250: Loss=0.5729, TokenAcc=0.9052, ExactMatch=0.0000
+  Batch 1300: Loss=0.8777, TokenAcc=0.8658, ExactMatch=0.0000
+  Batch 1350: Loss=0.6423, TokenAcc=0.8885, ExactMatch=0.0000
+  Batch 1400: Loss=0.4791, TokenAcc=0.9349, ExactMatch=0.0000
+
+  Train Loss: 0.8319, Token Acc: 0.8725, Exact Match: 0.0000
+  Val Loss: 0.4873, Token Acc: 0.9369, Exact Match: 0.0000
+  ✓ Saved best model (val_loss=0.4873)
+
+Epoch 14/15
+----------------------------------------
+  Batch 50: Loss=0.6826, TokenAcc=0.9044, ExactMatch=0.0000
+  Batch 100: Loss=0.5682, TokenAcc=0.9198, ExactMatch=0.0000
+  Batch 150: Loss=0.5466, TokenAcc=0.9165, ExactMatch=0.0000
+  Batch 200: Loss=0.6528, TokenAcc=0.8807, ExactMatch=0.0000
+  Batch 250: Loss=0.9910, TokenAcc=0.8590, ExactMatch=0.0000
+  Batch 300: Loss=0.6383, TokenAcc=0.9084, ExactMatch=0.0000
+  Batch 350: Loss=0.5151, TokenAcc=0.9211, ExactMatch=0.0000
+  Batch 400: Loss=0.4712, TokenAcc=0.9205, ExactMatch=0.0000
+  Batch 450: Loss=0.5485, TokenAcc=0.9180, ExactMatch=0.0000
+  Batch 500: Loss=0.6043, TokenAcc=0.9050, ExactMatch=0.0000
+  Batch 550: Loss=0.3945, TokenAcc=0.9457, ExactMatch=0.0000
+  Batch 600: Loss=0.8445, TokenAcc=0.8797, ExactMatch=0.0000
+  Batch 650: Loss=0.4165, TokenAcc=0.9337, ExactMatch=0.0000
+  Batch 700: Loss=0.5647, TokenAcc=0.9159, ExactMatch=0.0000
+  Batch 750: Loss=0.5133, TokenAcc=0.9197, ExactMatch=0.0000
+  Batch 800: Loss=0.4399, TokenAcc=0.9342, ExactMatch=0.0000
+  Batch 850: Loss=0.8535, TokenAcc=0.8589, ExactMatch=0.0000
+  Batch 900: Loss=0.4279, TokenAcc=0.9397, ExactMatch=0.0000
+  Batch 950: Loss=0.4061, TokenAcc=0.9362, ExactMatch=0.0000
+  Batch 1000: Loss=0.5084, TokenAcc=0.9261, ExactMatch=0.0000
+  Batch 1050: Loss=0.3573, TokenAcc=0.9458, ExactMatch=0.0000
+  Batch 1100: Loss=0.4467, TokenAcc=0.9458, ExactMatch=0.0000
+  Batch 1150: Loss=0.3290, TokenAcc=0.9582, ExactMatch=0.0000
+  Batch 1200: Loss=0.4409, TokenAcc=0.9292, ExactMatch=0.0000
+  Batch 1250: Loss=0.5134, TokenAcc=0.9196, ExactMatch=0.0000
+  Batch 1300: Loss=0.6238, TokenAcc=0.9163, ExactMatch=0.0000
+  Batch 1350: Loss=0.4968, TokenAcc=0.9293, ExactMatch=0.0000
+  Batch 1400: Loss=0.5257, TokenAcc=0.9227, ExactMatch=0.0000
+
+  Train Loss: 0.5802, Token Acc: 0.9147, Exact Match: 0.0000
+  Val Loss: 0.3625, Token Acc: 0.9558, Exact Match: 0.0000
+  ✓ Saved best model (val_loss=0.3625)
+
+Epoch 15/15
+----------------------------------------
+  Batch 50: Loss=0.4620, TokenAcc=0.9223, ExactMatch=0.0000
+  Batch 100: Loss=0.4242, TokenAcc=0.9433, ExactMatch=0.0000
+  Batch 150: Loss=0.3501, TokenAcc=0.9486, ExactMatch=0.0000
+  Batch 200: Loss=0.4153, TokenAcc=0.9444, ExactMatch=0.0000
+  Batch 250: Loss=0.3103, TokenAcc=0.9577, ExactMatch=0.0000
+  Batch 300: Loss=0.4304, TokenAcc=0.9393, ExactMatch=0.0000
+  Batch 350: Loss=0.2355, TokenAcc=0.9702, ExactMatch=0.0000
+  Batch 400: Loss=0.5464, TokenAcc=0.9337, ExactMatch=0.0000
+  Batch 450: Loss=0.2092, TokenAcc=0.9823, ExactMatch=0.0000
+  Batch 500: Loss=0.3744, TokenAcc=0.9498, ExactMatch=0.0000
+  Batch 550: Loss=0.3931, TokenAcc=0.9360, ExactMatch=0.0000
+  Batch 600: Loss=0.4588, TokenAcc=0.9240, ExactMatch=0.0000
+  Batch 650: Loss=0.4002, TokenAcc=0.9481, ExactMatch=0.0000
+  Batch 700: Loss=0.3913, TokenAcc=0.9422, ExactMatch=0.0000
+  Batch 750: Loss=0.4247, TokenAcc=0.9486, ExactMatch=0.0000
+  Batch 800: Loss=0.4352, TokenAcc=0.9280, ExactMatch=0.0000
+  Batch 850: Loss=0.2265, TokenAcc=0.9703, ExactMatch=0.0000
+  Batch 900: Loss=0.3117, TokenAcc=0.9548, ExactMatch=0.0000
+  Batch 950: Loss=0.2283, TokenAcc=0.9760, ExactMatch=0.0000
+  Batch 1000: Loss=0.4669, TokenAcc=0.9309, ExactMatch=0.0000
+  Batch 1050: Loss=0.4831, TokenAcc=0.9314, ExactMatch=0.0000
+  Batch 1100: Loss=0.2206, TokenAcc=0.9690, ExactMatch=0.0000
+  Batch 1150: Loss=0.5765, TokenAcc=0.9212, ExactMatch=0.0000
+  Batch 1200: Loss=0.3841, TokenAcc=0.9440, ExactMatch=0.0000
+  Batch 1250: Loss=0.3670, TokenAcc=0.9596, ExactMatch=0.0000
+  Batch 1300: Loss=0.4448, TokenAcc=0.9309, ExactMatch=0.0000
+  Batch 1350: Loss=0.2810, TokenAcc=0.9647, ExactMatch=0.0000
+  Batch 1400: Loss=0.3809, TokenAcc=0.9413, ExactMatch=0.0000
+
+  Train Loss: 0.4217, Token Acc: 0.9401, Exact Match: 0.0000
+  Val Loss: 0.2820, Token Acc: 0.9680, Exact Match: 0.0000
+  ✓ Saved best model (val_loss=0.2820)
+
+✓ Training complete. Best validation loss: 0.2820
+  Final Exact Match Accuracy: 0.0000

@@ -1,0 +1,30 @@
+
+Epoch 1/15
+----------------------------------------
+  Batch 50: Loss=8.6419, TokenAcc=0.0245, ExactMatch=0.0000
+  Batch 100: Loss=8.1509, TokenAcc=0.0416, ExactMatch=0.0000
+  Batch 150: Loss=7.6254, TokenAcc=0.0219, ExactMatch=0.0000
+  Batch 200: Loss=7.2500, TokenAcc=0.0325, ExactMatch=0.0000
+  Batch 250: Loss=6.9288, TokenAcc=0.0434, ExactMatch=0.0000
+  Batch 300: Loss=6.6631, TokenAcc=0.0470, ExactMatch=0.0000
+  Batch 350: Loss=6.3985, TokenAcc=0.0412, ExactMatch=0.0000
+  Batch 400: Loss=6.2962, TokenAcc=0.0431, ExactMatch=0.0000
+  Batch 450: Loss=6.0663, TokenAcc=0.0441, ExactMatch=0.0000
+  Batch 500: Loss=6.1289, TokenAcc=0.0367, ExactMatch=0.0000
+  Batch 550: Loss=6.1274, TokenAcc=0.0395, ExactMatch=0.0000
+  Batch 600: Loss=6.0099, TokenAcc=0.0649, ExactMatch=0.0000
+  Batch 650: Loss=5.9604, TokenAcc=0.0637, ExactMatch=0.0000
+  Batch 700: Loss=5.9371, TokenAcc=0.0855, ExactMatch=0.0000
+  Batch 750: Loss=5.8968, TokenAcc=0.1132, ExactMatch=0.0000
+  Batch 800: Loss=5.7773, TokenAcc=0.1199, ExactMatch=0.0000
+  Batch 850: Loss=5.6251, TokenAcc=0.1258, ExactMatch=0.0000
+  Batch 900: Loss=5.9837, TokenAcc=0.1322, ExactMatch=0.0000
+  Batch 950: Loss=5.6703, TokenAcc=0.1365, ExactMatch=0.0000
+  Batch 1000: Loss=5.5339, TokenAcc=0.1790, ExactMatch=0.0000
+  Batch 1050: Loss=5.5509, TokenAcc=0.1889, ExactMatch=0.0000
+  Batch 1100: Loss=5.5784, TokenAcc=0.1719, ExactMatch=0.0000
+  Batch 1150: Loss=5.4786, TokenAcc=0.1865, ExactMatch=0.0000
+  Batch 1200: Loss=5.3314, TokenAcc=0.2002, ExactMatch=0.0000
+  Batch 1250: Loss=5.4514, TokenAcc=0.1858, ExactMatch=0.0000
+  Batch 1300: Loss=4.9946, TokenAcc=0.2170, ExactMatch=0.0000
+  Batch 1350: Loss=5.2212, TokenAcc=0.2253, ExactMatch=0.0000

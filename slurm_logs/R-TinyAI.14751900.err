@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ModuleNotFoundError: No module named 'tensorflow'
+Traceback (most recent call last):
+  File "/oscar/home/bpeckham/TinyAI/train.py", line 12, in <module>
+    import numpy as np
+ModuleNotFoundError: No module named 'numpy'

@@ -1,0 +1,68 @@
+2025-12-09 14:56:15.217129: I external/local_tsl/tsl/cuda/cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+2025-12-09 14:56:16.538577: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2025-12-09 14:56:16.538654: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2025-12-09 14:56:16.844083: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2025-12-09 14:56:17.489257: I external/local_tsl/tsl/cuda/cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+2025-12-09 14:56:17.495269: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-12-09 14:56:22.457364: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+2025-12-09 14:56:32.954720: I external/local_tsl/tsl/cuda/cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+2025-12-09 14:56:32.999009: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2025-12-09 14:56:32.999050: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2025-12-09 14:56:33.000428: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2025-12-09 14:56:33.007359: I external/local_tsl/tsl/cuda/cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+2025-12-09 14:56:33.007570: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-12-09 14:56:34.267263: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+2025-12-09 14:56:36.007017: W tensorflow/core/common_runtime/gpu/gpu_device.cc:2256] Cannot dlopen some GPU libraries. Please make sure the missing libraries mentioned above are installed properly if you would like to use GPU. Follow the guide at https://www.tensorflow.org/install/gpu for how to download and setup the required libraries for your platform.
+Skipping registering GPU devices...
+2025-12-09 14:56:37.218779: I external/local_tsl/tsl/cuda/cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+2025-12-09 14:56:37.264566: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2025-12-09 14:56:37.264607: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2025-12-09 14:56:37.266002: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2025-12-09 14:56:37.272947: I external/local_tsl/tsl/cuda/cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+2025-12-09 14:56:37.273155: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-12-09 14:56:38.523126: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+2025-12-09 14:56:43.684416: W tensorflow/core/common_runtime/gpu/gpu_device.cc:2256] Cannot dlopen some GPU libraries. Please make sure the missing libraries mentioned above are installed properly if you would like to use GPU. Follow the guide at https://www.tensorflow.org/install/gpu for how to download and setup the required libraries for your platform.
+Skipping registering GPU devices...
+wandb: Currently logged in as: benjamin_peckham (benjamin_peckham-brown-university) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run u2galkz3
+wandb: Tracking run with wandb version 0.23.1
+wandb: Run data is saved locally in /oscar/home/bpeckham/TinyAI/wandb/run-20251209_145644-u2galkz3
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run control-transformer
+wandb: ⭐️ View project at https://wandb.ai/benjamin_peckham-brown-university/tinyai
+wandb: 🚀 View run at https://wandb.ai/benjamin_peckham-brown-university/tinyai/runs/u2galkz3
+wandb: updating run metadata
+wandb: uploading history steps 3779-3779, summary, console lines 196-201
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▁▂▂▂▃▃▄▄▄▅▅▅▆▆▇▇▇██
+wandb: train/accuracy ▁▁▂▂▃▃▃▃▃▃▄▄▄▄▄▄▄▄▄▅▅▅▇▇▇▇█▇▇███████████
+wandb:     train/loss █▆▆▆▆▅▄▄▄▄▄▄▄▄▄▄▃▃▃▂▂▂▂▂▂▂▂▁▂▁▁▁▁▁▁▁▁▁▁▁
+wandb:     train/step ▁▁▁▂▂▂▂▂▂▂▃▃▃▃▃▄▄▄▄▄▅▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇██
+wandb:   val/accuracy ▁▂▂▂▂▃▃▃▄▅▆▇▇▇██████
+wandb:       val/loss █▇▆▆▆▅▅▅▄▄▃▂▂▂▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 20
+wandb: train/accuracy 0.98047
+wandb:     train/loss 0.16491
+wandb:     train/step 3760
+wandb:   val/accuracy 0.97897
+wandb:       val/loss 0.2178
+wandb: 
+wandb: 🚀 View run control-transformer at: https://wandb.ai/benjamin_peckham-brown-university/tinyai/runs/u2galkz3
+wandb: ⭐️ View project at: https://wandb.ai/benjamin_peckham-brown-university/tinyai
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20251209_145644-u2galkz3/logs
+wandb: setting up run tv4mdank
+wandb: Tracking run with wandb version 0.23.1
+wandb: Run data is saved locally in /oscar/home/bpeckham/TinyAI/wandb/run-20251209_155645-tv4mdank
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run recursive-transformer
+wandb: ⭐️ View project at https://wandb.ai/benjamin_peckham-brown-university/tinyai
+wandb: 🚀 View run at https://wandb.ai/benjamin_peckham-brown-university/tinyai/runs/tv4mdank
+/var/spool/slurmd/job14753818/slurm_script: line 143: 1416452 Killed                  python -u train.py --data_path "$DATA_PATH" --vocab_path "$VOCAB_PATH" --output_dir "$OUTPUT_DIR" --d_model $D_MODEL --num_layers $NUM_LAYERS --num_heads $NUM_HEADS --ff_dim $FF_DIM --dropout_rate $DROPOUT --deep_rec_cycles $DEEP_REC_CYCLES --num_l_steps $NUM_L_STEPS --deep_sup_steps $DEEP_SUP_STEPS --act_loss_weight $ACT_LOSS_WEIGHT --epochs $EPOCHS --batch_size $BATCH_SIZE --learning_rate $LEARNING_RATE --max_seq_length $MAX_SEQ_LENGTH $EXTRA_ARGS
+slurmstepd: error: Detected 1 oom_kill event in StepId=14753818.batch. Some of the step tasks have been OOM Killed.

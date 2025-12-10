@@ -1,0 +1,269 @@
+2025-12-10 16:58:08.886196: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-12-10 16:58:08.888188: I external/local_tsl/tsl/cuda/cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+2025-12-10 16:58:08.927508: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2025-12-10 16:58:08.927540: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2025-12-10 16:58:08.928616: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2025-12-10 16:58:08.937190: I external/local_tsl/tsl/cuda/cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+2025-12-10 16:58:08.937359: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-12-10 16:58:10.593892: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+2025-12-10 16:58:14.052427: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-12-10 16:58:14.054415: I external/local_tsl/tsl/cuda/cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+2025-12-10 16:58:14.092943: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2025-12-10 16:58:14.092976: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2025-12-10 16:58:14.094023: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2025-12-10 16:58:14.099743: I external/local_tsl/tsl/cuda/cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+2025-12-10 16:58:14.099917: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-12-10 16:58:15.304734: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+2025-12-10 16:58:16.922141: W tensorflow/core/common_runtime/gpu/gpu_device.cc:2256] Cannot dlopen some GPU libraries. Please make sure the missing libraries mentioned above are installed properly if you would like to use GPU. Follow the guide at https://www.tensorflow.org/install/gpu for how to download and setup the required libraries for your platform.
+Skipping registering GPU devices...
+2025-12-10 16:58:17.945104: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-12-10 16:58:17.947126: I external/local_tsl/tsl/cuda/cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+2025-12-10 16:58:17.986881: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2025-12-10 16:58:17.986911: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2025-12-10 16:58:17.987963: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2025-12-10 16:58:17.993705: I external/local_tsl/tsl/cuda/cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+2025-12-10 16:58:17.993876: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-12-10 16:58:19.197453: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+2025-12-10 16:58:22.762100: W tensorflow/core/common_runtime/gpu/gpu_device.cc:2256] Cannot dlopen some GPU libraries. Please make sure the missing libraries mentioned above are installed properly if you would like to use GPU. Follow the guide at https://www.tensorflow.org/install/gpu for how to download and setup the required libraries for your platform.
+Skipping registering GPU devices...
+wandb: Currently logged in as: benjamin_peckham (benjamin_peckham-brown-university) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: Tracking run with wandb version 0.23.1
+wandb: Run data is saved locally in /oscar/home/bpeckham/TinyAI/wandb/run-20251210_165823-vy9ymkym
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run control-transformer
+wandb: ⭐️ View project at https://wandb.ai/benjamin_peckham-brown-university/tinyai
+wandb: 🚀 View run at https://wandb.ai/benjamin_peckham-brown-university/tinyai/runs/vy9ymkym
+wandb: updating run metadata
+wandb: uploading history steps 28180-28379, summary, console lines 692-701
+wandb: 
+wandb: Run history:
+wandb:          epoch ▁▁▂▂▂▃▃▄▄▄▅▅▅▆▆▇▇▇██
+wandb: train/accuracy ▁▄▃▅▄▄▅▄▅▄▅▅▅▅▄▅▆▆▅▆▆▆▆▆▆▇▆▆▆▆▅▆▆▆▇▇▇▇██
+wandb:     train/loss █▅▄▄▄▃▃▃▃▃▂▂▃▂▂▃▃▂▂▂▃▂▂▂▂▂▂▁▂▂▂▁▂▁▁▂▁▂▁▁
+wandb:     train/step ▁▁▁▂▂▂▂▂▂▃▃▃▃▃▃▄▄▄▅▅▅▅▅▅▆▆▆▆▆▆▆▆▇▇▇▇▇▇██
+wandb:   val/accuracy ▁▃▃▃▃▄▄▄▄▄▄▅▅▅▅▅▆▆▇█
+wandb:       val/loss █▆▅▅▄▄▄▄▄▄▃▃▃▃▃▃▂▂▂▁
+wandb: 
+wandb: Run summary:
+wandb:          epoch 20
+wandb: train/accuracy 0.54648
+wandb:     train/loss 2.44944
+wandb:     train/step 28360
+wandb:   val/accuracy 0.62096
+wandb:       val/loss 2.13514
+wandb: 
+wandb: 🚀 View run control-transformer at: https://wandb.ai/benjamin_peckham-brown-university/tinyai/runs/vy9ymkym
+wandb: ⭐️ View project at: https://wandb.ai/benjamin_peckham-brown-university/tinyai
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20251210_165823-vy9ymkym/logs
+Traceback (most recent call last):
+  File "/oscar/home/bpeckham/TinyAI/train.py", line 761, in <module>
+    main()
+  File "/oscar/home/bpeckham/TinyAI/train.py", line 726, in main
+    _ = recursive_model(dummy_input)
+  File "/users/bpeckham/.conda/envs/tinyai/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 70, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "/oscar/home/bpeckham/TinyAI/components/recursive-transformer.py", line 160, in call
+    _, _, _, _, final_logits = tf.while_loop(
+TypeError: Exception encountered when calling layer 'recursive_transformer' (type RecursiveTransformer).
+
+The two structures don't have the same nested structure.
+
+First structure: type=list str=[TensorSpec(shape=(), dtype=tf.int32, name=None), [TensorSpec(shape=(), dtype=tf.int32, name=None), TensorSpec(shape=(1,), dtype=tf.bool, name=None), TensorSpec(shape=(1, 127, 32), dtype=tf.float32, name=None), TensorSpec(shape=(1, 127, 32), dtype=tf.float32, name=None), TensorSpec(shape=(1, 127, 7173), dtype=tf.float32, name=None)]]
+
+Second structure: type=list str=[1, (<tf.Tensor: shape=(), dtype=int32, numpy=1>, <tf.Tensor: shape=(1,), dtype=bool, numpy=array([ True])>, <tf.Tensor: shape=(1, 127, 32), dtype=float32, numpy=
+array([[[ 0.99330837,  0.6019766 , -0.95673835, ..., -0.21527839,
+         -0.57468814, -2.5070136 ],
+        [-1.42686   ,  0.0662287 , -0.6600392 , ..., -0.62457365,
+         -0.9930855 , -1.8848757 ],
+        [ 0.10872171, -0.18031365, -0.6498469 , ..., -1.3216898 ,
+         -1.7855875 , -1.6082662 ],
+        ...,
+        [-0.7311075 ,  0.22367826, -1.1954694 , ..., -0.8106804 ,
+         -1.5081135 , -1.3060582 ],
+        [ 0.04585792,  0.7018179 , -0.5582201 , ..., -1.1663493 ,
+         -0.9325505 , -1.624026  ],
+        [-1.5777833 , -1.1421695 , -1.3360105 , ..., -1.2717627 ,
+         -1.7025361 , -1.5921091 ]]], dtype=float32)>, <tf.Tensor: shape=(1, 127, 32), dtype=float32, numpy=
+array([[[ 0.68269753, -0.10208971, -1.0565186 , ...,  0.09444417,
+         -0.29607627, -2.5453758 ],
+        [-1.8754709 ,  0.46045193, -0.05224895, ..., -0.5282234 ,
+         -0.7839624 , -1.6206509 ],
+        [-0.0277038 , -0.7150755 , -0.1266528 , ..., -1.1469412 ,
+         -1.8163279 , -1.4380594 ],
+        ...,
+        [-0.78430504,  0.38197008, -0.911806  , ..., -0.5608064 ,
+         -1.435507  , -1.4708774 ],
+        [-1.2419368 ,  0.27183285, -0.44580072, ..., -1.0177131 ,
+         -0.7013451 , -1.0757704 ],
+        [-1.7443274 , -0.88440335, -0.6523272 , ..., -1.1751995 ,
+         -1.7373639 , -1.0673251 ]]], dtype=float32)>, <tf.Tensor: shape=(1, 127, 7173), dtype=float32, numpy=
+array([[[ 0.10377917,  0.03373321, -0.06882086, ...,  0.07046109,
+         -0.14537099,  0.01852248],
+        [ 0.01514642, -0.17114606,  0.03796884, ...,  0.04187207,
+         -0.16497883,  0.09390229],
+        [ 0.06794836, -0.09652023,  0.02250435, ...,  0.09501434,
+         -0.12132039,  0.04293083],
+        ...,
+        [-0.03262198, -0.0738063 ,  0.02505275, ...,  0.02858633,
+         -0.08728792,  0.06318209],
+        [-0.00341157, -0.01171115,  0.03229251, ...,  0.07395977,
+         -0.17996189,  0.07905512],
+        [-0.00741207, -0.06757727,  0.04378042, ...,  0.03032601,
+         -0.11635517,  0.05347645]]], dtype=float32)>)]
+
+More specifically: The two namedtuples don't have the same sequence type. First structure type=list str=[TensorSpec(shape=(), dtype=tf.int32, name=None), TensorSpec(shape=(1,), dtype=tf.bool, name=None), TensorSpec(shape=(1, 127, 32), dtype=tf.float32, name=None), TensorSpec(shape=(1, 127, 32), dtype=tf.float32, name=None), TensorSpec(shape=(1, 127, 7173), dtype=tf.float32, name=None)] has type list, while second structure type=tuple str=(<tf.Tensor: shape=(), dtype=int32, numpy=1>, <tf.Tensor: shape=(1,), dtype=bool, numpy=array([ True])>, <tf.Tensor: shape=(1, 127, 32), dtype=float32, numpy=
+array([[[ 0.99330837,  0.6019766 , -0.95673835, ..., -0.21527839,
+         -0.57468814, -2.5070136 ],
+        [-1.42686   ,  0.0662287 , -0.6600392 , ..., -0.62457365,
+         -0.9930855 , -1.8848757 ],
+        [ 0.10872171, -0.18031365, -0.6498469 , ..., -1.3216898 ,
+         -1.7855875 , -1.6082662 ],
+        ...,
+        [-0.7311075 ,  0.22367826, -1.1954694 , ..., -0.8106804 ,
+         -1.5081135 , -1.3060582 ],
+        [ 0.04585792,  0.7018179 , -0.5582201 , ..., -1.1663493 ,
+         -0.9325505 , -1.624026  ],
+        [-1.5777833 , -1.1421695 , -1.3360105 , ..., -1.2717627 ,
+         -1.7025361 , -1.5921091 ]]], dtype=float32)>, <tf.Tensor: shape=(1, 127, 32), dtype=float32, numpy=
+array([[[ 0.68269753, -0.10208971, -1.0565186 , ...,  0.09444417,
+         -0.29607627, -2.5453758 ],
+        [-1.8754709 ,  0.46045193, -0.05224895, ..., -0.5282234 ,
+         -0.7839624 , -1.6206509 ],
+        [-0.0277038 , -0.7150755 , -0.1266528 , ..., -1.1469412 ,
+         -1.8163279 , -1.4380594 ],
+        ...,
+        [-0.78430504,  0.38197008, -0.911806  , ..., -0.5608064 ,
+         -1.435507  , -1.4708774 ],
+        [-1.2419368 ,  0.27183285, -0.44580072, ..., -1.0177131 ,
+         -0.7013451 , -1.0757704 ],
+        [-1.7443274 , -0.88440335, -0.6523272 , ..., -1.1751995 ,
+         -1.7373639 , -1.0673251 ]]], dtype=float32)>, <tf.Tensor: shape=(1, 127, 7173), dtype=float32, numpy=
+array([[[ 0.10377917,  0.03373321, -0.06882086, ...,  0.07046109,
+         -0.14537099,  0.01852248],
+        [ 0.01514642, -0.17114606,  0.03796884, ...,  0.04187207,
+         -0.16497883,  0.09390229],
+        [ 0.06794836, -0.09652023,  0.02250435, ...,  0.09501434,
+         -0.12132039,  0.04293083],
+        ...,
+        [-0.03262198, -0.0738063 ,  0.02505275, ...,  0.02858633,
+         -0.08728792,  0.06318209],
+        [-0.00341157, -0.01171115,  0.03229251, ...,  0.07395977,
+         -0.17996189,  0.07905512],
+        [-0.00741207, -0.06757727,  0.04378042, ...,  0.03032601,
+         -0.11635517,  0.05347645]]], dtype=float32)>) has type tuple
+Entire first structure:
+[., [., ., ., ., .]]
+Entire second structure:
+[., (., ., ., ., .)]
+
+Call arguments received by layer 'recursive_transformer' (type RecursiveTransformer):
+  • inputs=tf.Tensor(shape=(1, 127), dtype=int32)
+  • training=False
+Traceback (most recent call last):
+  File "/oscar/home/bpeckham/TinyAI/train.py", line 761, in <module>
+    main()
+  File "/oscar/home/bpeckham/TinyAI/train.py", line 726, in main
+    _ = recursive_model(dummy_input)
+  File "/users/bpeckham/.conda/envs/tinyai/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 70, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "/oscar/home/bpeckham/TinyAI/components/recursive-transformer.py", line 160, in call
+    _, _, _, _, final_logits = tf.while_loop(
+TypeError: Exception encountered when calling layer 'recursive_transformer' (type RecursiveTransformer).
+
+The two structures don't have the same nested structure.
+
+First structure: type=list str=[TensorSpec(shape=(), dtype=tf.int32, name=None), [TensorSpec(shape=(), dtype=tf.int32, name=None), TensorSpec(shape=(1,), dtype=tf.bool, name=None), TensorSpec(shape=(1, 127, 32), dtype=tf.float32, name=None), TensorSpec(shape=(1, 127, 32), dtype=tf.float32, name=None), TensorSpec(shape=(1, 127, 7173), dtype=tf.float32, name=None)]]
+
+Second structure: type=list str=[1, (<tf.Tensor: shape=(), dtype=int32, numpy=1>, <tf.Tensor: shape=(1,), dtype=bool, numpy=array([ True])>, <tf.Tensor: shape=(1, 127, 32), dtype=float32, numpy=
+array([[[ 0.99330837,  0.6019766 , -0.95673835, ..., -0.21527839,
+         -0.57468814, -2.5070136 ],
+        [-1.42686   ,  0.0662287 , -0.6600392 , ..., -0.62457365,
+         -0.9930855 , -1.8848757 ],
+        [ 0.10872171, -0.18031365, -0.6498469 , ..., -1.3216898 ,
+         -1.7855875 , -1.6082662 ],
+        ...,
+        [-0.7311075 ,  0.22367826, -1.1954694 , ..., -0.8106804 ,
+         -1.5081135 , -1.3060582 ],
+        [ 0.04585792,  0.7018179 , -0.5582201 , ..., -1.1663493 ,
+         -0.9325505 , -1.624026  ],
+        [-1.5777833 , -1.1421695 , -1.3360105 , ..., -1.2717627 ,
+         -1.7025361 , -1.5921091 ]]], dtype=float32)>, <tf.Tensor: shape=(1, 127, 32), dtype=float32, numpy=
+array([[[ 0.68269753, -0.10208971, -1.0565186 , ...,  0.09444417,
+         -0.29607627, -2.5453758 ],
+        [-1.8754709 ,  0.46045193, -0.05224895, ..., -0.5282234 ,
+         -0.7839624 , -1.6206509 ],
+        [-0.0277038 , -0.7150755 , -0.1266528 , ..., -1.1469412 ,
+         -1.8163279 , -1.4380594 ],
+        ...,
+        [-0.78430504,  0.38197008, -0.911806  , ..., -0.5608064 ,
+         -1.435507  , -1.4708774 ],
+        [-1.2419368 ,  0.27183285, -0.44580072, ..., -1.0177131 ,
+         -0.7013451 , -1.0757704 ],
+        [-1.7443274 , -0.88440335, -0.6523272 , ..., -1.1751995 ,
+         -1.7373639 , -1.0673251 ]]], dtype=float32)>, <tf.Tensor: shape=(1, 127, 7173), dtype=float32, numpy=
+array([[[ 0.10377917,  0.03373321, -0.06882086, ...,  0.07046109,
+         -0.14537099,  0.01852248],
+        [ 0.01514642, -0.17114606,  0.03796884, ...,  0.04187207,
+         -0.16497883,  0.09390229],
+        [ 0.06794836, -0.09652023,  0.02250435, ...,  0.09501434,
+         -0.12132039,  0.04293083],
+        ...,
+        [-0.03262198, -0.0738063 ,  0.02505275, ...,  0.02858633,
+         -0.08728792,  0.06318209],
+        [-0.00341157, -0.01171115,  0.03229251, ...,  0.07395977,
+         -0.17996189,  0.07905512],
+        [-0.00741207, -0.06757727,  0.04378042, ...,  0.03032601,
+         -0.11635517,  0.05347645]]], dtype=float32)>)]
+
+More specifically: The two namedtuples don't have the same sequence type. First structure type=list str=[TensorSpec(shape=(), dtype=tf.int32, name=None), TensorSpec(shape=(1,), dtype=tf.bool, name=None), TensorSpec(shape=(1, 127, 32), dtype=tf.float32, name=None), TensorSpec(shape=(1, 127, 32), dtype=tf.float32, name=None), TensorSpec(shape=(1, 127, 7173), dtype=tf.float32, name=None)] has type list, while second structure type=tuple str=(<tf.Tensor: shape=(), dtype=int32, numpy=1>, <tf.Tensor: shape=(1,), dtype=bool, numpy=array([ True])>, <tf.Tensor: shape=(1, 127, 32), dtype=float32, numpy=
+array([[[ 0.99330837,  0.6019766 , -0.95673835, ..., -0.21527839,
+         -0.57468814, -2.5070136 ],
+        [-1.42686   ,  0.0662287 , -0.6600392 , ..., -0.62457365,
+         -0.9930855 , -1.8848757 ],
+        [ 0.10872171, -0.18031365, -0.6498469 , ..., -1.3216898 ,
+         -1.7855875 , -1.6082662 ],
+        ...,
+        [-0.7311075 ,  0.22367826, -1.1954694 , ..., -0.8106804 ,
+         -1.5081135 , -1.3060582 ],
+        [ 0.04585792,  0.7018179 , -0.5582201 , ..., -1.1663493 ,
+         -0.9325505 , -1.624026  ],
+        [-1.5777833 , -1.1421695 , -1.3360105 , ..., -1.2717627 ,
+         -1.7025361 , -1.5921091 ]]], dtype=float32)>, <tf.Tensor: shape=(1, 127, 32), dtype=float32, numpy=
+array([[[ 0.68269753, -0.10208971, -1.0565186 , ...,  0.09444417,
+         -0.29607627, -2.5453758 ],
+        [-1.8754709 ,  0.46045193, -0.05224895, ..., -0.5282234 ,
+         -0.7839624 , -1.6206509 ],
+        [-0.0277038 , -0.7150755 , -0.1266528 , ..., -1.1469412 ,
+         -1.8163279 , -1.4380594 ],
+        ...,
+        [-0.78430504,  0.38197008, -0.911806  , ..., -0.5608064 ,
+         -1.435507  , -1.4708774 ],
+        [-1.2419368 ,  0.27183285, -0.44580072, ..., -1.0177131 ,
+         -0.7013451 , -1.0757704 ],
+        [-1.7443274 , -0.88440335, -0.6523272 , ..., -1.1751995 ,
+         -1.7373639 , -1.0673251 ]]], dtype=float32)>, <tf.Tensor: shape=(1, 127, 7173), dtype=float32, numpy=
+array([[[ 0.10377917,  0.03373321, -0.06882086, ...,  0.07046109,
+         -0.14537099,  0.01852248],
+        [ 0.01514642, -0.17114606,  0.03796884, ...,  0.04187207,
+         -0.16497883,  0.09390229],
+        [ 0.06794836, -0.09652023,  0.02250435, ...,  0.09501434,
+         -0.12132039,  0.04293083],
+        ...,
+        [-0.03262198, -0.0738063 ,  0.02505275, ...,  0.02858633,
+         -0.08728792,  0.06318209],
+        [-0.00341157, -0.01171115,  0.03229251, ...,  0.07395977,
+         -0.17996189,  0.07905512],
+        [-0.00741207, -0.06757727,  0.04378042, ...,  0.03032601,
+         -0.11635517,  0.05347645]]], dtype=float32)>) has type tuple
+Entire first structure:
+[., [., ., ., ., .]]
+Entire second structure:
+[., (., ., ., ., .)]
+
+Call arguments received by layer 'recursive_transformer' (type RecursiveTransformer):
+  • inputs=tf.Tensor(shape=(1, 127), dtype=int32)
+  • training=False

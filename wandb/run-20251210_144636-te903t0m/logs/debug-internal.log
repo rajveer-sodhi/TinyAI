@@ -1,0 +1,13 @@
+{"time":"2025-12-10T14:46:38.350529011-05:00","level":"INFO","msg":"stream: starting","core version":"0.23.1"}
+{"time":"2025-12-10T14:46:38.857783314-05:00","level":"INFO","msg":"stream: created new stream","id":"te903t0m"}
+{"time":"2025-12-10T14:46:38.857835909-05:00","level":"INFO","msg":"handler: started","stream_id":"te903t0m"}
+{"time":"2025-12-10T14:46:38.863171407-05:00","level":"INFO","msg":"stream: started","id":"te903t0m"}
+{"time":"2025-12-10T14:46:38.863180339-05:00","level":"INFO","msg":"writer: started","stream_id":"te903t0m"}
+{"time":"2025-12-10T14:46:38.863180843-05:00","level":"INFO","msg":"sender: started","stream_id":"te903t0m"}
+{"time":"2025-12-10T15:00:39.567939668-05:00","level":"INFO","msg":"api: retrying HTTP error","status":502,"url":"https://api.wandb.ai/files/benjamin_peckham-brown-university/tinyai/te903t0m/file_stream","body":"\n<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">\n<title>502 Server Error</title>\n</head>\n<body text=#000000 bgcolor=#ffffff>\n<h1>Error: Server Error</h1>\n<h2>The server encountered a temporary error and could not complete your request.<p>Please try again in 30 seconds.</h2>\n<h2></h2>\n</body></html>\n"}
+{"time":"2025-12-10T15:24:49.451489182-05:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-12-10T15:24:49.624358567-05:00","level":"INFO","msg":"handler: operation stats","stats":{}}
+{"time":"2025-12-10T15:24:49.629714153-05:00","level":"INFO","msg":"stream: closing","id":"te903t0m"}
+{"time":"2025-12-10T15:24:49.62973071-05:00","level":"INFO","msg":"handler: closed","stream_id":"te903t0m"}
+{"time":"2025-12-10T15:24:49.631514469-05:00","level":"INFO","msg":"sender: closed","stream_id":"te903t0m"}
+{"time":"2025-12-10T15:24:49.631521855-05:00","level":"INFO","msg":"stream: closed","id":"te903t0m"}
