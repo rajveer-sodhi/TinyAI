@@ -161,10 +161,12 @@ def phase_4_final_assembly(bucket_a, verified_bucket_c):
 async def main():
     bucket_a, bucket_b = phase_1_split_data()
     
-    if bucket_b:
-        bucket_c = await phase_2_augment_data_async(bucket_b)
-    else:
-        bucket_c = []
+    # if bucket_b:
+    #     bucket_c = await phase_2_augment_data_async(bucket_b)
+    # else:
+    #     bucket_c = []
+
+    bucket_c = []
         
     verified_c = phase_3_verify_data(bucket_c)
     
