@@ -136,21 +136,34 @@ class RecursiveTransformer(keras.Model):
             y, z, logits, q_logit = self.recursive_reasoning(embeddings, y, z, training = True)
             return logits
         else:
-            steps = 0
-            halted = tf.zeros((batch_sz, ), dtype = tf.bool)
-            prev_logits = None
+            # Use tf.while_loop for graph compatibility
+            def condition(steps, halted, y, z, prev_logits):
+                # Continue if not all halted and under max steps
+                not_all_halted = tf.logical_not(tf.reduce_all(halted))
+                under_max_steps = tf.less(steps, self.halt_max_steps)
+                return tf.logical_and(not_all_halted, under_max_steps)
             
-            while True:
-                y, z, logits, q_logit = self.recursive_reasoning(embeddings, y, z, training = False)
-                prev_logits = logits
+            def body(steps, halted, y, z, prev_logits):
+                y_new, z_new, logits, q_logit = self.recursive_reasoning(embeddings, y, z, training = False)
                 halt_prob = tf.sigmoid(q_logit)
-                halted = tf.logical_or(halted, halt_prob > self.halt_exploration_prob)
-                
-                steps += 1
-                if tf.reduce_all(halted) or (steps >= self.halt_max_steps):
-                    break
+                halted_new = tf.logical_or(halted, halt_prob > self.halt_exploration_prob)
+                return steps + 1, halted_new, y_new, z_new, logits
             
-            return prev_logits
+            # Initialize loop variables
+            steps = tf.constant(0)
+            halted = tf.zeros((batch_sz,), dtype=tf.bool)
+            # Initialize prev_logits with zeros of correct shape
+            vocab_size = self.vocab_size
+            prev_logits = tf.zeros((batch_sz, seq_len, vocab_size), dtype=tf.float32)
+            
+            # Run the loop
+            _, _, _, _, final_logits = tf.while_loop(
+                condition, body,
+                [steps, halted, y, z, prev_logits],
+                maximum_iterations=self.halt_max_steps
+            )
+            
+            return final_logits
 
     def get_config(self):
         config = super().get_config()
