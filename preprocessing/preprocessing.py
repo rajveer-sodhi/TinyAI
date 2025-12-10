@@ -5,7 +5,7 @@ import json
 import random
 import asyncio
 from datasets import load_dataset
-from openai import AsyncOpenAI  # NOTE: Import AsyncClient
+from openai import AsyncOpenAI  
 
 import os
 import re
@@ -29,6 +29,7 @@ if not OPENAI_API_KEY:
 OUTPUT_DIR = "data"
 NUM_TO_AUGMENT = 1000
 MAX_NUMBER_LIMIT = 1000
+MAX_TEXT_LENGTH = 600
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
@@ -52,7 +53,7 @@ def phase_1_split_data():
     print(f"Scanning {len(dataset)} items...")
     for item in dataset:
         full_text = f"{item['question']} {item['answer']}"
-        if is_tiny_friendly(full_text) and len(full_text) < 400:
+        if is_tiny_friendly(full_text) and len(full_text) < MAX_TEXT_LENGTH:
             bucket_a.append(item)
         else:
             bucket_b.append(item)
@@ -61,10 +62,11 @@ def phase_1_split_data():
     return bucket_a, bucket_b
 
 
-async def simplify_single_problem(sem, item):
+async def simplify_single_problem(sem, item, max_retries=5):
     """
     Async worker for a single problem.
     Uses a Semaphore to control how many requests hit the API at once.
+    Includes retry logic with exponential backoff for rate limits.
     """
     system_prompt = """
     You are a data generator for a tiny AI model. 
@@ -73,39 +75,56 @@ async def simplify_single_problem(sem, item):
     1. Use ONLY integers between 0 and 100.
     2. NO decimals.
     3. Keep the text under 40 words.
-    4. Provide the logic in a 'thinking' field.
-    5. Return valid JSON only.
+    4. Return valid JSON with EXACTLY these three keys:
+       - "question": the simplified math problem
+       - "thinking": the step-by-step logic to solve it
+       - "answer": the final numerical answer
     """
     user_prompt = f"Original: {item['question']}\nAns: {item['answer']}\n\nSimplify."
 
     async with sem:  # Waits here if too many concurrent requests are active
-        try:
-            response = await client.chat.completions.create(
-                model="gpt-4o-mini", 
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_prompt}
-                ],
-                response_format={"type": "json_object"}
-            )
-            return json.loads(response.choices[0].message.content)
-        except Exception as e:
-            print(f"x", end="", flush=True) # visual indicator of failure
-            return None
+        for attempt in range(max_retries):
+            try:
+                response = await client.chat.completions.create(
+                    model="gpt-5-nano", 
+                    messages=[
+                        {"role": "system", "content": system_prompt},
+                        {"role": "user", "content": user_prompt}
+                    ],
+                    response_format={"type": "json_object"}
+                )
+                print(".", end="", flush=True)  # Success indicator
+                return json.loads(response.choices[0].message.content)
+            except Exception as e:
+                if "429" in str(e) and attempt < max_retries - 1:
+                    wait_time = (2 ** attempt) + random.uniform(0, 1)  # Exponential backoff
+                    await asyncio.sleep(wait_time)
+                else:
+                    print(f"x", end="", flush=True)
+                    return None
 
 async def phase_2_augment_data_async(bucket_b):
     print("\n PHASE 2: Async Augmentation")
     
     sample_to_process = random.sample(bucket_b, min(len(bucket_b), NUM_TO_AUGMENT))
-    print(f"Queueing {len(sample_to_process)} requests...")
+    total = len(sample_to_process)
+    print(f"Queueing {total} requests...")
 
-    sem = asyncio.Semaphore(50) 
+    sem = asyncio.Semaphore(50)  # Balance speed vs rate limits (500 RPM max)
+    counter = {"done": 0, "success": 0}
+    lock = asyncio.Lock()
 
-    tasks = []
-    for item in sample_to_process:
-        task = simplify_single_problem(sem, item)
-        tasks.append(task)
+    async def wrapped_task(item):
+        result = await simplify_single_problem(sem, item)
+        async with lock:
+            counter["done"] += 1
+            if result:
+                counter["success"] += 1
+            if counter["done"] % 100 == 0:
+                print(f"\n[{counter['done']}/{total}] ({counter['success']} success)", flush=True)
+        return result
 
+    tasks = [wrapped_task(item) for item in sample_to_process]
     results = await asyncio.gather(*tasks)
     
     bucket_c = [r for r in results if r]
@@ -114,10 +133,14 @@ async def phase_2_augment_data_async(bucket_b):
     return bucket_c
 
 def phase_3_verify_data(bucket_c):
+    print(f"\nPHASE 3: Verifying {len(bucket_c)} augmented samples...")
     verified_bucket = []
     for item in bucket_c:
         if item.get('question') and item.get('answer') and item.get('thinking'):
             verified_bucket.append(item)
+        else:
+            print(f"  [REJECTED] Missing fields. Keys found: {list(item.keys())}")
+    print(f"Verified: {len(verified_bucket)} / {len(bucket_c)}")
     return verified_bucket
 
 def phase_4_final_assembly(bucket_a, verified_bucket_c):
@@ -132,6 +155,7 @@ def phase_4_final_assembly(bucket_a, verified_bucket_c):
     with open(f"{OUTPUT_DIR}/final_train_data.txt", "w") as f:
         for line in final_dataset:
             f.write(line.replace('\n', ' ') + '\n')
+    print(f"Total samples in final_train_data.txt: {len(final_dataset)}")
     print("Done.")
 
 async def main():
