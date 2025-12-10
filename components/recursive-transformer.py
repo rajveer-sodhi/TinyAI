@@ -147,7 +147,7 @@ class RecursiveTransformer(keras.Model):
                 y_new, z_new, logits, q_logit = self.recursive_reasoning(embeddings, y, z, training = False)
                 halt_prob = tf.sigmoid(q_logit)
                 halted_new = tf.logical_or(halted, halt_prob > self.halt_exploration_prob)
-                return steps + 1, halted_new, y_new, z_new, logits
+                return [steps + 1, halted_new, y_new, z_new, logits]
             
             # Initialize loop variables
             steps = tf.constant(0)
