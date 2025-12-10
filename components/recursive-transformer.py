@@ -88,10 +88,11 @@ class RecursiveTransformer(keras.Model):
         batch_size = tf.shape(inputs)[0]
         seq_len = tf.shape(inputs)[1]
 
-        y = tf.tile(self.y0, [batch_size, seq_len, 1])
-        z = tf.tile(self.z0, [batch_size, seq_len, 1])
-
         with tf.GradientTape() as tape:
+            # Initialize y and z inside GradientTape so gradients can flow to y0 and z0
+            y = tf.tile(self.y0, [batch_size, seq_len, 1])
+            z = tf.tile(self.z0, [batch_size, seq_len, 1])
+            
             # Compute embedding inside GradientTape so gradients flow to embedding weights
             embedding = self.embedding(inputs, training = True)
             
