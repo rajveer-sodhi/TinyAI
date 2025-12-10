@@ -10,15 +10,33 @@ rt = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(rt)
 RecursiveTransformer = rt.RecursiveTransformer
 
-# Config from train.sh
+# Config from train.sh (current)
 vocab_size = len(json.load(open("preprocessing/data/vocab.json")))
-dummy = tf.zeros((1, 256), dtype=tf.int32)
+D_MODEL = 128
+NUM_LAYERS = 2
+NUM_HEADS = 4
+FF_DIM = 256
+DROPOUT = 0.1
+MAX_SEQ_LENGTH = 128
+
+# Recursive-specific
+DEEP_REC_CYCLES = 2
+NUM_L_STEPS = 3
+DEEP_SUP_STEPS = 2
+ACT_LOSS_WEIGHT = 0.1
+HALT_EXPLORATION_PROB = 0.1
+HALT_MAX_STEPS = 16
+
+dummy = tf.zeros((1, MAX_SEQ_LENGTH), dtype=tf.int32)
 
 # Build models
-control = Transformer(vocab_size, 256, 256, 2, 4, 512, 0.1)
+control = Transformer(vocab_size, D_MODEL, MAX_SEQ_LENGTH, NUM_LAYERS, NUM_HEADS, FF_DIM, DROPOUT)
 control(dummy)
 
-recursive = RecursiveTransformer(vocab_size, 256, 256, 2, 4, 512, 0.1, 3, 4, 0.1, 6, 0.1, 16)
+recursive = RecursiveTransformer(
+    vocab_size, D_MODEL, MAX_SEQ_LENGTH, NUM_LAYERS, NUM_HEADS, FF_DIM, DROPOUT,
+    DEEP_REC_CYCLES, DEEP_SUP_STEPS, ACT_LOSS_WEIGHT, NUM_L_STEPS, HALT_EXPLORATION_PROB, HALT_MAX_STEPS
+)
 recursive(dummy)
 
 # Count params

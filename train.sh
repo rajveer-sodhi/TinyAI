@@ -5,7 +5,7 @@
 #SBATCH --ntasks-per-node=1     # total number of tasks across all nodes
 #SBATCH --cpus-per-task=4       # cpu-cores per task (>1 if multi-threaded tasks)
 #SBATCH -t 04:00:00             # total run time limit (HH:MM:SS)
-#SBATCH --mem=32000MB           # 32GB memory
+#SBATCH --mem=64000MB           # 64GB memory
 #SBATCH --job-name='TinyAI'
 #SBATCH --output=slurm_logs/R-%x.%j.out
 #SBATCH --error=slurm_logs/R-%x.%j.err
@@ -69,24 +69,24 @@ mkdir -p output/checkpoints/recursive
 # Training Configuration
 # ============================================================================
 
-# Model hyperparameters
-D_MODEL=256
+# Model hyperparameters (leaner for recursive stability)
+D_MODEL=128
 NUM_LAYERS=2
 NUM_HEADS=4
-FF_DIM=512
+FF_DIM=256
 DROPOUT=0.1
 
-# Recursive model specific
-DEEP_REC_CYCLES=3
-NUM_L_STEPS=6
-DEEP_SUP_STEPS=4
+# Recursive model specific (reduced to lower memory)
+DEEP_REC_CYCLES=2
+NUM_L_STEPS=3
+DEEP_SUP_STEPS=2
 ACT_LOSS_WEIGHT=0.1
 
-# Training hyperparameters
+# Training hyperparameters (smaller batch/seq to reduce RAM)
 EPOCHS=20
-BATCH_SIZE=32
+BATCH_SIZE=8
 LEARNING_RATE=1e-4
-MAX_SEQ_LENGTH=256
+MAX_SEQ_LENGTH=128
 
 # Paths
 DATA_PATH="preprocessing/data/final_train_data.txt"
