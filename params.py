@@ -14,14 +14,14 @@ RecursiveTransformer = rt.RecursiveTransformer
 vocab_size = len(json.load(open("preprocessing/data/vocab.json")))
 D_MODEL = 64
 NUM_LAYERS = 2
-NUM_HEADS = 4
-FF_DIM = 128
+NUM_HEADS = 3
+FF_DIM = 64
 DROPOUT = 0.1
 MAX_SEQ_LENGTH = 128
 
 # Recursive-specific
-DEEP_REC_CYCLES = 2
-NUM_L_STEPS = 3
+DEEP_REC_CYCLES = 1 #2
+NUM_L_STEPS = 2 #3
 DEEP_SUP_STEPS = 2
 ACT_LOSS_WEIGHT = 0.1
 HALT_EXPLORATION_PROB = 0.1
