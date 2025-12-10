@@ -185,10 +185,13 @@ class TrainingMetrics:
     def reset(self):
         self.losses = []
         self.accuracies = []
+        self.exact_matches = []
     
-    def update(self, loss, accuracy):
+    def update(self, loss, accuracy, exact_match=None):
         self.losses.append(float(loss))
         self.accuracies.append(float(accuracy))
+        if exact_match is not None:
+            self.exact_matches.append(float(exact_match))
     
     @property
     def avg_loss(self):
@@ -197,6 +200,10 @@ class TrainingMetrics:
     @property
     def avg_accuracy(self):
         return np.mean(self.accuracies) if self.accuracies else 0.0
+    
+    @property
+    def avg_exact_match(self):
+        return np.mean(self.exact_matches) if self.exact_matches else 0.0
 
 
 def compute_accuracy(logits, targets, pad_token_id):
@@ -205,6 +212,100 @@ def compute_accuracy(logits, targets, pad_token_id):
     mask = tf.cast(targets != pad_token_id, tf.float32)
     correct = tf.cast(predictions == targets, tf.float32) * mask
     return tf.reduce_sum(correct) / (tf.reduce_sum(mask) + 1e-8)
+
+
+def extract_answer_from_tokens(token_ids, tokenizer):
+    """
+    Extract the numerical or text answer from token sequence.
+    Looks for content after 'A:' marker until [EOS] or end of sequence.
+    
+    Args:
+        token_ids: numpy array or list of token IDs
+        tokenizer: Tokenizer object with id_to_token mapping
+    
+    Returns:
+        Extracted answer string or None if not found
+    """
+    try:
+        # Convert to list if numpy array
+        if isinstance(token_ids, (tf.Tensor, np.ndarray)):
+            token_ids = token_ids.numpy() if isinstance(token_ids, tf.Tensor) else token_ids
+            token_ids = token_ids.tolist() if hasattr(token_ids, 'tolist') else list(token_ids)
+        
+        # Decode tokens to text
+        tokens = []
+        for tid in token_ids:
+            if tid == tokenizer.pad_token_id:
+                continue
+            if tid == tokenizer.eos_token_id:
+                break
+            if tid in tokenizer.id_to_token:
+                tokens.append(tokenizer.id_to_token[tid])
+        
+        text = ' '.join(tokens)
+        
+        # Find answer after "A:" marker
+        if 'A:' in text or 'A :' in text:
+            # Split on 'A:' and take everything after
+            parts = text.split('A:') if 'A:' in text else text.split('A :')
+            if len(parts) > 1:
+                answer_text = parts[-1].strip()
+                
+                # Remove [EOS] if present
+                answer_text = answer_text.replace('[EOS]', '').strip()
+                
+                # Extract first number or first few words
+                import re
+                # Try to find a number (including negative and decimals)
+                numbers = re.findall(r'-?\d+\.?\d*', answer_text)
+                if numbers:
+                    return numbers[0]  # Return first number found
+                
+                # If no number, return first few words (up to 10 words)
+                words = answer_text.split()[:10]
+                return ' '.join(words) if words else None
+        
+        return None
+    except Exception:
+        return None
+
+
+def compute_exact_match_accuracy(logits, targets, tokenizer):
+    """
+    Compute exact answer matching accuracy.
+    Extracts answers from predictions and targets, then compares them.
+    
+    Args:
+        logits: Model output logits [batch_size, seq_len, vocab_size]
+        targets: Ground truth token IDs [batch_size, seq_len]
+        tokenizer: Tokenizer object
+    
+    Returns:
+        Exact match accuracy as a scalar tensor
+    """
+    predictions = tf.argmax(logits, axis=-1, output_type=tf.int32)
+    
+    batch_size = tf.shape(predictions)[0]
+    matches = []
+    
+    # Process each example in batch
+    for i in range(batch_size):
+        pred_tokens = predictions[i]
+        target_tokens = targets[i]
+        
+        pred_answer = extract_answer_from_tokens(pred_tokens, tokenizer)
+        target_answer = extract_answer_from_tokens(target_tokens, tokenizer)
+        
+        # Compare answers
+        if pred_answer is not None and target_answer is not None:
+            # Normalize and compare
+            pred_normalized = pred_answer.strip().lower()
+            target_normalized = target_answer.strip().lower()
+            matches.append(1.0 if pred_normalized == target_normalized else 0.0)
+        else:
+            matches.append(0.0)
+    
+    return tf.constant(np.mean(matches), dtype=tf.float32)
 
 
 def compute_loss_with_mask(logits, targets, pad_token_id):
@@ -303,36 +404,48 @@ def train_control_transformer(
         
         for batch_idx, (inputs, targets) in enumerate(train_dataset):
             loss, accuracy = train_step(inputs, targets)
-            train_metrics.update(loss, accuracy)
+            
+            # Compute exact match accuracy (can't be in tf.function due to string ops)
+            logits = model(inputs, training=False)
+            exact_match = compute_exact_match_accuracy(logits, targets, tokenizer)
+            
+            train_metrics.update(loss, accuracy, exact_match)
             global_step += 1
             
             # Log to WandB
             if use_wandb:
                 wandb.log({
                     'train/loss': float(loss),
-                    'train/accuracy': float(accuracy),
+                    'train/token_accuracy': float(accuracy),
+                    'train/exact_match': float(exact_match),
                     'train/step': global_step
                 })
             
             if (batch_idx + 1) % 50 == 0:
-                print(f"  Batch {batch_idx + 1}: Loss={loss:.4f}, Acc={accuracy:.4f}")
+                print(f"  Batch {batch_idx + 1}: Loss={loss:.4f}, TokenAcc={accuracy:.4f}, ExactMatch={exact_match:.4f}")
         
         # Validation
         val_metrics.reset()
         for inputs, targets in val_dataset:
             loss, accuracy = val_step(inputs, targets)
-            val_metrics.update(loss, accuracy)
+            
+            # Compute exact match for validation
+            logits = model(inputs, training=False)
+            exact_match = compute_exact_match_accuracy(logits, targets, tokenizer)
+            
+            val_metrics.update(loss, accuracy, exact_match)
         
         # Log to WandB
         if use_wandb:
             wandb.log({
                 'val/loss': float(val_metrics.avg_loss),
-                'val/accuracy': float(val_metrics.avg_accuracy),
+                'val/token_accuracy': float(val_metrics.avg_accuracy),
+                'val/exact_match': float(val_metrics.avg_exact_match),
                 'epoch': epoch + 1
             })
         
-        print(f"\n  Train Loss: {train_metrics.avg_loss:.4f}, Train Acc: {train_metrics.avg_accuracy:.4f}")
-        print(f"  Val Loss: {val_metrics.avg_loss:.4f}, Val Acc: {val_metrics.avg_accuracy:.4f}")
+        print(f"\n  Train Loss: {train_metrics.avg_loss:.4f}, Token Acc: {train_metrics.avg_accuracy:.4f}, Exact Match: {train_metrics.avg_exact_match:.4f}")
+        print(f"  Val Loss: {val_metrics.avg_loss:.4f}, Token Acc: {val_metrics.avg_accuracy:.4f}, Exact Match: {val_metrics.avg_exact_match:.4f}")
         
         # Save best model
         if val_metrics.avg_loss < best_val_loss:
@@ -347,6 +460,7 @@ def train_control_transformer(
     # Save final model
     model.save_weights(os.path.join(checkpoint_dir, 'final_model.weights.h5'))
     print(f"\n✓ Training complete. Best validation loss: {best_val_loss:.4f}")
+    print(f"  Final Exact Match Accuracy: {val_metrics.avg_exact_match:.4f}")
     
     # Finish WandB run
     if use_wandb:
@@ -356,8 +470,10 @@ def train_control_transformer(
         'best_val_loss': best_val_loss,
         'final_train_loss': train_metrics.avg_loss,
         'final_train_acc': train_metrics.avg_accuracy,
+        'final_train_exact_match': train_metrics.avg_exact_match,
         'final_val_loss': val_metrics.avg_loss,
-        'final_val_acc': val_metrics.avg_accuracy
+        'final_val_acc': val_metrics.avg_accuracy,
+        'final_val_exact_match': val_metrics.avg_exact_match
     }
 
 
@@ -449,40 +565,48 @@ def train_recursive_transformer(
             result = model.train_step((inputs, targets))
             loss = result['loss']
             
-            # Compute accuracy separately for logging
+            # Compute accuracy and exact match separately for logging
             logits = model(inputs, training=False)
             accuracy = compute_accuracy(logits, targets, tokenizer.pad_token_id)
+            exact_match = compute_exact_match_accuracy(logits, targets, tokenizer)
             
-            train_metrics.update(loss, accuracy)
+            train_metrics.update(loss, accuracy, exact_match)
             global_step += 1
             
             # Log to WandB
             if use_wandb:
                 wandb.log({
                     'train/loss': float(loss),
-                    'train/accuracy': float(accuracy),
+                    'train/token_accuracy': float(accuracy),
+                    'train/exact_match': float(exact_match),
                     'train/step': global_step
                 })
             
             if (batch_idx + 1) % 50 == 0:
-                print(f"  Batch {batch_idx + 1}: Loss={loss:.4f}, Acc={accuracy:.4f}")
+                print(f"  Batch {batch_idx + 1}: Loss={loss:.4f}, TokenAcc={accuracy:.4f}, ExactMatch={exact_match:.4f}")
         
         # Validation
         val_metrics.reset()
         for inputs, targets in val_dataset:
             loss, accuracy = val_step(inputs, targets)
-            val_metrics.update(loss, accuracy)
+            
+            # Compute exact match for validation
+            logits = model(inputs, training=False)
+            exact_match = compute_exact_match_accuracy(logits, targets, tokenizer)
+            
+            val_metrics.update(loss, accuracy, exact_match)
         
         # Log to WandB
         if use_wandb:
             wandb.log({
                 'val/loss': float(val_metrics.avg_loss),
-                'val/accuracy': float(val_metrics.avg_accuracy),
+                'val/token_accuracy': float(val_metrics.avg_accuracy),
+                'val/exact_match': float(val_metrics.avg_exact_match),
                 'epoch': epoch + 1
             })
         
-        print(f"\n  Train Loss: {train_metrics.avg_loss:.4f}, Train Acc: {train_metrics.avg_accuracy:.4f}")
-        print(f"  Val Loss: {val_metrics.avg_loss:.4f}, Val Acc: {val_metrics.avg_accuracy:.4f}")
+        print(f"\n  Train Loss: {train_metrics.avg_loss:.4f}, Token Acc: {train_metrics.avg_accuracy:.4f}, Exact Match: {train_metrics.avg_exact_match:.4f}")
+        print(f"  Val Loss: {val_metrics.avg_loss:.4f}, Token Acc: {val_metrics.avg_accuracy:.4f}, Exact Match: {val_metrics.avg_exact_match:.4f}")
         
         # Save best model
         if val_metrics.avg_loss < best_val_loss:
@@ -497,6 +621,7 @@ def train_recursive_transformer(
     # Save final model
     model.save_weights(os.path.join(checkpoint_dir, 'final_model.weights.h5'))
     print(f"\n✓ Training complete. Best validation loss: {best_val_loss:.4f}")
+    print(f"  Final Exact Match Accuracy: {val_metrics.avg_exact_match:.4f}")
     
     # Finish WandB run
     if use_wandb:
@@ -506,8 +631,10 @@ def train_recursive_transformer(
         'best_val_loss': best_val_loss,
         'final_train_loss': train_metrics.avg_loss,
         'final_train_acc': train_metrics.avg_accuracy,
+        'final_train_exact_match': train_metrics.avg_exact_match,
         'final_val_loss': val_metrics.avg_loss,
-        'final_val_acc': val_metrics.avg_accuracy
+        'final_val_acc': val_metrics.avg_accuracy,
+        'final_val_exact_match': val_metrics.avg_exact_match
     }
 
 
@@ -521,24 +648,33 @@ def evaluate_model(model, test_dataset, tokenizer, model_name="Model"):
     
     total_loss = 0.0
     total_accuracy = 0.0
+    total_exact_match = 0.0
     num_batches = 0
     
     for inputs, targets in test_dataset:
         logits = model(inputs, training=False)
         loss = compute_loss_with_mask(logits, targets, tokenizer.pad_token_id)
         accuracy = compute_accuracy(logits, targets, tokenizer.pad_token_id)
+        exact_match = compute_exact_match_accuracy(logits, targets, tokenizer)
         
         total_loss += float(loss)
         total_accuracy += float(accuracy)
+        total_exact_match += float(exact_match)
         num_batches += 1
     
     avg_loss = total_loss / num_batches
     avg_accuracy = total_accuracy / num_batches
+    avg_exact_match = total_exact_match / num_batches
     
     print(f"  Test Loss: {avg_loss:.4f}")
-    print(f"  Test Accuracy: {avg_accuracy:.4f}")
+    print(f"  Test Token Accuracy: {avg_accuracy:.4f}")
+    print(f"  Test Exact Match: {avg_exact_match:.4f}")
     
-    return {'test_loss': avg_loss, 'test_accuracy': avg_accuracy}
+    return {
+        'test_loss': avg_loss,
+        'test_accuracy': avg_accuracy,
+        'test_exact_match': avg_exact_match
+    }
 
 
 def compare_models(control_results, recursive_results):
@@ -550,7 +686,7 @@ def compare_models(control_results, recursive_results):
     print(f"\n{'Metric':<25} {'Control':<15} {'Recursive':<15} {'Improvement':<15}")
     print("-"*70)
     
-    for metric in ['test_loss', 'test_accuracy']:
+    for metric in ['test_loss', 'test_accuracy', 'test_exact_match']:
         control_val = control_results.get(metric, 0)
         recursive_val = recursive_results.get(metric, 0)
         
