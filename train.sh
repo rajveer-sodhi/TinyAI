@@ -78,10 +78,11 @@ DROPOUT=0.1
 
 # Recursive model specific (reduced to lower memory)
 DEEP_REC_CYCLES=2 #2
-NUM_L_STEPS=3 #3
+NUM_L_STEPS=5 #3
 DEEP_SUP_STEPS=2
 ACT_LOSS_WEIGHT=0.1
 STEP_PENALTY_WEIGHT=0.01
+MIN_HALT_STEPS=3
 
 # Training hyperparameters (smaller batch/seq to reduce RAM)
 EPOCHS=20
@@ -138,6 +139,7 @@ python -u train.py \
     --deep_sup_steps $DEEP_SUP_STEPS \
     --act_loss_weight $ACT_LOSS_WEIGHT \
     --step_penalty_weight $STEP_PENALTY_WEIGHT \
+    --min_halt_steps $MIN_HALT_STEPS \
     --epochs $EPOCHS \
     --batch_size $BATCH_SIZE \
     --learning_rate $LEARNING_RATE \

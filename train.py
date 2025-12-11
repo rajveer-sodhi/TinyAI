@@ -601,6 +601,8 @@ def main():
                         help='Threshold for halting during inference')
     parser.add_argument('--halt_max_steps', type=int, default=16,
                         help='Maximum steps before forced halt')
+    parser.add_argument('--min_halt_steps', type=int, default=3,
+                        help='Minimum steps before halting is allowed')
     
     # Training arguments
     parser.add_argument('--epochs', type=int, default=20)
@@ -721,7 +723,8 @@ def main():
             step_penalty_weight=args.step_penalty_weight,
             num_l_steps=args.num_l_steps,
             halt_exploration_prob=args.halt_exploration_prob,
-            halt_max_steps=args.halt_max_steps
+            halt_max_steps=args.halt_max_steps,
+            min_halt_steps=args.min_halt_steps
         )
         
         # Build model

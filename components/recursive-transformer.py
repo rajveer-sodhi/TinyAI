@@ -20,6 +20,7 @@ class RecursiveTransformer(keras.Model):
                 halt_exploration_prob = 0.1,
                 halt_max_steps = 16,
                 step_penalty_weight = 0.1,
+                min_halt_steps = 3,
                 **kwargs):
         super().__init__(**kwargs)
 
@@ -37,6 +38,7 @@ class RecursiveTransformer(keras.Model):
         self.halt_exploration_prob = halt_exploration_prob
         self.halt_max_steps = halt_max_steps
         self.step_penalty_weight = step_penalty_weight
+        self.min_halt_steps = min_halt_steps
 
         self.embedding = EmbeddingLayer(vocab_size, d_model, max_seq_length, dropout_rate)
         self.transformer_encoder = TransformerEncoder(d_model, num_heads, ff_dim, num_layers, dropout_rate)
@@ -161,10 +163,11 @@ class RecursiveTransformer(keras.Model):
         else:
             # Use tf.while_loop for graph compatibility
             def condition(steps, halted, y, z, prev_logits):
-                # Continue if not all halted and under max steps
+                # Continue if under max steps AND (not all halted OR under min halt steps)
                 not_all_halted = tf.logical_not(tf.reduce_all(halted))
                 under_max_steps = tf.less(steps, self.halt_max_steps)
-                return tf.logical_and(not_all_halted, under_max_steps)
+                enforce_min_steps = tf.less(steps, self.min_halt_steps)
+                return tf.logical_and(under_max_steps, tf.logical_or(enforce_min_steps, not_all_halted))
             
             def body(steps, halted, y, z, prev_logits):
                 y_new, z_new, logits, q_logit = self.recursive_reasoning(embeddings, y, z, training = False)
@@ -205,6 +208,7 @@ class RecursiveTransformer(keras.Model):
             'halt_exploration_prob': self.halt_exploration_prob,
             'halt_max_steps': self.halt_max_steps,
             'step_penalty_weight': self.step_penalty_weight,
+            'min_halt_steps': self.min_halt_steps,
         })
 
         return config
