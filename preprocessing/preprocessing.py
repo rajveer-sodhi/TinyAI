@@ -36,6 +36,28 @@ USE_GSM8K = True
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
+
+def extract_final_answer(answer_text):
+    """
+    Extract just the final numeric answer from an answer string.
+    Handles formats like:
+    - "Step by step explanation... #### 42" -> "42"
+    - "42" -> "42"
+    - "The answer is 42." -> "42"
+    """
+    # Check if answer contains "####" separator (GSM8K and Orca Math format)
+    if "####" in answer_text:
+        final_answer = answer_text.split("####")[-1].strip()
+        return final_answer
+    
+    # Otherwise, try to extract the last number from the text
+    numbers = re.findall(r'-?\d+\.?\d*', answer_text)
+    if numbers:
+        return numbers[-1]
+    
+    # If no number found, return the answer as-is (shouldn't happen with math problems)
+    return answer_text.strip()
+
 # Only initialize OpenAI client if we might use it (augmentation is disabled but might be re-enabled)
 # If using GSM8K only, we don't need the OpenAI client
 client = None
@@ -73,6 +95,7 @@ def load_gsm8k():
     """
     Load GSM8K dataset in its entirety, no filtering or augmentation.
     Returns list of items with 'question' and 'answer' fields.
+    Extracts only the final numeric answer (after ####).
     """
     print("\nPHASE 1.5: Loading GSM8K Dataset")
     try:
@@ -84,9 +107,11 @@ def load_gsm8k():
         gsm8k_items = []
         for item in gsm8k_train:
             # GSM8K format: {'question': str, 'answer': str}
+            # Extract only the final answer (after ####)
+            final_answer = extract_final_answer(item['answer'])
             gsm8k_items.append({
                 'question': item['question'],
-                'answer': item['answer']
+                'answer': final_answer
             })
         
         print(f"GSM8K: {len(gsm8k_items)} samples ready")
@@ -184,7 +209,7 @@ def phase_4_final_assembly(bucket_a, bucket_b, verified_bucket_c, gsm8k_items=No
     
     # If using GSM8K only, skip Orca Math buckets
     if gsm8k_items:
-        # Add GSM8K samples only (no filtering)
+        # Add GSM8K samples only (answer already extracted in load_gsm8k)
         for item in gsm8k_items:
             final_dataset.append(f"[BOS] Q: {item['question']} A: {item['answer']} [EOS]")
         print(f"GSM8K samples: {len(gsm8k_items)}")
@@ -199,20 +224,23 @@ def phase_4_final_assembly(bucket_a, bucket_b, verified_bucket_c, gsm8k_items=No
         # Sample from bucket B
         bucket_b_sample = random.sample(bucket_b, min(len(bucket_b), MAX_SAMPLES_PER_BUCKET))
         
-        # Add bucket A samples (simple problems)
+        # Add bucket A samples (simple problems) - extract final answer only
         for item in bucket_a_sample:
-            final_dataset.append(f"[BOS] Q: {item['question']} A: {item['answer']} [EOS]")
+            final_answer = extract_final_answer(item['answer'])
+            final_dataset.append(f"[BOS] Q: {item['question']} A: {final_answer} [EOS]")
         
-        # Add bucket B samples (complex problems)
+        # Add bucket B samples (complex problems) - extract final answer only
         for item in bucket_b_sample:
-            final_dataset.append(f"[BOS] Q: {item['question']} A: {item['answer']} [EOS]")
+            final_answer = extract_final_answer(item['answer'])
+            final_dataset.append(f"[BOS] Q: {item['question']} A: {final_answer} [EOS]")
         
         print(f"Bucket A: {len(bucket_a)} available, {len(bucket_a_sample)} used")
         print(f"Bucket B: {len(bucket_b)} available, {len(bucket_b_sample)} used")
     
-    # Add augmented bucket C (if any)
+    # Add augmented bucket C (if any) - extract final answer only
     for item in verified_bucket_c:
-        final_dataset.append(f"[BOS] Q: {item['question']} Thinking: {item['thinking']} A: {item['answer']} [EOS]")
+        final_answer = extract_final_answer(item['answer'])
+        final_dataset.append(f"[BOS] Q: {item['question']} Thinking: {item['thinking']} A: {final_answer} [EOS]")
     
     random.shuffle(final_dataset)
     with open(f"{OUTPUT_DIR}/final_train_data.txt", "w", encoding="utf-8") as f:
