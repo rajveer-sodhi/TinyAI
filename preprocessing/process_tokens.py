@@ -5,9 +5,9 @@ import torch
 from collections import Counter
 
 
-INPUT_FILE = "data/final_train_data.txt" 
-OUTPUT_DIR = "data"
-VOCAB_SIZE = 10000
+INPUT_FILE = "preprocessing/data/final_train_data.txt" 
+OUTPUT_DIR = "preprocessing/data"
+VOCAB_SIZE = 20000
 TRAIN_FRACTION = 0.9
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
