@@ -83,7 +83,7 @@ DEEP_SUP_STEPS=2
 ACT_LOSS_WEIGHT=0.1
 
 # Training hyperparameters (smaller batch/seq to reduce RAM)
-EPOCHS=20
+EPOCHS=30
 BATCH_SIZE=8
 LEARNING_RATE=1e-4
 MAX_SEQ_LENGTH=128

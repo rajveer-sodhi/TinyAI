@@ -143,11 +143,29 @@ def phase_3_verify_data(bucket_c):
     print(f"Verified: {len(verified_bucket)} / {len(bucket_c)}")
     return verified_bucket
 
-def phase_4_final_assembly(bucket_a, verified_bucket_c):
+def phase_4_final_assembly(bucket_a, bucket_b, verified_bucket_c):
     print("\nPHASE 4: Final Formatting")
+    
+    # Limit to 10,000 samples from each bucket
+    MAX_SAMPLES_PER_BUCKET = 10000
+    
+    # Sample from bucket A
+    bucket_a_sample = random.sample(bucket_a, min(len(bucket_a), MAX_SAMPLES_PER_BUCKET))
+    
+    # Sample from bucket B
+    bucket_b_sample = random.sample(bucket_b, min(len(bucket_b), MAX_SAMPLES_PER_BUCKET))
+    
     final_dataset = []
-    for item in bucket_a:
+    
+    # Add bucket A samples (simple problems)
+    for item in bucket_a_sample:
         final_dataset.append(f"[BOS] Q: {item['question']} A: {item['answer']} [EOS]")
+    
+    # Add bucket B samples (complex problems)
+    for item in bucket_b_sample:
+        final_dataset.append(f"[BOS] Q: {item['question']} A: {item['answer']} [EOS]")
+    
+    # Add augmented bucket C (if any)
     for item in verified_bucket_c:
         final_dataset.append(f"[BOS] Q: {item['question']} Thinking: {item['thinking']} A: {item['answer']} [EOS]")
     
@@ -155,6 +173,10 @@ def phase_4_final_assembly(bucket_a, verified_bucket_c):
     with open(f"{OUTPUT_DIR}/final_train_data.txt", "w") as f:
         for line in final_dataset:
             f.write(line.replace('\n', ' ') + '\n')
+    
+    print(f"Bucket A: {len(bucket_a)} available, {len(bucket_a_sample)} used")
+    print(f"Bucket B: {len(bucket_b)} available, {len(bucket_b_sample)} used")
+    print(f"Augmented samples: {len(verified_bucket_c)}")
     print(f"Total samples in final_train_data.txt: {len(final_dataset)}")
     print("Done.")
 
@@ -170,7 +192,7 @@ async def main():
         
     verified_c = phase_3_verify_data(bucket_c)
     
-    phase_4_final_assembly(bucket_a, verified_c)
+    phase_4_final_assembly(bucket_a, bucket_b, verified_c)
 
 if __name__ == "__main__":
     asyncio.run(main())
