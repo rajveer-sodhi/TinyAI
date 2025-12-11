@@ -498,8 +498,9 @@ def train_recursive_transformer(
             act_loss = result['act_loss']
             step_penalty = result['step_penalty']
             
-            # Compute accuracy separately for logging
-            logits = model(inputs, training=False)
+            # Compute accuracy using training path (same as train_step)
+            # This matches what the model actually optimizes during training
+            logits = model(inputs, training=True)
             accuracy = compute_accuracy(logits, targets, tokenizer.pad_token_id)
             answer_accuracy = compute_answer_only_accuracy(logits, targets, tokenizer.pad_token_id, a_colon_token_id)
             

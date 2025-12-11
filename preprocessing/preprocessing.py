@@ -47,6 +47,7 @@ def extract_final_answer(answer_text):
     """
     # Check if answer contains "####" separator (GSM8K and Orca Math format)
     if "####" in answer_text:
+        
         final_answer = answer_text.split("####")[-1].strip()
         return final_answer
     
