@@ -97,9 +97,9 @@ class RecursiveTransformer(keras.Model):
         #     y_tmp, z_tmp = self.full_recursion(embedding, y, z, training = False)
         #     y = tf.stop_gradient(y_tmp)
         #     z = tf.stop_gradient(z_tmp)
-        y = tf.stop_gradient(y)
-        z = tf.stop_gradient(z)
-
+        
+        # Don't stop gradients here - it's handled in train_step after first iteration
+        # This allows y0 and z0 to receive gradients from the first supervision step
         y, z = self.full_recursion(embedding, y, z, training = training)
 
         logits = self.output_head(y)
