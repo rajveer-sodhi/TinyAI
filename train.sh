@@ -83,6 +83,7 @@ DEEP_SUP_STEPS=2
 ACT_LOSS_WEIGHT=0.1
 STEP_PENALTY_WEIGHT=0.01
 MIN_HALT_STEPS=3
+STAGE_WEIGHTS="1.0,1.5"
 
 # Training hyperparameters (smaller batch/seq to reduce RAM)
 EPOCHS=20
@@ -140,6 +141,7 @@ python -u train.py \
     --act_loss_weight $ACT_LOSS_WEIGHT \
     --step_penalty_weight $STEP_PENALTY_WEIGHT \
     --min_halt_steps $MIN_HALT_STEPS \
+    --stage_weights "$STAGE_WEIGHTS" \
     --epochs $EPOCHS \
     --batch_size $BATCH_SIZE \
     --learning_rate $LEARNING_RATE \

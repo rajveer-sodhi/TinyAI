@@ -603,6 +603,8 @@ def main():
                         help='Maximum steps before forced halt')
     parser.add_argument('--min_halt_steps', type=int, default=3,
                         help='Minimum steps before halting is allowed')
+    parser.add_argument('--stage_weights', type=str, default='',
+                        help='Comma-separated weights for deep supervision stages (e.g., "0.3,0.7,1.0"); empty for uniform')
     
     # Training arguments
     parser.add_argument('--epochs', type=int, default=20)
@@ -724,7 +726,8 @@ def main():
             num_l_steps=args.num_l_steps,
             halt_exploration_prob=args.halt_exploration_prob,
             halt_max_steps=args.halt_max_steps,
-            min_halt_steps=args.min_halt_steps
+            min_halt_steps=args.min_halt_steps,
+            stage_weights=[float(x) for x in args.stage_weights.split(",")] if args.stage_weights else None
         )
         
         # Build model
