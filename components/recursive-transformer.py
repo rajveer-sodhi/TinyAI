@@ -19,7 +19,7 @@ class RecursiveTransformer(keras.Model):
                 num_l_steps = 6,
                 halt_exploration_prob = 0.1,
                 halt_max_steps = 16,
-                step_penalty_weight = 0.01,
+                step_penalty_weight = 0.1,
                 **kwargs):
         super().__init__(**kwargs)
 
@@ -105,7 +105,7 @@ class RecursiveTransformer(keras.Model):
             total_step_penalty = 0.0
 
             # Use more lenient halting during training to encourage more refinement steps
-            train_halt_prob = self.halt_exploration_prob * 0.5  # More lenient during training
+            train_halt_prob = self.halt_exploration_prob * 0.1  # More lenient during training
 
             for i in range(self.deep_sup_steps):
                 # run recursive reasoning once
