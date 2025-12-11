@@ -494,6 +494,9 @@ def train_recursive_transformer(
             # - Latent state management
             result = model.train_step((inputs, targets))
             loss = result['loss']
+            ce_loss = result['ce_loss']
+            act_loss = result['act_loss']
+            step_penalty = result['step_penalty']
             
             # Compute accuracy separately for logging
             logits = model(inputs, training=False)
@@ -507,13 +510,16 @@ def train_recursive_transformer(
             if use_wandb:
                 wandb.log({
                     'train/loss': float(loss),
+                    'train/ce_loss': float(ce_loss),
+                    'train/act_loss': float(act_loss),
+                    'train/step_penalty': float(step_penalty),
                     'train/accuracy': float(accuracy),
                     'train/answer_accuracy': float(answer_accuracy),
                     'train/step': global_step
                 })
             
             if (batch_idx + 1) % 50 == 0:
-                print(f"  Batch {batch_idx + 1}: Loss={loss:.4f}, Acc={accuracy:.4f}, AnsAcc={answer_accuracy:.4f}")
+                print(f"  Batch {batch_idx + 1}: Loss={loss:.4f} (CE={ce_loss:.4f}, ACT={act_loss:.4f}, Penalty={step_penalty:.4f}) | Acc={accuracy:.4f}, AnsAcc={answer_accuracy:.4f}")
         
         # Validation
         val_metrics.reset()

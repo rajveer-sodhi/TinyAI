@@ -167,7 +167,12 @@ class RecursiveTransformer(keras.Model):
         gradients = tape.gradient(loss, self.trainable_variables)
         self.optimizer.apply_gradients(zip(gradients, self.trainable_variables))
 
-        return {"loss": loss}
+        return {
+            "loss": loss,
+            "ce_loss": ce_mean,
+            "act_loss": act_mean,
+            "step_penalty": step_penalty_mean
+        }
 
     def call(self, inputs, training = False):
         embeddings = self.embedding(inputs, training = training)
