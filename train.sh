@@ -70,10 +70,10 @@ mkdir -p output/checkpoints/recursive
 # ============================================================================
 
 # Model hyperparameters (leaner for recursive stability)
-D_MODEL=32
+D_MODEL=16
 NUM_LAYERS=1
 NUM_HEADS=2
-FF_DIM=32
+FF_DIM=16
 DROPOUT=0.1
 
 # Recursive model specific (reduced to lower memory)
@@ -84,7 +84,7 @@ ACT_LOSS_WEIGHT=0.1
 STEP_PENALTY_WEIGHT=0.01
 
 # Training hyperparameters (smaller batch/seq to reduce RAM)
-EPOCHS=30
+EPOCHS=20
 BATCH_SIZE=8
 LEARNING_RATE=1e-3
 MAX_SEQ_LENGTH=128
