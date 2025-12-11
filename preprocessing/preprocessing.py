@@ -26,14 +26,21 @@ if not OPENAI_API_KEY:
                     break
     except Exception:
         pass
-OUTPUT_DIR = "data"
+OUTPUT_DIR = "preprocessing/data"
 NUM_TO_AUGMENT = 10
 MAX_NUMBER_LIMIT = 1000
 MAX_TEXT_LENGTH = 500
 
+# Dataset selection: Set to True to include GSM8K, False to use only Orca Math
+USE_GSM8K = True
+
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-client = AsyncOpenAI(api_key=OPENAI_API_KEY)
+# Only initialize OpenAI client if we might use it (augmentation is disabled but might be re-enabled)
+# If using GSM8K only, we don't need the OpenAI client
+client = None
+if not USE_GSM8K and OPENAI_API_KEY:
+    client = AsyncOpenAI(api_key=OPENAI_API_KEY)
 
 
 def is_tiny_friendly(text):
@@ -60,6 +67,33 @@ def phase_1_split_data():
 
     print(f"Bucket A: {len(bucket_a)} | Bucket B: {len(bucket_b)}")
     return bucket_a, bucket_b
+
+
+def load_gsm8k():
+    """
+    Load GSM8K dataset in its entirety, no filtering or augmentation.
+    Returns list of items with 'question' and 'answer' fields.
+    """
+    print("\nPHASE 1.5: Loading GSM8K Dataset")
+    try:
+        # GSM8K has 'train' and 'test' splits, we'll use 'train' for training data
+        gsm8k_train = load_dataset("gsm8k", "main", split="train")
+        print(f"Loaded {len(gsm8k_train)} GSM8K training samples")
+        
+        # Convert to list format compatible with our pipeline
+        gsm8k_items = []
+        for item in gsm8k_train:
+            # GSM8K format: {'question': str, 'answer': str}
+            gsm8k_items.append({
+                'question': item['question'],
+                'answer': item['answer']
+            })
+        
+        print(f"GSM8K: {len(gsm8k_items)} samples ready")
+        return gsm8k_items
+    except Exception as e:
+        print(f"Warning: Failed to load GSM8K dataset: {e}")
+        return []
 
 
 async def simplify_single_problem(sem, item, max_retries=5):
@@ -143,45 +177,65 @@ def phase_3_verify_data(bucket_c):
     print(f"Verified: {len(verified_bucket)} / {len(bucket_c)}")
     return verified_bucket
 
-def phase_4_final_assembly(bucket_a, bucket_b, verified_bucket_c):
+def phase_4_final_assembly(bucket_a, bucket_b, verified_bucket_c, gsm8k_items=None):
     print("\nPHASE 4: Final Formatting")
-    
-    # Limit to 10,000 samples from each bucket
-    MAX_SAMPLES_PER_BUCKET = 10000
-    
-    # Sample from bucket A
-    bucket_a_sample = random.sample(bucket_a, min(len(bucket_a), MAX_SAMPLES_PER_BUCKET))
-    
-    # Sample from bucket B
-    bucket_b_sample = random.sample(bucket_b, min(len(bucket_b), MAX_SAMPLES_PER_BUCKET))
     
     final_dataset = []
     
-    # Add bucket A samples (simple problems)
-    for item in bucket_a_sample:
-        final_dataset.append(f"[BOS] Q: {item['question']} A: {item['answer']} [EOS]")
-    
-    # Add bucket B samples (complex problems)
-    for item in bucket_b_sample:
-        final_dataset.append(f"[BOS] Q: {item['question']} A: {item['answer']} [EOS]")
+    # If using GSM8K only, skip Orca Math buckets
+    if gsm8k_items:
+        # Add GSM8K samples only (no filtering)
+        for item in gsm8k_items:
+            final_dataset.append(f"[BOS] Q: {item['question']} A: {item['answer']} [EOS]")
+        print(f"GSM8K samples: {len(gsm8k_items)}")
+    else:
+        # Use Orca Math buckets
+        # Limit to 10,000 samples from each bucket
+        MAX_SAMPLES_PER_BUCKET = 10000
+        
+        # Sample from bucket A
+        bucket_a_sample = random.sample(bucket_a, min(len(bucket_a), MAX_SAMPLES_PER_BUCKET))
+        
+        # Sample from bucket B
+        bucket_b_sample = random.sample(bucket_b, min(len(bucket_b), MAX_SAMPLES_PER_BUCKET))
+        
+        # Add bucket A samples (simple problems)
+        for item in bucket_a_sample:
+            final_dataset.append(f"[BOS] Q: {item['question']} A: {item['answer']} [EOS]")
+        
+        # Add bucket B samples (complex problems)
+        for item in bucket_b_sample:
+            final_dataset.append(f"[BOS] Q: {item['question']} A: {item['answer']} [EOS]")
+        
+        print(f"Bucket A: {len(bucket_a)} available, {len(bucket_a_sample)} used")
+        print(f"Bucket B: {len(bucket_b)} available, {len(bucket_b_sample)} used")
     
     # Add augmented bucket C (if any)
     for item in verified_bucket_c:
         final_dataset.append(f"[BOS] Q: {item['question']} Thinking: {item['thinking']} A: {item['answer']} [EOS]")
     
     random.shuffle(final_dataset)
-    with open(f"{OUTPUT_DIR}/final_train_data.txt", "w") as f:
+    with open(f"{OUTPUT_DIR}/final_train_data.txt", "w", encoding="utf-8") as f:
         for line in final_dataset:
             f.write(line.replace('\n', ' ') + '\n')
     
-    print(f"Bucket A: {len(bucket_a)} available, {len(bucket_a_sample)} used")
-    print(f"Bucket B: {len(bucket_b)} available, {len(bucket_b_sample)} used")
-    print(f"Augmented samples: {len(verified_bucket_c)}")
+    if verified_bucket_c:
+        print(f"Augmented samples: {len(verified_bucket_c)}")
     print(f"Total samples in final_train_data.txt: {len(final_dataset)}")
     print("Done.")
 
 async def main():
-    bucket_a, bucket_b = phase_1_split_data()
+    # Load GSM8K if enabled, otherwise use Orca Math
+    gsm8k_items = None
+    bucket_a = []
+    bucket_b = []
+    
+    if USE_GSM8K:
+        # Use GSM8K only
+        gsm8k_items = load_gsm8k()
+    else:
+        # Use Orca Math
+        bucket_a, bucket_b = phase_1_split_data()
     
     # if bucket_b:
     #     bucket_c = await phase_2_augment_data_async(bucket_b)
@@ -192,7 +246,7 @@ async def main():
         
     verified_c = phase_3_verify_data(bucket_c)
     
-    phase_4_final_assembly(bucket_a, bucket_b, verified_c)
+    phase_4_final_assembly(bucket_a, bucket_b, verified_c, gsm8k_items)
 
 if __name__ == "__main__":
     asyncio.run(main())

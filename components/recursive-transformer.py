@@ -71,10 +71,10 @@ class RecursiveTransformer(keras.Model):
         return y, z
 
     def recursive_reasoning(self, embedding, y, z, training = False):
-        for i in range(max(self.deep_rec_cycles - 1, 0)):
-            y_tmp, z_tmp = self.full_recursion(embedding, y, z, training = False)
-            y = tf.stop_gradient(y_tmp)
-            z = tf.stop_gradient(z_tmp)
+        # for i in range(max(self.deep_rec_cycles - 1, 0)):
+        #     y_tmp, z_tmp = self.full_recursion(embedding, y, z, training = False)
+        #     y = tf.stop_gradient(y_tmp)
+        #     z = tf.stop_gradient(z_tmp)
 
         y, z = self.full_recursion(embedding, y, z, training = training)
 
