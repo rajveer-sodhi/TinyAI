@@ -1,0 +1,76 @@
+_wandb:
+    value:
+        cli_version: 0.22.3
+        e:
+            8p85fgjwhhhviqdsvjak97jx1746mlmw:
+                args:
+                    - --skip_control
+                codePath: train.py
+                codePathLocal: train.py
+                cpu_count: 8
+                cpu_count_logical: 16
+                cudaVersion: "12.7"
+                disk:
+                    /:
+                        total: "999209373696"
+                        used: "661655617536"
+                email: benjamin_peckham@brown.edu
+                executable: C:\Users\camer\AppData\Local\Programs\Python\Python311\python.exe
+                git:
+                    commit: 003208ba014c09d145f893d09347e9a6e30e7178
+                    remote: https://github.com/rajveer-sodhi/TinyAI
+                gpu: NVIDIA GeForce RTX 3080 Laptop GPU
+                gpu_count: 1
+                gpu_nvidia:
+                    - architecture: Ampere
+                      cudaCores: 6144
+                      memoryTotal: "8589934592"
+                      name: NVIDIA GeForce RTX 3080 Laptop GPU
+                      uuid: GPU-ae161d34-efad-2406-40b4-8c48d121507b
+                host: Europa
+                memory:
+                    total: "16558063616"
+                os: Windows-10-10.0.26200-SP0
+                program: C:\Users\camer\Documents\csci1470\TinyAI\train.py
+                python: CPython 3.11.0
+                root: C:\Users\camer\Documents\csci1470\TinyAI
+                startedAt: "2025-12-11T02:38:56.583542Z"
+                writerId: 8p85fgjwhhhviqdsvjak97jx1746mlmw
+        m: []
+        python_version: 3.11.0
+        t:
+            "1":
+                - 2
+                - 3
+            "2":
+                - 2
+                - 3
+            "3":
+                - 13
+                - 16
+            "4": 3.11.0
+            "5": 0.22.3
+            "8":
+                - 3
+            "12": 0.22.3
+            "13": windows-amd64
+act_loss_weight:
+    value: 0.1
+d_model:
+    value: 256
+deep_rec_cycles:
+    value: 3
+deep_sup_steps:
+    value: 4
+epochs:
+    value: 20
+learning_rate:
+    value: 0.0001
+model:
+    value: recursive_transformer
+num_heads:
+    value: 4
+num_l_steps:
+    value: 6
+num_layers:
+    value: 2

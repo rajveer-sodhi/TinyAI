@@ -1,0 +1,157 @@
+
+Epoch 1/20
+----------------------------------------
+Error in sys.excepthook:
+Traceback (most recent call last):
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\wandb\sdk\lib\exit_hooks.py", line 41, in exc_handler
+    def exc_handler(
+
+KeyboardInterrupt
+
+Original exception was:
+Traceback (most recent call last):
+  File "C:\Users\camer\Documents\csci1470\TinyAI\components\recursive-transformer.py", line 104, in train_step
+    y, z, logits, q_logit = self.recursive_reasoning(embedding, y, z, training = True)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\Documents\csci1470\TinyAI\components\recursive-transformer.py", line 79, in recursive_reasoning
+    y, z = self.full_recursion(embedding, y, z, training = training)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\Documents\csci1470\TinyAI\components\recursive-transformer.py", line 68, in full_recursion
+    z = self.f_L(embedding, y, z, training = training)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\Documents\csci1470\TinyAI\components\recursive-transformer.py", line 53, in f_L
+    z_hidden = self.transformer_encoder(z_input, training = training)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\keras\src\utils\traceback_utils.py", line 65, in error_handler
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\keras\src\engine\base_layer.py", line 1149, in __call__
+    outputs = call_fn(inputs, *args, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\keras\src\utils\traceback_utils.py", line 96, in error_handler
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\Documents\csci1470\TinyAI\components\transformer_encoder.py", line 20, in call
+    inputs = transformer_block(inputs, training=training)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\keras\src\utils\traceback_utils.py", line 65, in error_handler
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\keras\src\engine\base_layer.py", line 1149, in __call__
+    outputs = call_fn(inputs, *args, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\keras\src\utils\traceback_utils.py", line 96, in error_handler
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\Documents\csci1470\TinyAI\components\transformer_block.py", line 36, in call
+    ffn_output = self.ffn(norm_out1)
+                 ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\keras\src\utils\traceback_utils.py", line 65, in error_handler
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\keras\src\engine\training.py", line 590, in __call__
+    return super().__call__(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\keras\src\utils\traceback_utils.py", line 65, in error_handler
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\keras\src\engine\base_layer.py", line 1149, in __call__
+    outputs = call_fn(inputs, *args, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\keras\src\utils\traceback_utils.py", line 96, in error_handler
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\keras\src\engine\sequential.py", line 398, in call
+    return super().call(inputs, training=training, mask=mask)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\keras\src\engine\functional.py", line 515, in call
+    return self._run_internal_graph(inputs, training=training, mask=mask)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\keras\src\engine\functional.py", line 672, in _run_internal_graph
+    outputs = node.layer(*args, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\keras\src\utils\traceback_utils.py", line 65, in error_handler
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\keras\src\engine\base_layer.py", line 1149, in __call__
+    outputs = call_fn(inputs, *args, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\keras\src\utils\traceback_utils.py", line 96, in error_handler
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\keras\src\layers\core\dense.py", line 244, in call
+    outputs = tf.tensordot(inputs, self.kernel, [[rank - 1], [0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\tensorflow\python\util\traceback_utils.py", line 150, in error_handler
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\tensorflow\python\util\dispatch.py", line 1260, in op_dispatch_handler
+    return dispatch_target(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\tensorflow\python\ops\math_ops.py", line 5313, in tensordot
+    a_reshape, a_free_dims, a_free_dims_static = _tensordot_reshape(a, a_axes)
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\tensorflow\python\ops\math_ops.py", line 5239, in _tensordot_reshape
+    reshaped_a = array_ops.reshape(a_trans, new_shape)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\tensorflow\python\ops\weak_tensor_ops.py", line 88, in wrapper
+    return op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\tensorflow\python\util\traceback_utils.py", line 150, in error_handler
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\tensorflow\python\util\dispatch.py", line 1260, in op_dispatch_handler
+    return dispatch_target(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\tensorflow\python\ops\array_ops.py", line 201, in reshape
+    result = gen_array_ops.reshape(tensor, shape, name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\tensorflow\python\ops\gen_array_ops.py", line 8754, in reshape
+    return reshape_eager_fallback(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\tensorflow\python\ops\gen_array_ops.py", line 8776, in reshape_eager_fallback
+    _attr_Tshape, (shape,) = _execute.args_to_matching_eager([shape], ctx, [_dtypes.int32, _dtypes.int64, ], _dtypes.int32)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\tensorflow\python\eager\execute.py", line 251, in args_to_matching_eager
+    tensor = tensor_conversion_registry.convert(t)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\tensorflow\python\framework\tensor_conversion_registry.py", line 234, in convert
+    ret = conversion_func(value, dtype=dtype, name=name, as_ref=as_ref)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\tensorflow\python\framework\constant_op.py", line 335, in _constant_tensor_conversion_function
+    return constant(v, dtype=dtype, name=name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\tensorflow\python\ops\weak_tensor_ops.py", line 142, in wrapper
+    return op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\tensorflow\python\framework\constant_op.py", line 271, in constant
+    return _constant_impl(value, dtype, shape, name, verify_shape=False,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\tensorflow\python\framework\constant_op.py", line 284, in _constant_impl
+    return _constant_eager_impl(ctx, value, dtype, shape, verify_shape)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\tensorflow\python\framework\constant_op.py", line 296, in _constant_eager_impl
+    t = convert_to_eager_tensor(value, ctx, dtype)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\tensorflow\python\framework\constant_op.py", line 103, in convert_to_eager_tensor
+    return ops.EagerTensor(value, ctx.device_name, dtype)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\camer\Documents\csci1470\TinyAI\train.py", line 761, in <module>
+    main()
+  File "C:\Users\camer\Documents\csci1470\TinyAI\train.py", line 729, in main
+    recursive_train_results = train_recursive_transformer(
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\Documents\csci1470\TinyAI\train.py", line 449, in train_recursive_transformer
+    result = model.train_step((inputs, targets))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\camer\Documents\csci1470\TinyAI\components\recursive-transformer.py", line 91, in train_step
+    with tf.GradientTape() as tape:
+  File "C:\Users\camer\AppData\Local\Programs\Python\Python311\Lib\site-packages\tensorflow\python\eager\backprop.py", line 826, in __exit__
+    def __exit__(self, typ, value, traceback):
+
+KeyboardInterrupt

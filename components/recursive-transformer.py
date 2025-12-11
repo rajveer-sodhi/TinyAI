@@ -114,9 +114,10 @@ class RecursiveTransformer(keras.Model):
                 act_loss = keras.losses.binary_crossentropy(seq_correct, q_logit, from_logits = True)
                 total_act += tf.reduce_mean(act_loss)
 
-                # remove latent state AFTER computing loss (so gradients can flow from final iteration)
-                # Only stop gradient if not the last iteration to allow gradients to flow to y0/z0
-                if i < self.deep_sup_steps - 1:
+                # remove latent state AFTER computing loss
+                # Don't stop gradient on first iteration to ensure gradients flow to y0/z0
+                # Stop gradient on subsequent iterations to prevent gradient flow between supervision steps
+                if i > 0:
                     y = tf.stop_gradient(y)
                     z = tf.stop_gradient(z)
             ce_mean = total_ce / tf.cast(self.deep_sup_steps, tf.float32)
