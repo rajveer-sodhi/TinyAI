@@ -77,8 +77,8 @@ FF_DIM=32
 DROPOUT=0.1
 
 # Recursive model specific (reduced to lower memory)
-DEEP_REC_CYCLES=1 #2
-NUM_L_STEPS=2 #3
+DEEP_REC_CYCLES=2 #2
+NUM_L_STEPS=3 #3
 DEEP_SUP_STEPS=2
 ACT_LOSS_WEIGHT=0.1
 
