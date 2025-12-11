@@ -23,6 +23,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'components'))
 from transformer import Transformer
 from embeddings import EmbeddingLayer
 from transformer_encoder import TransformerEncoder
+from data.tokenizer import Tokenizer
 
 # Import RecursiveTransformer - note the filename uses hyphen
 import importlib.util
@@ -32,147 +33,68 @@ recursive_transformer_module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(recursive_transformer_module)
 RecursiveTransformer = recursive_transformer_module.RecursiveTransformer
 
-
-class Tokenizer:
-    """
-    Simple tokenizer that wraps existing vocabulary files.
-    Supports character-level (tokenizer.json) or word-level (vocab.json) tokenization.
-    """
+def load_data(q_data_path, a_data_path, input_tokenizer, ans_tokenizer, max_seq_length=512, test_split=0.1, val_split=0.1):
+    """Load and tokenize data from text files."""
+    with open(q_data_path, 'r', encoding='utf-8') as f:
+        q_lines = [line.strip() for line in f if line.strip()]
+    with open(a_data_path, 'r', encoding='utf-8') as f:
+        a_lines = [line.strip() for line in f if line.strip()]
     
-    def __init__(self, vocab_path=None):
-        self.token_to_id = {}
-        self.id_to_token = {}
-        self.vocab_size = 0
-        self.pad_token_id = 0
-        self.unk_token_id = 1
-        self.bos_token_id = 2
-        self.eos_token_id = 3
-        self.use_char_level = False
+    print(f"Loaded {len(q_lines)} questions")
+    print(f"Loaded {len(a_lines)} answers")
+    
+    if len(q_lines) != len(a_lines):
+        raise ValueError("Mismatch in quantity of questions and answers!")
+    
+    encoded_q = []
+    encoded_a = []
+    
+    for q, a in zip(q_lines, a_lines):
+        q_tokens = input_tokenizer.encode(q, max_length=max_seq_length, padding=True)
+        a_tokens = ans_tokenizer.encode(a, max_length=max_seq_length, padding=True)
         
-        if vocab_path:
-            self.load(vocab_path)
+        encoded_q.append(q_tokens)
+        encoded_a.append(a_tokens)
     
-    def load(self, vocab_path):
-        """Load vocabulary from JSON file."""
-        with open(vocab_path, 'r', encoding='utf-8') as f:
-            data = json.load(f)
-        
-        # Handle different vocab formats
-        if 'token_to_id' in data:
-            # Character-level tokenizer format (output/tokenizer.json)
-            self.token_to_id = data['token_to_id']
-            self.use_char_level = True
-            # Map special tokens
-            self.pad_token_id = self.token_to_id.get('[PAD]', 0)
-            self.unk_token_id = self.token_to_id.get('[UNK]', 1)
-            self.bos_token_id = self.token_to_id.get('[BOS]', 2)
-            self.eos_token_id = self.token_to_id.get('[EOS]', 3)
-        else:
-            # Word-level vocab format (preprocessing/data/vocab.json)
-            self.token_to_id = data
-            self.use_char_level = False
-            # Map special tokens
-            self.pad_token_id = self.token_to_id.get('<PAD>', 0)
-            self.unk_token_id = self.token_to_id.get('<UNK>', 1)
-            self.eos_token_id = self.token_to_id.get('<EOS>', 2)
-            # BOS might be 'bos' in word-level vocab
-            self.bos_token_id = self.token_to_id.get('bos', self.token_to_id.get('[BOS]', 15))
-        
-        self.id_to_token = {v: k for k, v in self.token_to_id.items()}
-        self.vocab_size = len(self.token_to_id)
-        
-        print(f"Loaded vocabulary with {self.vocab_size} tokens")
-        print(f"  PAD={self.pad_token_id}, UNK={self.unk_token_id}, BOS={self.bos_token_id}, EOS={self.eos_token_id}")
-    
-    def _tokenize_char(self, text):
-        """Character-level tokenization."""
-        tokens = []
-        for char in text:
-            tokens.append(self.token_to_id.get(char, self.unk_token_id))
-        return tokens
-    
-    def _tokenize_word(self, text):
-        """Word-level tokenization."""
-        import re
-        words = re.findall(r'\b\w+\b|[^\w\s]', text.lower())
-        tokens = []
-        for word in words:
-            tokens.append(self.token_to_id.get(word, self.unk_token_id))
-        return tokens
-    
-    def encode(self, text, max_length=512, padding=True):
-        """Encode text to token IDs."""
-        if self.use_char_level:
-            tokens = self._tokenize_char(text)
-        else:
-            tokens = self._tokenize_word(text)
-        
-        # Truncate if too long
-        if len(tokens) > max_length:
-            tokens = tokens[:max_length]
-        
-        # Pad if needed
-        if padding and len(tokens) < max_length:
-            tokens = tokens + [self.pad_token_id] * (max_length - len(tokens))
-        
-        return tokens
-    
-    def decode(self, ids):
-        """Decode token IDs back to text."""
-        if isinstance(ids, (list, np.ndarray)):
-            tokens = [self.id_to_token.get(int(i), '<UNK>') for i in ids]
-        else:
-            tokens = [self.id_to_token.get(int(ids), '<UNK>')]
-        
-        if self.use_char_level:
-            return ''.join(tokens)
-        else:
-            return ' '.join(tokens)
-
-
-def load_data(data_path, tokenizer, max_seq_length=512, test_split=0.1, val_split=0.1):
-    """Load and tokenize data from text file."""
-    with open(data_path, 'r', encoding='utf-8') as f:
-        lines = [line.strip() for line in f if line.strip()]
-    
-    print(f"Loaded {len(lines)} samples")
-    
-    encoded_data = []
-    for line in lines:
-        tokens = tokenizer.encode(line, max_length=max_seq_length, padding=True)
-        encoded_data.append(tokens)
-    
-    encoded_data = np.array(encoded_data, dtype=np.int32)
+    encoded_q = np.array(encoded_q, dtype=np.int32)
+    encoded_a = np.array(encoded_a, dtype=np.int32)
     
     # Shuffle and split
     np.random.seed(42)
-    indices = np.random.permutation(len(encoded_data))
-    encoded_data = encoded_data[indices]
+    indices = np.random.permutation(len(encoded_q))
+    encoded_q = encoded_q[indices]
+    encoded_a = encoded_a[indices]
     
-    n_total = len(encoded_data)
+    n_total = len(encoded_q)
     n_test = int(n_total * test_split)
     n_val = int(n_total * val_split)
     n_train = n_total - n_test - n_val
+
+    q_train = encoded_q[:n_train]
+    a_train = encoded_a[:n_train]
+
+    q_val = encoded_q[n_train:n_train+n_val]
+    a_val = encoded_a[n_train:n_train+n_val]
+
+    q_test = encoded_q[n_train+n_val:]
+    a_test = encoded_a[n_train+n_val:]
     
-    train_data = encoded_data[:n_train]
-    val_data = encoded_data[n_train:n_train + n_val]
-    test_data = encoded_data[n_train + n_val:]
+    print(f"Train: {len(q_train)} | Val: {len(q_val)} | Test: {len(q_test)}")
     
-    print(f"Train: {len(train_data)}, Val: {len(val_data)}, Test: {len(test_data)}")
-    
-    return {'train': train_data, 'val': val_data, 'test': test_data, 'tokenizer': tokenizer}
+    return {
+        "train": (q_train, a_train),
+        "val": (q_val, a_val),
+        "test": (q_test, a_test),
+        "input_tokenizer": input_tokenizer,
+        "ans_tokenizer": ans_tokenizer,
+    }
 
 
-def create_tf_dataset(data, batch_size, shuffle=True):
-    """Create TensorFlow dataset for training."""
-    # For language modeling: inputs are tokens[:-1], targets are tokens[1:]
-    inputs = data[:, :-1]
-    targets = data[:, 1:]
-    dataset = tf.data.Dataset.from_tensor_slices((inputs, targets))
+def create_tf_dataset(q_array, a_array, batch_size, shuffle=True):
+    dataset = tf.data.Dataset.from_tensor_slices((q_array, a_array))
     if shuffle:
-        dataset = dataset.shuffle(buffer_size=len(data))
-    dataset = dataset.batch(batch_size)
-    dataset = dataset.prefetch(tf.data.AUTOTUNE)
+        dataset = dataset.shuffle(buffer_size=len(q_array))
+    dataset = dataset.batch(batch_size).prefetch(tf.data.AUTOTUNE)
     return dataset
 
 
@@ -232,7 +154,7 @@ def compute_deep_supervision_loss(intermediate_logits, targets, pad_token_id, de
 # =============================================================================
 
 def train_control_transformer(
-    model, train_dataset, val_dataset, tokenizer, epochs,
+    model, train_dataset, val_dataset, input_tokenizer, ans_tokenizer, epochs,
     learning_rate=1e-4, checkpoint_dir='checkpoints/control', log_dir='logs/control'
 ):
     """
@@ -278,20 +200,20 @@ def train_control_transformer(
         """Single training step for control transformer."""
         with tf.GradientTape() as tape:
             logits = model(inputs, training=True)
-            loss = compute_loss_with_mask(logits, targets, tokenizer.pad_token_id)
+            loss = compute_loss_with_mask(logits, targets, ans_tokenizer.pad_token_id)
         
         gradients = tape.gradient(loss, model.trainable_variables)
         gradients, _ = tf.clip_by_global_norm(gradients, 1.0)
         optimizer.apply_gradients(zip(gradients, model.trainable_variables))
-        accuracy = compute_accuracy(logits, targets, tokenizer.pad_token_id)
+        accuracy = compute_accuracy(logits, targets, ans_tokenizer.pad_token_id)
         return loss, accuracy
     
     @tf.function
     def val_step(inputs, targets):
         """Validation step for control transformer."""
         logits = model(inputs, training=False)
-        loss = compute_loss_with_mask(logits, targets, tokenizer.pad_token_id)
-        accuracy = compute_accuracy(logits, targets, tokenizer.pad_token_id)
+        loss = compute_loss_with_mask(logits, targets, ans_tokenizer.pad_token_id)
+        accuracy = compute_accuracy(logits, targets, ans_tokenizer.pad_token_id)
         return loss, accuracy
     
     # Training loop
@@ -366,7 +288,7 @@ def train_control_transformer(
 # =============================================================================
 
 def train_recursive_transformer(
-    model, train_dataset, val_dataset, tokenizer, epochs,
+    model, train_dataset, val_dataset, input_tokenizer, ans_tokenizer, epochs,
     learning_rate=1e-4, checkpoint_dir='checkpoints/recursive', log_dir='logs/recursive'
 ):
     """
@@ -430,8 +352,8 @@ def train_recursive_transformer(
     def val_step(inputs, targets):
         """Validation step for recursive transformer."""
         logits = model(inputs, training=False)
-        loss = compute_loss_with_mask(logits, targets, tokenizer.pad_token_id)
-        accuracy = compute_accuracy(logits, targets, tokenizer.pad_token_id)
+        loss = compute_loss_with_mask(logits, targets, ans_tokenizer.pad_token_id)
+        accuracy = compute_accuracy(logits, targets, ans_tokenizer.pad_token_id)
         return loss, accuracy
     
     # Training loop
@@ -451,7 +373,7 @@ def train_recursive_transformer(
             
             # Compute accuracy separately for logging
             logits = model(inputs, training=False)
-            accuracy = compute_accuracy(logits, targets, tokenizer.pad_token_id)
+            accuracy = compute_accuracy(logits, targets, ans_tokenizer.pad_token_id)
             
             train_metrics.update(loss, accuracy)
             global_step += 1
@@ -515,7 +437,7 @@ def train_recursive_transformer(
 # EVALUATION
 # =============================================================================
 
-def evaluate_model(model, test_dataset, tokenizer, model_name="Model"):
+def evaluate_model(model, test_dataset, ans_tokenizer, model_name="Model"):
     """Evaluate model on test set."""
     print(f"\nEvaluating {model_name}...")
     
@@ -525,8 +447,8 @@ def evaluate_model(model, test_dataset, tokenizer, model_name="Model"):
     
     for inputs, targets in test_dataset:
         logits = model(inputs, training=False)
-        loss = compute_loss_with_mask(logits, targets, tokenizer.pad_token_id)
-        accuracy = compute_accuracy(logits, targets, tokenizer.pad_token_id)
+        loss = compute_loss_with_mask(logits, targets, ans_tokenizer.pad_token_id)
+        accuracy = compute_accuracy(logits, targets, ans_tokenizer.pad_token_id)
         
         total_loss += float(loss)
         total_accuracy += float(accuracy)
@@ -574,9 +496,13 @@ def main():
     parser = argparse.ArgumentParser(description='TinyAI Training Script')
     
     # Data arguments
-    parser.add_argument('--data_path', type=str, default='preprocessing/data/final_train_data.txt')
-    parser.add_argument('--vocab_path', type=str, default='preprocessing/data/vocab.json',
-                        help='Path to vocabulary file (vocab.json or tokenizer.json)')
+    parser.add_argument('--full_data_path', type=str, default='preprocessing/data/final_train_data.txt')
+    parser.add_argument('--q_data_path', type=str, default='preprocessing/data/questions.txt')
+    parser.add_argument('--a_data_path', type=str, default='preprocessing/data/answers.txt')
+    parser.add_argument('--input_vocab_path', type=str, default='preprocessing/data/input_vocab.json',
+                        help='Path to input vocabulary file (input_vocab.json)')
+    parser.add_argument('--ans_vocab_path', type=str, default='preprocessing/data/ans_vocab.json',
+                        help='Path to output vocabulary file (ans_vocab.json)')
     parser.add_argument('--max_seq_length', type=int, default=256)
     
     # Model architecture arguments
@@ -624,16 +550,22 @@ def main():
     
     # Resolve paths relative to script directory
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    data_path = os.path.join(script_dir, args.data_path)
-    vocab_path = os.path.join(script_dir, args.vocab_path)
+    full_data_path = os.path.join(script_dir, args.full_data_path)
+    q_data_path = os.path.join(script_dir, args.q_data_path)
+    a_data_path = os.path.join(script_dir, args.a_data_path)
+    input_vocab_path = os.path.join(script_dir, args.input_vocab_path)
+    ans_vocab_path = os.path.join(script_dir, args.ans_vocab_path)
     
     # Print configuration
     print("\n" + "="*60)
     print("TinyAI TRAINING SCRIPT")
     print("="*60)
     print(f"\nConfiguration:")
-    print(f"  Data path: {data_path}")
-    print(f"  Vocab path: {vocab_path}")
+    print(f"  Full Data path: {full_data_path}")
+    print(f"  Question Data path: {q_data_path}")
+    print(f"  Answer Data path: {a_data_path}")
+    print(f"  Input Vocab path: {input_vocab_path}")
+    print(f"  Output Vocab path: {ans_vocab_path}")
     print(f"  Max sequence length: {args.max_seq_length}")
     print(f"  Model dimension: {args.d_model}")
     print(f"  Layers: {args.num_layers}")
@@ -650,20 +582,25 @@ def main():
     
     # Initialize tokenizer
     print("Loading tokenizer...")
-    tokenizer = Tokenizer(vocab_path)
+    input_tokenizer = Tokenizer(input_vocab_path)
+    ans_tokenizer = Tokenizer(ans_vocab_path)
     
     # Load data
     print("Loading data...")
-    data = load_data(data_path, tokenizer, max_seq_length=args.max_seq_length)
+    data = load_data(q_data_path, a_data_path, input_tokenizer, ans_tokenizer, max_seq_length=args.max_seq_length)
     
     # Create output directory
     os.makedirs(args.output_dir, exist_ok=True)
     
     # Create datasets
-    train_dataset = create_tf_dataset(data['train'], args.batch_size, shuffle=True)
-    val_dataset = create_tf_dataset(data['val'], args.batch_size, shuffle=False)
-    test_dataset = create_tf_dataset(data['test'], args.batch_size, shuffle=False)
-    
+    q_train, a_train = data['train']
+    q_val, a_val = data['val']
+    q_test, a_test = data['test']
+
+    train_dataset = create_tf_dataset(q_train, a_train, args.batch_size, shuffle=True)
+    val_dataset = create_tf_dataset(q_val, a_val, args.batch_size, shuffle=False)
+    test_dataset = create_tf_dataset(q_test, a_test, args.batch_size, shuffle=False)
+
     results = {}
     
     # =========================================================================
@@ -675,7 +612,8 @@ def main():
         print("#"*60)
         
         control_model = Transformer(
-            vocab_size=tokenizer.vocab_size,
+            input_vocab_size=input_tokenizer.vocab_size,
+            ans_vocab_size=ans_tokenizer.vocab_size,
             d_model=args.d_model,
             max_seq_length=args.max_seq_length,
             num_layers=args.num_layers,
@@ -693,14 +631,15 @@ def main():
             model=control_model,
             train_dataset=train_dataset,
             val_dataset=val_dataset,
-            tokenizer=tokenizer,
+            input_tokenizer=input_tokenizer,
+            ans_tokenizer=ans_tokenizer,
             epochs=args.epochs,
             learning_rate=args.learning_rate,
             checkpoint_dir=os.path.join(args.output_dir, 'checkpoints/control'),
             log_dir=os.path.join(args.output_dir, 'logs/control')
         )
         
-        control_test_results = evaluate_model(control_model, test_dataset, tokenizer, "Control Transformer")
+        control_test_results = evaluate_model(control_model, test_dataset, ans_tokenizer, "Control Transformer")
         results['control'] = {**control_train_results, **control_test_results}
     
     # =========================================================================
@@ -712,7 +651,8 @@ def main():
         print("#"*60)
         
         recursive_model = RecursiveTransformer(
-            vocab_size=tokenizer.vocab_size,
+            input_vocab_size=input_tokenizer.vocab_size,
+            ans_vocab_size=ans_tokenizer.vocab_size,
             d_model=args.d_model,
             max_seq_length=args.max_seq_length,
             num_layers=args.num_layers,
@@ -739,14 +679,15 @@ def main():
             model=recursive_model,
             train_dataset=train_dataset,
             val_dataset=val_dataset,
-            tokenizer=tokenizer,
+            input_tokenizer=input_tokenizer,
+            ans_tokenizer=ans_tokenizer,
             epochs=args.epochs,
             learning_rate=args.learning_rate,
             checkpoint_dir=os.path.join(args.output_dir, 'checkpoints/recursive'),
             log_dir=os.path.join(args.output_dir, 'logs/recursive')
         )
         
-        recursive_test_results = evaluate_model(recursive_model, test_dataset, tokenizer, "Recursive Transformer")
+        recursive_test_results = evaluate_model(recursive_model, test_dataset, ans_tokenizer, "Recursive Transformer")
         results['recursive'] = {**recursive_train_results, **recursive_test_results}
     
     # =========================================================================

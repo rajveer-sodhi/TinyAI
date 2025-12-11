@@ -6,7 +6,8 @@ from transformer_encoder import TransformerEncoder
 
 class RecursiveTransformer(keras.Model):
     def __init__(self,
-                vocab_size,
+                input_vocab_size,
+                ans_vocab_size,
                 d_model,
                 max_seq_length,
                 num_layers,
@@ -25,7 +26,8 @@ class RecursiveTransformer(keras.Model):
                 **kwargs):
         super().__init__(**kwargs)
 
-        self.vocab_size = vocab_size
+        self.input_vocab_size = input_vocab_size
+        self.ans_vocab_size = ans_vocab_size
         self.d_model = d_model
         self.max_seq_length = max_seq_length
         self.num_layers = num_layers
@@ -50,7 +52,7 @@ class RecursiveTransformer(keras.Model):
             stage_weights = stage_weights[:deep_sup_steps]
         self.stage_weights = tf.constant(stage_weights, dtype=tf.float32)
 
-        self.embedding = EmbeddingLayer(vocab_size, d_model, max_seq_length, dropout_rate)
+        self.embedding = EmbeddingLayer(input_vocab_size, d_model, max_seq_length, dropout_rate)
         self.transformer_encoder = TransformerEncoder(d_model, num_heads, ff_dim, num_layers, dropout_rate)
         # Cross-attention for z to attend to input embeddings
         self.z_cross_attn = keras.layers.MultiHeadAttention(num_heads=num_heads, key_dim=d_model // num_heads)
@@ -58,7 +60,7 @@ class RecursiveTransformer(keras.Model):
         self.layernorm = keras.layers.LayerNormalization(epsilon = 1e-6)
         self.dropout = keras.layers.Dropout(dropout_rate)
 
-        self.output_head = keras.layers.Dense(vocab_size)
+        self.output_head = keras.layers.Dense(ans_vocab_size)
 
         self.q_head = keras.layers.Dense(1)
         self.y0 = self.add_weight(shape = (1, 1, d_model), initializer = "zeros", trainable = True, name = "y0")
@@ -200,7 +202,7 @@ class RecursiveTransformer(keras.Model):
             steps = tf.constant(0)
             halted = tf.zeros((batch_sz,), dtype=tf.bool)
             # Initialize prev_logits with zeros of correct shape
-            vocab_size = self.vocab_size
+            vocab_size = self.ans_vocab_size
             prev_logits = tf.zeros((batch_sz, seq_len, vocab_size), dtype=tf.float32)
             
             # Run the loop
@@ -215,7 +217,8 @@ class RecursiveTransformer(keras.Model):
     def get_config(self):
         config = super().get_config()
         config.update({
-            'vocab_size': self.vocab_size,
+            'input_vocab_size': self.input_vocab_size,
+            'ans_vocab_size': self.ans_vocab_size,
             'd_model': self.d_model,
             'max_seq_length': self.max_seq_length,
             'num_layers': self.num_layers,

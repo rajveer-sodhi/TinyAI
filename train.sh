@@ -92,8 +92,11 @@ LEARNING_RATE=1e-4
 MAX_SEQ_LENGTH=128
 
 # Paths
-DATA_PATH="preprocessing/data/final_train_data.txt"
-VOCAB_PATH="preprocessing/data/vocab.json"
+FULL_DATA_PATH="preprocessing/data/final_train_data.txt"
+Q_DATA_PATH="preprocessing/data/questions.txt"
+A_DATA_PATH="preprocessing/data/answers.txt"
+INPUT_VOCAB_PATH="preprocessing/data/input_vocab.json"
+ANS_VOCAB_PATH="preprocessing/data/ans_vocab.json"
 OUTPUT_DIR="output"
 
 # Parse command line arguments passed through sbatch
@@ -127,8 +130,11 @@ echo ""
 
 # Run the training script
 python -u train.py \
-    --data_path "$DATA_PATH" \
-    --vocab_path "$VOCAB_PATH" \
+    --full_data_path "$FULL_DATA_PATH" \
+    --q_data_path "$Q_DATA_PATH" \
+    --q_data_path "$A_DATA_PATH" \
+    --input_vocab_path "$INPUT_VOCAB_PATH" \
+    --ans_vocab_path "$ANS_VOCAB_PATH" \
     --output_dir "$OUTPUT_DIR" \
     --d_model $D_MODEL \
     --num_layers $NUM_LAYERS \
