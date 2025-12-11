@@ -86,7 +86,7 @@ MIN_HALT_STEPS=3
 STAGE_WEIGHTS="1.0,1.5"
 
 # Training hyperparameters (smaller batch/seq to reduce RAM)
-EPOCHS=20
+EPOCHS=15
 BATCH_SIZE=8
 LEARNING_RATE=1e-4
 MAX_SEQ_LENGTH=128
