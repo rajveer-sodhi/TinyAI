@@ -185,10 +185,13 @@ class TrainingMetrics:
     def reset(self):
         self.losses = []
         self.accuracies = []
+        self.answer_accuracies = []
     
-    def update(self, loss, accuracy):
+    def update(self, loss, accuracy, answer_accuracy=None):
         self.losses.append(float(loss))
         self.accuracies.append(float(accuracy))
+        if answer_accuracy is not None:
+            self.answer_accuracies.append(float(answer_accuracy))
     
     @property
     def avg_loss(self):
@@ -197,6 +200,10 @@ class TrainingMetrics:
     @property
     def avg_accuracy(self):
         return np.mean(self.accuracies) if self.accuracies else 0.0
+    
+    @property
+    def avg_answer_accuracy(self):
+        return np.mean(self.answer_accuracies) if self.answer_accuracies else 0.0
 
 
 def compute_accuracy(logits, targets, pad_token_id):
@@ -205,6 +212,40 @@ def compute_accuracy(logits, targets, pad_token_id):
     mask = tf.cast(targets != pad_token_id, tf.float32)
     correct = tf.cast(predictions == targets, tf.float32) * mask
     return tf.reduce_sum(correct) / (tf.reduce_sum(mask) + 1e-8)
+
+
+def compute_answer_only_accuracy(logits, targets, pad_token_id, a_colon_token_id):
+    """
+    Compute accuracy only on tokens after 'A:' (the actual answer).
+    This gives a true measure of mathematical reasoning vs pattern matching.
+    """
+    predictions = tf.argmax(logits, axis=-1, output_type=tf.int32)
+    
+    # Find positions of "A:" token in each sequence
+    is_a_colon = tf.equal(targets, a_colon_token_id)
+    
+    # For each sequence, find the position of "A:" and create mask for tokens after it
+    # Use cumsum trick: after seeing "A:", all subsequent positions get masked
+    a_colon_indicator = tf.cast(is_a_colon, tf.float32)
+    # Cumsum will be 0 before "A:", then 1+ after "A:"
+    after_a_colon = tf.cumsum(a_colon_indicator, axis=1, exclusive=True)
+    # Mask is 1 for positions strictly after "A:"
+    answer_mask = tf.cast(after_a_colon > 0, tf.float32)
+    
+    # Also exclude padding tokens
+    not_pad_mask = tf.cast(targets != pad_token_id, tf.float32)
+    final_mask = answer_mask * not_pad_mask
+    
+    # Compute accuracy only on answer tokens
+    correct = tf.cast(predictions == targets, tf.float32) * final_mask
+    total_answer_tokens = tf.reduce_sum(final_mask)
+    
+    # Return 0 if no answer tokens found, otherwise return accuracy
+    return tf.cond(
+        total_answer_tokens > 0,
+        lambda: tf.reduce_sum(correct) / total_answer_tokens,
+        lambda: 0.0
+    )
 
 
 def compute_loss_with_mask(logits, targets, pad_token_id):
@@ -232,7 +273,7 @@ def compute_deep_supervision_loss(intermediate_logits, targets, pad_token_id, de
 # =============================================================================
 
 def train_control_transformer(
-    model, train_dataset, val_dataset, tokenizer, epochs,
+    model, train_dataset, val_dataset, tokenizer, epochs, a_colon_token_id,
     learning_rate=1e-4, checkpoint_dir='checkpoints/control', log_dir='logs/control'
 ):
     """
@@ -284,7 +325,8 @@ def train_control_transformer(
         gradients, _ = tf.clip_by_global_norm(gradients, 1.0)
         optimizer.apply_gradients(zip(gradients, model.trainable_variables))
         accuracy = compute_accuracy(logits, targets, tokenizer.pad_token_id)
-        return loss, accuracy
+        answer_accuracy = compute_answer_only_accuracy(logits, targets, tokenizer.pad_token_id, a_colon_token_id)
+        return loss, accuracy, answer_accuracy
     
     @tf.function
     def val_step(inputs, targets):
@@ -292,7 +334,8 @@ def train_control_transformer(
         logits = model(inputs, training=False)
         loss = compute_loss_with_mask(logits, targets, tokenizer.pad_token_id)
         accuracy = compute_accuracy(logits, targets, tokenizer.pad_token_id)
-        return loss, accuracy
+        answer_accuracy = compute_answer_only_accuracy(logits, targets, tokenizer.pad_token_id, a_colon_token_id)
+        return loss, accuracy, answer_accuracy
     
     # Training loop
     for epoch in range(epochs):
@@ -302,8 +345,8 @@ def train_control_transformer(
         train_metrics.reset()
         
         for batch_idx, (inputs, targets) in enumerate(train_dataset):
-            loss, accuracy = train_step(inputs, targets)
-            train_metrics.update(loss, accuracy)
+            loss, accuracy, answer_accuracy = train_step(inputs, targets)
+            train_metrics.update(loss, accuracy, answer_accuracy)
             global_step += 1
             
             # Log to WandB
@@ -311,28 +354,30 @@ def train_control_transformer(
                 wandb.log({
                     'train/loss': float(loss),
                     'train/accuracy': float(accuracy),
+                    'train/answer_accuracy': float(answer_accuracy),
                     'train/step': global_step
                 })
             
             if (batch_idx + 1) % 50 == 0:
-                print(f"  Batch {batch_idx + 1}: Loss={loss:.4f}, Acc={accuracy:.4f}")
+                print(f"  Batch {batch_idx + 1}: Loss={loss:.4f}, Acc={accuracy:.4f}, AnsAcc={answer_accuracy:.4f}")
         
         # Validation
         val_metrics.reset()
         for inputs, targets in val_dataset:
-            loss, accuracy = val_step(inputs, targets)
-            val_metrics.update(loss, accuracy)
+            loss, accuracy, answer_accuracy = val_step(inputs, targets)
+            val_metrics.update(loss, accuracy, answer_accuracy)
         
         # Log to WandB
         if use_wandb:
             wandb.log({
                 'val/loss': float(val_metrics.avg_loss),
                 'val/accuracy': float(val_metrics.avg_accuracy),
+                'val/answer_accuracy': float(val_metrics.avg_answer_accuracy),
                 'epoch': epoch + 1
             })
         
-        print(f"\n  Train Loss: {train_metrics.avg_loss:.4f}, Train Acc: {train_metrics.avg_accuracy:.4f}")
-        print(f"  Val Loss: {val_metrics.avg_loss:.4f}, Val Acc: {val_metrics.avg_accuracy:.4f}")
+        print(f"\n  Train Loss: {train_metrics.avg_loss:.4f}, Train Acc: {train_metrics.avg_accuracy:.4f}, Train AnsAcc: {train_metrics.avg_answer_accuracy:.4f}")
+        print(f"  Val Loss: {val_metrics.avg_loss:.4f}, Val Acc: {val_metrics.avg_accuracy:.4f}, Val AnsAcc: {val_metrics.avg_answer_accuracy:.4f}")
         
         # Save best model
         if val_metrics.avg_loss < best_val_loss:
@@ -366,7 +411,7 @@ def train_control_transformer(
 # =============================================================================
 
 def train_recursive_transformer(
-    model, train_dataset, val_dataset, tokenizer, epochs,
+    model, train_dataset, val_dataset, tokenizer, epochs, a_colon_token_id,
     learning_rate=1e-4, checkpoint_dir='checkpoints/recursive', log_dir='logs/recursive'
 ):
     """
@@ -432,7 +477,8 @@ def train_recursive_transformer(
         logits = model(inputs, training=False)
         loss = compute_loss_with_mask(logits, targets, tokenizer.pad_token_id)
         accuracy = compute_accuracy(logits, targets, tokenizer.pad_token_id)
-        return loss, accuracy
+        answer_accuracy = compute_answer_only_accuracy(logits, targets, tokenizer.pad_token_id, a_colon_token_id)
+        return loss, accuracy, answer_accuracy
     
     # Training loop
     for epoch in range(epochs):
@@ -452,8 +498,9 @@ def train_recursive_transformer(
             # Compute accuracy separately for logging
             logits = model(inputs, training=False)
             accuracy = compute_accuracy(logits, targets, tokenizer.pad_token_id)
+            answer_accuracy = compute_answer_only_accuracy(logits, targets, tokenizer.pad_token_id, a_colon_token_id)
             
-            train_metrics.update(loss, accuracy)
+            train_metrics.update(loss, accuracy, answer_accuracy)
             global_step += 1
             
             # Log to WandB
@@ -461,28 +508,30 @@ def train_recursive_transformer(
                 wandb.log({
                     'train/loss': float(loss),
                     'train/accuracy': float(accuracy),
+                    'train/answer_accuracy': float(answer_accuracy),
                     'train/step': global_step
                 })
             
             if (batch_idx + 1) % 50 == 0:
-                print(f"  Batch {batch_idx + 1}: Loss={loss:.4f}, Acc={accuracy:.4f}")
+                print(f"  Batch {batch_idx + 1}: Loss={loss:.4f}, Acc={accuracy:.4f}, AnsAcc={answer_accuracy:.4f}")
         
         # Validation
         val_metrics.reset()
         for inputs, targets in val_dataset:
-            loss, accuracy = val_step(inputs, targets)
-            val_metrics.update(loss, accuracy)
+            loss, accuracy, answer_accuracy = val_step(inputs, targets)
+            val_metrics.update(loss, accuracy, answer_accuracy)
         
         # Log to WandB
         if use_wandb:
             wandb.log({
                 'val/loss': float(val_metrics.avg_loss),
                 'val/accuracy': float(val_metrics.avg_accuracy),
+                'val/answer_accuracy': float(val_metrics.avg_answer_accuracy),
                 'epoch': epoch + 1
             })
         
-        print(f"\n  Train Loss: {train_metrics.avg_loss:.4f}, Train Acc: {train_metrics.avg_accuracy:.4f}")
-        print(f"  Val Loss: {val_metrics.avg_loss:.4f}, Val Acc: {val_metrics.avg_accuracy:.4f}")
+        print(f"\n  Train Loss: {train_metrics.avg_loss:.4f}, Train Acc: {train_metrics.avg_accuracy:.4f}, Train AnsAcc: {train_metrics.avg_answer_accuracy:.4f}")
+        print(f"  Val Loss: {val_metrics.avg_loss:.4f}, Val Acc: {val_metrics.avg_accuracy:.4f}, Val AnsAcc: {val_metrics.avg_answer_accuracy:.4f}")
         
         # Save best model
         if val_metrics.avg_loss < best_val_loss:
@@ -652,6 +701,10 @@ def main():
     print("Loading tokenizer...")
     tokenizer = Tokenizer(vocab_path)
     
+    # Get "a:" token ID for answer-only accuracy computation
+    a_colon_token_id = tokenizer.token_to_id.get('a', tokenizer.token_to_id.get('A', tokenizer.unk_token_id))
+    print(f"Using token ID {a_colon_token_id} for 'a:'/'A:' detection")
+    
     # Load data
     print("Loading data...")
     data = load_data(data_path, tokenizer, max_seq_length=args.max_seq_length)
@@ -695,6 +748,7 @@ def main():
             val_dataset=val_dataset,
             tokenizer=tokenizer,
             epochs=args.epochs,
+            a_colon_token_id=a_colon_token_id,
             learning_rate=args.learning_rate,
             checkpoint_dir=os.path.join(args.output_dir, 'checkpoints/control'),
             log_dir=os.path.join(args.output_dir, 'logs/control')
@@ -741,6 +795,7 @@ def main():
             val_dataset=val_dataset,
             tokenizer=tokenizer,
             epochs=args.epochs,
+            a_colon_token_id=a_colon_token_id,
             learning_rate=args.learning_rate,
             checkpoint_dir=os.path.join(args.output_dir, 'checkpoints/recursive'),
             log_dir=os.path.join(args.output_dir, 'logs/recursive')
