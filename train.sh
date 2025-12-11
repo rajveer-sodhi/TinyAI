@@ -86,7 +86,7 @@ STEP_PENALTY_WEIGHT=0.01
 # Training hyperparameters (smaller batch/seq to reduce RAM)
 EPOCHS=30
 BATCH_SIZE=8
-LEARNING_RATE=5e-5
+LEARNING_RATE=1e-3
 MAX_SEQ_LENGTH=128
 
 # Paths
