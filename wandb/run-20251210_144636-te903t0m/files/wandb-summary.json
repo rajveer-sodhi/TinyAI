@@ -1,1 +1,0 @@
-{"_step":21284,"train/loss":0.4207896888256073,"train/token_accuracy":0.9291617274284363,"epoch":15,"val/loss":0.28196658545665526,"train/exact_match":0,"val/token_accuracy":0.9680057656898927,"_wandb":{"runtime":2289},"train/step":21270,"_timestamp":1.7653982887424242e+09,"val/exact_match":0,"_runtime":2289}

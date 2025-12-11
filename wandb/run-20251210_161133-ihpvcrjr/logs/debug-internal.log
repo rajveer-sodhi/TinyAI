@@ -1,6 +1,0 @@
-{"time":"2025-12-10T16:11:35.212310634-05:00","level":"INFO","msg":"stream: starting","core version":"0.23.1"}
-{"time":"2025-12-10T16:11:35.554255797-05:00","level":"INFO","msg":"stream: created new stream","id":"ihpvcrjr"}
-{"time":"2025-12-10T16:11:35.554359884-05:00","level":"INFO","msg":"handler: started","stream_id":"ihpvcrjr"}
-{"time":"2025-12-10T16:11:35.560936074-05:00","level":"INFO","msg":"stream: started","id":"ihpvcrjr"}
-{"time":"2025-12-10T16:11:35.560947408-05:00","level":"INFO","msg":"writer: started","stream_id":"ihpvcrjr"}
-{"time":"2025-12-10T16:11:35.560956632-05:00","level":"INFO","msg":"sender: started","stream_id":"ihpvcrjr"}
