@@ -19,6 +19,7 @@ class RecursiveTransformer(keras.Model):
                 num_l_steps = 6,
                 halt_exploration_prob = 0.1,
                 halt_max_steps = 16,
+                step_penalty_weight = 0.01,
                 **kwargs):
         super().__init__(**kwargs)
 
@@ -35,6 +36,7 @@ class RecursiveTransformer(keras.Model):
         self.num_l_steps = num_l_steps
         self.halt_exploration_prob = halt_exploration_prob
         self.halt_max_steps = halt_max_steps
+        self.step_penalty_weight = step_penalty_weight
 
         self.embedding = EmbeddingLayer(vocab_size, d_model, max_seq_length, dropout_rate)
         self.transformer_encoder = TransformerEncoder(d_model, num_heads, ff_dim, num_layers, dropout_rate)
@@ -75,6 +77,8 @@ class RecursiveTransformer(keras.Model):
         #     y_tmp, z_tmp = self.full_recursion(embedding, y, z, training = False)
         #     y = tf.stop_gradient(y_tmp)
         #     z = tf.stop_gradient(z_tmp)
+        y = tf.stop_gradient(y)
+        z = tf.stop_gradient(z)
 
         y, z = self.full_recursion(embedding, y, z, training = training)
 
@@ -98,7 +102,11 @@ class RecursiveTransformer(keras.Model):
             
             total_ce = 0.0
             total_act = 0.0
-            
+            total_step_penalty = 0.0
+
+            # Use more lenient halting during training to encourage more refinement steps
+            train_halt_prob = self.halt_exploration_prob * 0.5  # More lenient during training
+
             for i in range(self.deep_sup_steps):
                 # run recursive reasoning once
                 y, z, logits, q_logit = self.recursive_reasoning(embedding, y, z, training = True)
@@ -106,13 +114,19 @@ class RecursiveTransformer(keras.Model):
                 # get ce loss
                 ce = keras.losses.sparse_categorical_crossentropy(labels, logits, from_logits = True)
                 total_ce += tf.reduce_mean(ce)
-                
-                # ACT logic
+
+                # ACT logic - more lenient during training
                 preds = tf.argmax(logits, output_type = labels.dtype, axis = -1)
                 seq_correct = tf.reduce_mean(tf.cast(preds == labels, tf.float32), axis=-1)
 
+                # Binary cross-entropy for halting decision (want to halt when correct)
                 act_loss = keras.losses.binary_crossentropy(seq_correct, q_logit, from_logits = True)
                 total_act += tf.reduce_mean(act_loss)
+
+                # Step penalty: encourage taking more steps (penalize halting too early)
+                # Higher penalty for early steps, lower for later steps
+                step_penalty = self.step_penalty_weight * tf.reduce_mean(-q_logit) / (i + 1)
+                total_step_penalty += step_penalty
 
                 # remove latent state AFTER computing loss
                 # Don't stop gradient on first iteration to ensure gradients flow to y0/z0
@@ -120,9 +134,12 @@ class RecursiveTransformer(keras.Model):
                 if i > 0:
                     y = tf.stop_gradient(y)
                     z = tf.stop_gradient(z)
+
             ce_mean = total_ce / tf.cast(self.deep_sup_steps, tf.float32)
             act_mean = total_act / tf.cast(self.deep_sup_steps, tf.float32)
-            loss = ce_mean + self.act_loss_weight * act_mean
+            step_penalty_mean = total_step_penalty / tf.cast(self.deep_sup_steps, tf.float32)
+
+            loss = ce_mean + self.act_loss_weight * act_mean + step_penalty_mean
 
         gradients = tape.gradient(loss, self.trainable_variables)
         self.optimizer.apply_gradients(zip(gradients, self.trainable_variables))
@@ -187,6 +204,7 @@ class RecursiveTransformer(keras.Model):
             'num_l_steps': self.num_l_steps,
             'halt_exploration_prob': self.halt_exploration_prob,
             'halt_max_steps': self.halt_max_steps,
+            'step_penalty_weight': self.step_penalty_weight,
         })
 
         return config

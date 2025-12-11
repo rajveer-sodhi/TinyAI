@@ -81,6 +81,7 @@ DEEP_REC_CYCLES=2 #2
 NUM_L_STEPS=3 #3
 DEEP_SUP_STEPS=2
 ACT_LOSS_WEIGHT=0.1
+STEP_PENALTY_WEIGHT=0.01
 
 # Training hyperparameters (smaller batch/seq to reduce RAM)
 EPOCHS=30
@@ -136,6 +137,7 @@ python -u train.py \
     --num_l_steps $NUM_L_STEPS \
     --deep_sup_steps $DEEP_SUP_STEPS \
     --act_loss_weight $ACT_LOSS_WEIGHT \
+    --step_penalty_weight $STEP_PENALTY_WEIGHT \
     --epochs $EPOCHS \
     --batch_size $BATCH_SIZE \
     --learning_rate $LEARNING_RATE \

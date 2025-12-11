@@ -595,6 +595,8 @@ def main():
                         help='Number of deep supervision steps')
     parser.add_argument('--act_loss_weight', type=float, default=0.1,
                         help='Weight for ACT (halting) loss')
+    parser.add_argument('--step_penalty_weight', type=float, default=0.01,
+                        help='Weight for step penalty to encourage more refinement steps')
     parser.add_argument('--halt_exploration_prob', type=float, default=0.1,
                         help='Threshold for halting during inference')
     parser.add_argument('--halt_max_steps', type=int, default=16,
@@ -716,6 +718,7 @@ def main():
             deep_rec_cycles=args.deep_rec_cycles,
             deep_sup_steps=args.deep_sup_steps,
             act_loss_weight=args.act_loss_weight,
+            step_penalty_weight=args.step_penalty_weight,
             num_l_steps=args.num_l_steps,
             halt_exploration_prob=args.halt_exploration_prob,
             halt_max_steps=args.halt_max_steps
