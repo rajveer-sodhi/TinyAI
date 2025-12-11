@@ -46,7 +46,7 @@ def train_test_split(data, train_fraction):
 def save_artifacts(tokens, word_to_idx, vocab):
     print(f"Saving artifacts to {OUTPUT_DIR}")
     
-    vocab_path = os.path.join(OUTPUT_DIR, "vocab.json")
+    vocab_path = os.path.join(OUTPUT_DIR, "input_vocab.json")
     with open(vocab_path, "w") as f:
         json.dump(word_to_idx, f, indent=2)
         
@@ -65,6 +65,12 @@ def save_artifacts(tokens, word_to_idx, vocab):
     print(f"Tet Tensor Shape:  {test_tensor.shape}")
     print(f"Output diectory:   {os.path.abspath(OUTPUT_DIR)}")
 
+def build_answer_vocab():
+    vocab = ["<PAD>", "<UNK>", "<BOS>", "<EOS>", "."] + [str(i) for i in range(10)]
+    vocab_path = os.path.join(OUTPUT_DIR, "ans_vocab.json")
+    with open(vocab_path, "w") as f:
+        json.dump({w:i for i,w in enumerate(vocab)}, f, indent=2)
+
 if __name__ == "__main__":
     if not os.path.exists(INPUT_FILE):
         if os.path.exists(os.path.join("data", INPUT_FILE)):
@@ -75,3 +81,4 @@ if __name__ == "__main__":
 
     tokens, word_to_idx, vocab = tokenize_data(INPUT_FILE, VOCAB_SIZE)
     save_artifacts(tokens, word_to_idx, vocab)
+    build_answer_vocab()

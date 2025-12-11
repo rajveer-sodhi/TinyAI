@@ -120,6 +120,29 @@ def load_gsm8k():
         print(f"Warning: Failed to load GSM8K dataset: {e}")
         return []
 
+def split_questions_answers():
+    q_out = os.path.join(OUTPUT_DIR, "questions.txt")
+    a_out = os.path.join(OUTPUT_DIR, "answers.txt")
+
+    q_file = open(q_out, "w", encoding="utf-8")
+    a_file = open(a_out, "w", encoding="utf-8")
+
+    import re
+
+    pattern = r"Q:(.*?)A:(.*?)\[EOS\]"
+
+    with open(os.path.join(OUTPUT_DIR, "final_train_data.txt"), "r", encoding="utf-8") as f:
+        for line in f:
+            match = re.search(pattern, line)
+            if match:
+                question = match.group(1).strip()
+                answer = match.group(2).strip()
+                q_file.write(question + "\n")
+                a_file.write(answer + "\n")
+
+    q_file.close()
+    a_file.close()
+    print("questions.txt and answers.txt created!")
 
 async def simplify_single_problem(sem, item, max_retries=5):
     """
@@ -250,6 +273,10 @@ def phase_4_final_assembly(bucket_a, bucket_b, verified_bucket_c, gsm8k_items=No
     if verified_bucket_c:
         print(f"Augmented samples: {len(verified_bucket_c)}")
     print(f"Total samples in final_train_data.txt: {len(final_dataset)}")
+    
+    # split into q n a files as well
+    split_questions_answers()
+    
     print("Done.")
 
 async def main():
