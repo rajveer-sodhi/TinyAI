@@ -1,0 +1,11 @@
+{
+  "recursive": {
+    "best_val_loss": 2.9627117548096047,
+    "final_train_loss": 2.4825549449335536,
+    "final_train_acc": 0.4320629065900999,
+    "final_val_loss": 2.9627117548096047,
+    "final_val_acc": 0.4244548576266578,
+    "test_loss": 2.9820770922671542,
+    "test_accuracy": 0.4238942133241825
+  }
+}

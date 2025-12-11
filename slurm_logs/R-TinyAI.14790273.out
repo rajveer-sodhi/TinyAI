@@ -1,0 +1,170 @@
+## SLURM PROLOG ###############################################################
+##    Job ID : 14790273
+##  Job Name : TinyAI
+##  Nodelist : gpu2006
+##      CPUs : 1
+##  Mem/Node : 64000 MB
+## Directory : /oscar/home/bpeckham/TinyAI
+##   Job Started : Wed Dec 10 05:24:34 PM EST 2025
+###############################################################################
+
+==========================================
+Job started at: Wed Dec 10 05:24:34 PM EST 2025
+Job ID: 14790273
+Node: gpu2006
+==========================================
+
+Python location: /users/bpeckham/.conda/envs/tinyai/bin/python
+Python version: Python 3.10.19
+Conda environment: tinyai
+Installing/verifying required packages...
+TensorFlow 2.15.0 and NumPy 1.26.4 imported successfully
+GPU Information:
+Wed Dec 10 17:24:44 2025       
++---------------------------------------------------------------------------------------+
+| NVIDIA-SMI 535.129.03             Driver Version: 535.129.03   CUDA Version: 12.2     |
+|-----------------------------------------+----------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |         Memory-Usage | GPU-Util  Compute M. |
+|                                         |                      |               MIG M. |
+|=========================================+======================+======================|
+|   0  Quadro RTX 6000                On  | 00000000:3E:00.0 Off |                  Off |
+| 33%   28C    P8               7W / 260W |     26MiB / 24576MiB |      0%      Default |
+|                                         |                      |                  N/A |
++-----------------------------------------+----------------------+----------------------+
+                                                                                         
++---------------------------------------------------------------------------------------+
+| Processes:                                                                            |
+|  GPU   GI   CI        PID   Type   Process name                            GPU Memory |
+|        ID   ID                                                             Usage      |
+|=======================================================================================|
+|    0   N/A  N/A     30575      G   /usr/libexec/Xorg                            24MiB |
++---------------------------------------------------------------------------------------+
+
+TensorFlow GPU Detection:
+TF version: 2.15.0
+Built with CUDA: True
+GPUs detected: 0
+GPU devices: []
+
+==========================================
+Starting main Python script at Wed Dec 10 05:24:47 PM EST 2025
+==========================================
+
+Configuration:
+  d_model: 32
+  num_layers: 1
+  num_heads: 2
+  ff_dim: 32
+  deep_rec_cycles: 1
+  num_l_steps: 2
+  epochs: 20
+  batch_size: 8
+  learning_rate: 1e-4
+  max_seq_length: 128
+
+To monitor training with WandB:
+  1. First, log in to WandB (one time only):
+     python wandb_login.py
+  2. Then view metrics at: https://wandb.ai
+  (No port forwarding needed - metrics upload automatically!)
+
+
+============================================================
+TinyAI TRAINING SCRIPT
+============================================================
+
+Configuration:
+  Data path: /oscar/home/bpeckham/TinyAI/preprocessing/data/final_train_data.txt
+  Vocab path: /oscar/home/bpeckham/TinyAI/preprocessing/data/vocab.json
+  Max sequence length: 128
+  Model dimension: 32
+  Layers: 1
+  Heads: 2
+  FF dim: 32
+  Dropout: 0.1
+  Deep recursion cycles: 1
+  Inner iterations: 2
+  Deep supervision steps: 2
+  Batch size: 8
+  Epochs: 20
+  Learning rate: 0.0001
+============================================================
+
+Loading tokenizer...
+Loaded vocabulary with 7173 tokens
+  PAD=0, UNK=1, BOS=18, EOS=2
+Loading data...
+Loaded 14180 samples
+Train: 11344, Val: 1418, Test: 1418
+
+############################################################
+# RECURSIVE TRANSFORMER (TRM-Inspired)
+############################################################
+
+Recursive Model Parameters: 477,030
+
+============================================================
+TRAINING RECURSIVE TRANSFORMER (TRM-Inspired)
+============================================================
+  Deep recursion cycles (T): 1
+  Inner iterations (n): 2
+  Deep supervision steps: 2
+  ACT loss weight: 0.1
+  Halt exploration prob: 0.1
+  Max halt steps: 16
+============================================================
+
+
+Epoch 1/20
+----------------------------------------
+  Batch 50: Loss=8.7985, Acc=0.0068
+  Batch 100: Loss=8.6750, Acc=0.0228
+  Batch 150: Loss=8.4381, Acc=0.0162
+  Batch 200: Loss=8.1688, Acc=0.0197
+  Batch 250: Loss=7.8545, Acc=0.0185
+  Batch 300: Loss=7.5387, Acc=0.0138
+  Batch 350: Loss=7.2877, Acc=0.0228
+  Batch 400: Loss=7.1380, Acc=0.0209
+  Batch 450: Loss=6.9768, Acc=0.0190
+  Batch 500: Loss=6.6679, Acc=0.0244
+  Batch 550: Loss=6.4100, Acc=0.0184
+  Batch 600: Loss=6.2939, Acc=0.0244
+  Batch 650: Loss=6.2303, Acc=0.0494
+  Batch 700: Loss=6.0976, Acc=0.0384
+  Batch 750: Loss=6.1193, Acc=0.0000
+  Batch 800: Loss=5.8098, Acc=0.0000
+  Batch 850: Loss=5.8158, Acc=0.0000
+  Batch 900: Loss=5.4109, Acc=0.0000
+  Batch 950: Loss=5.4171, Acc=0.0000
+  Batch 1000: Loss=5.6833, Acc=0.0000
+  Batch 1050: Loss=5.2697, Acc=0.0000
+  Batch 1100: Loss=5.3353, Acc=0.0000
+  Batch 1150: Loss=5.5342, Acc=0.0000
+  Batch 1200: Loss=5.1425, Acc=0.0000
+  Batch 1250: Loss=5.3646, Acc=0.0000
+  Batch 1300: Loss=5.8917, Acc=0.0000
+  Batch 1350: Loss=5.0783, Acc=0.0000
+  Batch 1400: Loss=5.1526, Acc=0.0000
+
+  Train Loss: 6.4510, Train Acc: 0.0113
+  Val Loss: 6.1225, Val Acc: 0.0000
+  ✓ Saved best model (val_loss=6.1225)
+
+Epoch 2/20
+----------------------------------------
+  Batch 50: Loss=4.4247, Acc=0.0000
+  Batch 100: Loss=4.4929, Acc=0.0000
+  Batch 150: Loss=5.4910, Acc=0.0000
+  Batch 200: Loss=4.9021, Acc=0.0000
+  Batch 250: Loss=4.8941, Acc=0.0000
+  Batch 300: Loss=5.2607, Acc=0.0000
+  Batch 350: Loss=4.9665, Acc=0.0000
+  Batch 400: Loss=4.7171, Acc=0.0000
+  Batch 450: Loss=5.0280, Acc=0.0000
+  Batch 500: Loss=5.4064, Acc=0.0000
+  Batch 550: Loss=5.0640, Acc=0.0000
+  Batch 600: Loss=5.4558, Acc=0.0000
+  Batch 650: Loss=5.1099, Acc=0.0000
+  Batch 700: Loss=5.1999, Acc=0.0000
+  Batch 750: Loss=5.0523, Acc=0.0000
