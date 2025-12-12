@@ -43,6 +43,9 @@ class RecursiveTransformer(keras.Model):
         # Stage weights for deep supervision; if None, use uniform weights
         if stage_weights is None:
             stage_weights = [1.0] * deep_sup_steps
+        elif isinstance(stage_weights, str):
+            # Parse comma-separated string like "1.0,1.5"
+            stage_weights = [float(w.strip()) for w in stage_weights.split(',')]
         # Ensure correct length (pad or trim)
         if len(stage_weights) < deep_sup_steps:
             stage_weights = stage_weights + [stage_weights[-1]] * (deep_sup_steps - len(stage_weights))
@@ -61,8 +64,19 @@ class RecursiveTransformer(keras.Model):
         self.output_head = keras.layers.Dense(vocab_size)
 
         self.q_head = keras.layers.Dense(1)
-        self.y0 = self.add_weight(shape = (1, 1, d_model), initializer = "zeros", trainable = True, name = "y0")
-        self.z0 = self.add_weight(shape = (1, 1, d_model), initializer = "zeros", trainable = True, name = "z0")
+        # Initialize y0 and z0 with small random values for better gradient flow
+        self.y0 = self.add_weight(
+            shape = (1, 1, d_model), 
+            initializer = keras.initializers.RandomNormal(stddev=0.02), 
+            trainable = True, 
+            name = "y0"
+        )
+        self.z0 = self.add_weight(
+            shape = (1, 1, d_model), 
+            initializer = keras.initializers.RandomNormal(stddev=0.02), 
+            trainable = True, 
+            name = "z0"
+        )
         # Gating for merging z into y
         self.gate_dense = keras.layers.Dense(d_model, activation="sigmoid")
 
@@ -93,15 +107,11 @@ class RecursiveTransformer(keras.Model):
         return y, z
 
     def recursive_reasoning(self, embedding, y, z, training = False):
-        # for i in range(max(self.deep_rec_cycles - 1, 0)):
-        #     y_tmp, z_tmp = self.full_recursion(embedding, y, z, training = False)
-        #     y = tf.stop_gradient(y_tmp)
-        #     z = tf.stop_gradient(z_tmp)
+        # Run multiple recursion cycles to enable deep iterative refinement
+        # This is the key to the recursive transformer's power
+        for _ in range(self.deep_rec_cycles):
+            y, z = self.full_recursion(embedding, y, z, training = training)
         
-        # Don't stop gradients here - it's handled in train_step after first iteration
-        # This allows y0 and z0 to receive gradients from the first supervision step
-        y, z = self.full_recursion(embedding, y, z, training = training)
-
         logits = self.output_head(y)
         q_logit = tf.squeeze(self.q_head(y[:, 0, :]), axis=-1)
         return y, z, logits, q_logit

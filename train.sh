@@ -70,20 +70,20 @@ mkdir -p output/checkpoints/recursive
 # ============================================================================
 
 # Model hyperparameters (leaner for recursive stability)
-D_MODEL=64
+D_MODEL=128
 NUM_LAYERS=2
 NUM_HEADS=4
-FF_DIM=64
+FF_DIM=256
 DROPOUT=0.1
 
-# Recursive model specific (reduced to lower memory)
-DEEP_REC_CYCLES=2 #2
-NUM_L_STEPS=3 #3
-DEEP_SUP_STEPS=2
-ACT_LOSS_WEIGHT=0.1
-STEP_PENALTY_WEIGHT=0.01
+# Recursive model specific (deeper for better performance)
+DEEP_REC_CYCLES=4      # Multiple cycles for deep iterative refinement
+NUM_L_STEPS=6          # More inner iterations per cycle
+DEEP_SUP_STEPS=4       # More supervision steps for better learning
+ACT_LOSS_WEIGHT=0.01   # Lower weight to reduce interference with CE loss
+STEP_PENALTY_WEIGHT=0.001
 MIN_HALT_STEPS=3
-STAGE_WEIGHTS="1.0,1.5"
+STAGE_WEIGHTS="1.0,1.5,2.0,2.5"  # Emphasize later refinement steps
 
 # Training hyperparameters (smaller batch/seq to reduce RAM)
 EPOCHS=15
