@@ -412,7 +412,8 @@ def train_control_transformer(
 
 def train_recursive_transformer(
     model, train_dataset, val_dataset, tokenizer, epochs, a_colon_token_id,
-    learning_rate=1e-4, checkpoint_dir='checkpoints/recursive', log_dir='logs/recursive'
+    learning_rate=1e-4, checkpoint_dir='checkpoints/recursive', log_dir='logs/recursive',
+    resume_from_checkpoint=None, resume_epoch=0, wandb_resume_id=None
 ):
     """
     Training loop for the recursive (TRM-inspired) transformer.
@@ -438,16 +439,28 @@ def train_recursive_transformer(
     
     os.makedirs(checkpoint_dir, exist_ok=True)
     
+    # Load checkpoint if provided
+    if resume_from_checkpoint and os.path.exists(resume_from_checkpoint):
+        print(f"\n🔄 RESUMING FROM CHECKPOINT")
+        print(f"  Checkpoint: {resume_from_checkpoint}")
+        print(f"  Starting from epoch: {resume_epoch + 1}")
+        model.load_weights(resume_from_checkpoint)
+        print("  ✓ Checkpoint loaded successfully\n")
+    elif resume_from_checkpoint:
+        print(f"\n⚠️  Warning: Checkpoint file not found: {resume_from_checkpoint}")
+        print("  Starting training from scratch...\n")
+        resume_epoch = 0
+    
     # Setup optimizer
     optimizer = keras.optimizers.AdamW(learning_rate=learning_rate, weight_decay=0.01)
     model.compile(optimizer=optimizer)
     
-    # Setup WandB
+    # Setup WandB with auto-resume support
     try:
-        wandb.init(
-            project="tinyai",
-            name="recursive-transformer",
-            config={
+        wandb_kwargs = {
+            "project": "tinyai",
+            "name": "recursive-transformer",
+            "config": {
                 "model": "recursive_transformer",
                 "learning_rate": learning_rate,
                 "epochs": epochs,
@@ -459,7 +472,26 @@ def train_recursive_transformer(
                 "deep_sup_steps": model.deep_sup_steps,
                 "act_loss_weight": model.act_loss_weight,
             }
-        )
+        }
+        
+        # Auto-detect WandB run ID if resuming but no ID provided
+        if resume_from_checkpoint and not wandb_resume_id:
+            latest_run_file = os.path.join(os.path.dirname(__file__), "wandb", "latest-run")
+            if os.path.exists(latest_run_file):
+                with open(latest_run_file, 'r') as f:
+                    latest_run = f.read().strip()
+                    # Extract run ID from "run-YYYYMMDD_HHMMSS-RUNID" format
+                    if '-' in latest_run:
+                        wandb_resume_id = latest_run.split('-')[-1]
+                        print(f"🔍 Auto-detected WandB run ID: {wandb_resume_id}")
+        
+        # Resume WandB run if ID provided or detected
+        if wandb_resume_id:
+            wandb_kwargs["resume"] = "must"
+            wandb_kwargs["id"] = wandb_resume_id
+            print(f"🔄 Resuming WandB run: {wandb_resume_id}\n")
+        
+        wandb.init(**wandb_kwargs)
         use_wandb = True
     except Exception as e:
         print(f"Warning: WandB initialization failed: {e}")
@@ -469,7 +501,16 @@ def train_recursive_transformer(
     train_metrics = TrainingMetrics()
     val_metrics = TrainingMetrics()
     best_val_loss = float('inf')
-    global_step = 0
+    
+    # Restore global step count if resuming
+    # Approximate based on epoch and dataset size
+    if resume_epoch > 0:
+        # Count batches in train dataset
+        num_batches = sum(1 for _ in train_dataset)
+        global_step = resume_epoch * num_batches
+        print(f"  Starting from global step: {global_step}\n")
+    else:
+        global_step = 0
     
     @tf.function
     def val_step(inputs, targets):
@@ -480,8 +521,8 @@ def train_recursive_transformer(
         answer_accuracy = compute_answer_only_accuracy(logits, targets, tokenizer.pad_token_id, a_colon_token_id)
         return loss, accuracy, answer_accuracy
     
-    # Training loop
-    for epoch in range(epochs):
+    # Training loop - start from resume_epoch if resuming
+    for epoch in range(resume_epoch, epochs):
         print(f"\nEpoch {epoch + 1}/{epochs}")
         print("-" * 40)
         
@@ -673,6 +714,14 @@ def main():
     parser.add_argument('--skip_recursive', action='store_true',
                         help='Skip training recursive transformer')
     
+    # Resume arguments
+    parser.add_argument('--resume_from_checkpoint', type=str, default=None,
+                        help='Path to checkpoint file to resume from (e.g., output/checkpoints/recursive/checkpoint_epoch_10.weights.h5)')
+    parser.add_argument('--resume_epoch', type=int, default=0,
+                        help='Epoch number to resume from (for logging purposes)')
+    parser.add_argument('--wandb_resume_id', type=str, default=None,
+                        help='WandB run ID to resume (e.g., 886cqwhq). If not provided, will auto-detect from wandb/latest-run')
+    
     # Output arguments
     parser.add_argument('--output_dir', type=str, default='output')
     
@@ -805,7 +854,10 @@ def main():
             a_colon_token_id=a_colon_token_id,
             learning_rate=args.learning_rate,
             checkpoint_dir=os.path.join(args.output_dir, 'checkpoints/recursive'),
-            log_dir=os.path.join(args.output_dir, 'logs/recursive')
+            log_dir=os.path.join(args.output_dir, 'logs/recursive'),
+            resume_from_checkpoint=args.resume_from_checkpoint,
+            resume_epoch=args.resume_epoch,
+            wandb_resume_id=args.wandb_resume_id
         )
         
         recursive_test_results = evaluate_model(recursive_model, test_dataset, tokenizer, "Recursive Transformer")

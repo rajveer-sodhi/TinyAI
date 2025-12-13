@@ -91,6 +91,14 @@ BATCH_SIZE=8
 LEARNING_RATE=1e-4
 MAX_SEQ_LENGTH=128
 
+# Resume configuration (set these to resume from a checkpoint)
+# Example: RESUME_CHECKPOINT="output/checkpoints/recursive/checkpoint_epoch_10.weights.h5"
+#          RESUME_EPOCH=10
+#          WANDB_RESUME_ID="886cqwhq"  # Optional - will auto-detect if not set
+RESUME_CHECKPOINT=""
+RESUME_EPOCH=""
+WANDB_RESUME_ID=""
+
 # Paths
 DATA_PATH="preprocessing/data/final_train_data.txt"
 VOCAB_PATH="preprocessing/data/vocab.json"
@@ -125,6 +133,18 @@ echo "  2. Then view metrics at: https://wandb.ai"
 echo "  (No port forwarding needed - metrics upload automatically!)"
 echo ""
 
+# Build resume arguments if set
+RESUME_ARGS=""
+if [ -n "$RESUME_CHECKPOINT" ]; then
+    RESUME_ARGS="$RESUME_ARGS --resume_from_checkpoint \"$RESUME_CHECKPOINT\""
+fi
+if [ -n "$RESUME_EPOCH" ]; then
+    RESUME_ARGS="$RESUME_ARGS --resume_epoch $RESUME_EPOCH"
+fi
+if [ -n "$WANDB_RESUME_ID" ]; then
+    RESUME_ARGS="$RESUME_ARGS --wandb_resume_id \"$WANDB_RESUME_ID\""
+fi
+
 # Run the training script
 python -u train.py \
     --data_path "$DATA_PATH" \
@@ -146,6 +166,7 @@ python -u train.py \
     --batch_size $BATCH_SIZE \
     --learning_rate $LEARNING_RATE \
     --max_seq_length $MAX_SEQ_LENGTH \
+    $RESUME_ARGS \
     $EXTRA_ARGS
 
 EXIT_CODE=$?

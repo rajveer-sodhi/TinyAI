@@ -1,6 +1,0 @@
-{"time":"2025-12-11T03:33:33.714770539-05:00","level":"INFO","msg":"stream: starting","core version":"0.23.1"}
-{"time":"2025-12-11T03:33:33.928809898-05:00","level":"INFO","msg":"stream: created new stream","id":"pmbbrdai"}
-{"time":"2025-12-11T03:33:33.928853021-05:00","level":"INFO","msg":"handler: started","stream_id":"pmbbrdai"}
-{"time":"2025-12-11T03:33:33.935807404-05:00","level":"INFO","msg":"stream: started","id":"pmbbrdai"}
-{"time":"2025-12-11T03:33:33.935818367-05:00","level":"INFO","msg":"writer: started","stream_id":"pmbbrdai"}
-{"time":"2025-12-11T03:33:33.935818536-05:00","level":"INFO","msg":"sender: started","stream_id":"pmbbrdai"}

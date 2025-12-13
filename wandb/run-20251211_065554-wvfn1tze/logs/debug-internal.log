@@ -1,7 +1,0 @@
-{"time":"2025-12-11T06:55:54.510323911-05:00","level":"INFO","msg":"stream: starting","core version":"0.23.1"}
-{"time":"2025-12-11T06:55:54.723332513-05:00","level":"INFO","msg":"stream: created new stream","id":"wvfn1tze"}
-{"time":"2025-12-11T06:55:54.723385081-05:00","level":"INFO","msg":"handler: started","stream_id":"wvfn1tze"}
-{"time":"2025-12-11T06:55:54.727212683-05:00","level":"INFO","msg":"stream: started","id":"wvfn1tze"}
-{"time":"2025-12-11T06:55:54.727225478-05:00","level":"INFO","msg":"writer: started","stream_id":"wvfn1tze"}
-{"time":"2025-12-11T06:55:54.727228337-05:00","level":"INFO","msg":"sender: started","stream_id":"wvfn1tze"}
-{"time":"2025-12-11T07:59:41.159473037-05:00","level":"ERROR","msg":"runconsolelogs: failed to write to file: failed to write to chunk: failed to open file: open /oscar/home/bpeckham/TinyAI/wandb/run-20251211_065554-wvfn1tze/files/output.log: remote I/O error"}
