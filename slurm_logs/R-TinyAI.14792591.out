@@ -1,0 +1,376 @@
+## SLURM PROLOG ###############################################################
+##    Job ID : 14792591
+##  Job Name : TinyAI
+##  Nodelist : gpu2008
+##      CPUs : 1
+##  Mem/Node : 64000 MB
+## Directory : /oscar/home/bpeckham/TinyAI
+##   Job Started : Wed Dec 10 09:41:58 PM EST 2025
+###############################################################################
+
+==========================================
+Job started at: Wed Dec 10 09:41:58 PM EST 2025
+Job ID: 14792591
+Node: gpu2008
+==========================================
+
+Python location: /users/bpeckham/.conda/envs/tinyai/bin/python
+Python version: Python 3.10.19
+Conda environment: tinyai
+Installing/verifying required packages...
+TensorFlow 2.15.0 and NumPy 1.26.4 imported successfully
+GPU Information:
+Wed Dec 10 21:42:25 2025       
++---------------------------------------------------------------------------------------+
+| NVIDIA-SMI 535.129.03             Driver Version: 535.129.03   CUDA Version: 12.2     |
+|-----------------------------------------+----------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |         Memory-Usage | GPU-Util  Compute M. |
+|                                         |                      |               MIG M. |
+|=========================================+======================+======================|
+|   0  Quadro RTX 6000                On  | 00000000:3F:00.0 Off |                  Off |
+| 33%   35C    P8              32W / 260W |     42MiB / 24576MiB |      0%      Default |
+|                                         |                      |                  N/A |
++-----------------------------------------+----------------------+----------------------+
+                                                                                         
++---------------------------------------------------------------------------------------+
+| Processes:                                                                            |
+|  GPU   GI   CI        PID   Type   Process name                            GPU Memory |
+|        ID   ID                                                             Usage      |
+|=======================================================================================|
+|    0   N/A  N/A     29508      G   /usr/libexec/Xorg                            40MiB |
++---------------------------------------------------------------------------------------+
+
+TensorFlow GPU Detection:
+TF version: 2.15.0
+Built with CUDA: True
+GPUs detected: 0
+GPU devices: []
+
+==========================================
+Starting main Python script at Wed Dec 10 09:42:29 PM EST 2025
+==========================================
+
+Configuration:
+  d_model: 32
+  num_layers: 1
+  num_heads: 2
+  ff_dim: 32
+  deep_rec_cycles: 2
+  num_l_steps: 3
+  epochs: 30
+  batch_size: 8
+  learning_rate: 1e-4
+  max_seq_length: 128
+
+To monitor training with WandB:
+  1. First, log in to WandB (one time only):
+     python wandb_login.py
+  2. Then view metrics at: https://wandb.ai
+  (No port forwarding needed - metrics upload automatically!)
+
+
+============================================================
+TinyAI TRAINING SCRIPT
+============================================================
+
+Configuration:
+  Data path: /oscar/home/bpeckham/TinyAI/preprocessing/data/final_train_data.txt
+  Vocab path: /oscar/home/bpeckham/TinyAI/preprocessing/data/vocab.json
+  Max sequence length: 128
+  Model dimension: 32
+  Layers: 1
+  Heads: 2
+  FF dim: 32
+  Dropout: 0.1
+  Deep recursion cycles: 2
+  Inner iterations: 3
+  Deep supervision steps: 2
+  Batch size: 8
+  Epochs: 30
+  Learning rate: 0.0001
+============================================================
+
+Loading tokenizer...
+Loaded vocabulary with 7173 tokens
+  PAD=0, UNK=1, BOS=18, EOS=2
+Loading data...
+Loaded 14180 samples
+Train: 11344, Val: 1418, Test: 1418
+
+############################################################
+# RECURSIVE TRANSFORMER (TRM-Inspired)
+############################################################
+
+Recursive Model Parameters: 477,030
+
+============================================================
+TRAINING RECURSIVE TRANSFORMER (TRM-Inspired)
+============================================================
+  Deep recursion cycles (T): 2
+  Inner iterations (n): 3
+  Deep supervision steps: 2
+  ACT loss weight: 0.1
+  Halt exploration prob: 0.1
+  Max halt steps: 16
+============================================================
+
+
+Epoch 1/30
+----------------------------------------
+  Batch 50: Loss=8.8160, Acc=0.0211
+  Batch 100: Loss=8.5538, Acc=0.0441
+  Batch 150: Loss=8.2823, Acc=0.0624
+  Batch 200: Loss=8.0132, Acc=0.0534
+  Batch 250: Loss=7.7586, Acc=0.0485
+  Batch 300: Loss=7.5821, Acc=0.0170
+  Batch 350: Loss=7.2735, Acc=0.0211
+  Batch 400: Loss=7.1670, Acc=0.0147
+  Batch 450: Loss=6.8168, Acc=0.0106
+  Batch 500: Loss=6.5710, Acc=0.0041
+  Batch 550: Loss=6.5919, Acc=0.0024
+  Batch 600: Loss=6.2076, Acc=0.0097
+  Batch 650: Loss=6.0092, Acc=0.0015
+  Batch 700: Loss=5.9450, Acc=0.0000
+  Batch 750: Loss=5.9666, Acc=0.0000
+  Batch 800: Loss=5.7223, Acc=0.0000
+  Batch 850: Loss=5.7632, Acc=0.0000
+  Batch 900: Loss=5.9378, Acc=0.0000
+  Batch 950: Loss=5.8588, Acc=0.0000
+  Batch 1000: Loss=5.5671, Acc=0.0000
+  Batch 1050: Loss=5.4085, Acc=0.0000
+  Batch 1100: Loss=5.2174, Acc=0.0000
+  Batch 1150: Loss=5.3122, Acc=0.0000
+  Batch 1200: Loss=5.2067, Acc=0.0000
+  Batch 1250: Loss=5.4844, Acc=0.0000
+  Batch 1300: Loss=4.3592, Acc=0.0000
+  Batch 1350: Loss=4.8676, Acc=0.0000
+  Batch 1400: Loss=4.7899, Acc=0.0000
+
+  Train Loss: 6.4146, Train Acc: 0.0107
+  Val Loss: 5.9272, Val Acc: 0.0000
+  ✓ Saved best model (val_loss=5.9272)
+
+Epoch 2/30
+----------------------------------------
+  Batch 50: Loss=4.8993, Acc=0.0000
+  Batch 100: Loss=4.6785, Acc=0.0000
+  Batch 150: Loss=5.1033, Acc=0.0000
+  Batch 200: Loss=4.3576, Acc=0.0000
+  Batch 250: Loss=4.4134, Acc=0.0000
+  Batch 300: Loss=4.8582, Acc=0.0000
+  Batch 350: Loss=4.5763, Acc=0.0000
+  Batch 400: Loss=5.1147, Acc=0.0000
+  Batch 450: Loss=4.9089, Acc=0.0061
+  Batch 500: Loss=4.4570, Acc=0.0964
+  Batch 550: Loss=4.7485, Acc=0.0200
+  Batch 600: Loss=4.0235, Acc=0.1239
+  Batch 650: Loss=4.8272, Acc=0.0361
+  Batch 700: Loss=4.5948, Acc=0.0733
+  Batch 750: Loss=4.8803, Acc=0.0681
+  Batch 800: Loss=4.5504, Acc=0.0873
+  Batch 850: Loss=4.2590, Acc=0.1598
+  Batch 900: Loss=4.2508, Acc=0.1576
+  Batch 950: Loss=4.1712, Acc=0.1539
+  Batch 1000: Loss=3.8711, Acc=0.2209
+  Batch 1050: Loss=4.2503, Acc=0.2045
+  Batch 1100: Loss=3.9004, Acc=0.1810
+  Batch 1150: Loss=3.8131, Acc=0.2429
+  Batch 1200: Loss=4.5553, Acc=0.1905
+  Batch 1250: Loss=4.2663, Acc=0.2044
+  Batch 1300: Loss=4.0619, Acc=0.2306
+  Batch 1350: Loss=4.3148, Acc=0.2316
+  Batch 1400: Loss=3.7513, Acc=0.2480
+
+  Train Loss: 4.4458, Train Acc: 0.1014
+  Val Loss: 4.9262, Val Acc: 0.2356
+  ✓ Saved best model (val_loss=4.9262)
+
+Epoch 3/30
+----------------------------------------
+  Batch 50: Loss=3.8769, Acc=0.2350
+  Batch 100: Loss=3.6477, Acc=0.2387
+  Batch 150: Loss=3.9384, Acc=0.2545
+  Batch 200: Loss=3.8458, Acc=0.2477
+  Batch 250: Loss=3.6919, Acc=0.2667
+  Batch 300: Loss=4.1358, Acc=0.2199
+  Batch 350: Loss=3.8561, Acc=0.2398
+  Batch 400: Loss=3.9221, Acc=0.2600
+  Batch 450: Loss=3.4928, Acc=0.2698
+  Batch 500: Loss=4.1083, Acc=0.2258
+  Batch 550: Loss=3.9588, Acc=0.2488
+  Batch 600: Loss=3.3931, Acc=0.2804
+  Batch 650: Loss=3.5966, Acc=0.2828
+  Batch 700: Loss=3.6463, Acc=0.2877
+  Batch 750: Loss=3.6546, Acc=0.2716
+  Batch 800: Loss=3.7288, Acc=0.2701
+  Batch 850: Loss=3.5916, Acc=0.2531
+  Batch 900: Loss=3.8775, Acc=0.2620
+  Batch 950: Loss=3.7861, Acc=0.2487
+  Batch 1000: Loss=3.2424, Acc=0.2956
+  Batch 1050: Loss=3.5035, Acc=0.2753
+  Batch 1100: Loss=4.3532, Acc=0.2311
+  Batch 1150: Loss=3.4955, Acc=0.2334
+  Batch 1200: Loss=3.6502, Acc=0.2884
+  Batch 1250: Loss=4.0997, Acc=0.2339
+  Batch 1300: Loss=3.2315, Acc=0.2518
+  Batch 1350: Loss=3.1473, Acc=0.2775
+  Batch 1400: Loss=2.7592, Acc=0.2673
+
+  Train Loss: 3.7188, Train Acc: 0.2577
+  Val Loss: 4.4158, Val Acc: 0.2715
+  ✓ Saved best model (val_loss=4.4158)
+
+Epoch 4/30
+----------------------------------------
+  Batch 50: Loss=3.6713, Acc=0.2558
+  Batch 100: Loss=3.1959, Acc=0.2730
+  Batch 150: Loss=3.4206, Acc=0.2726
+  Batch 200: Loss=3.3198, Acc=0.3155
+  Batch 250: Loss=3.3802, Acc=0.2487
+  Batch 300: Loss=3.3431, Acc=0.2924
+  Batch 350: Loss=3.1966, Acc=0.2619
+  Batch 400: Loss=3.5440, Acc=0.2545
+  Batch 450: Loss=3.6329, Acc=0.2946
+  Batch 500: Loss=3.5790, Acc=0.2430
+  Batch 550: Loss=3.6361, Acc=0.2556
+  Batch 600: Loss=3.6638, Acc=0.2663
+  Batch 650: Loss=3.3324, Acc=0.2776
+  Batch 700: Loss=3.6084, Acc=0.2867
+  Batch 750: Loss=3.8521, Acc=0.2415
+  Batch 800: Loss=3.2905, Acc=0.2659
+  Batch 850: Loss=2.6948, Acc=0.2949
+  Batch 900: Loss=3.1822, Acc=0.3037
+  Batch 950: Loss=3.0360, Acc=0.3004
+  Batch 1000: Loss=3.5906, Acc=0.2872
+  Batch 1050: Loss=2.9557, Acc=0.3159
+  Batch 1100: Loss=3.8085, Acc=0.2573
+  Batch 1150: Loss=3.0862, Acc=0.2973
+  Batch 1200: Loss=2.9952, Acc=0.3114
+  Batch 1250: Loss=3.0968, Acc=0.3071
+  Batch 1300: Loss=3.7718, Acc=0.2828
+  Batch 1350: Loss=3.4006, Acc=0.2395
+  Batch 1400: Loss=3.1427, Acc=0.2771
+
+  Train Loss: 3.4189, Train Acc: 0.2781
+  Val Loss: 4.1580, Val Acc: 0.2838
+  ✓ Saved best model (val_loss=4.1580)
+
+Epoch 5/30
+----------------------------------------
+  Batch 50: Loss=3.4770, Acc=0.2887
+  Batch 100: Loss=4.1243, Acc=0.2758
+  Batch 150: Loss=2.8677, Acc=0.3035
+  Batch 200: Loss=3.3882, Acc=0.3076
+  Batch 250: Loss=3.3684, Acc=0.3075
+  Batch 300: Loss=3.3314, Acc=0.2853
+  Batch 350: Loss=3.5228, Acc=0.2586
+  Batch 400: Loss=3.5236, Acc=0.2973
+  Batch 450: Loss=2.8355, Acc=0.3115
+  Batch 500: Loss=3.1073, Acc=0.3203
+  Batch 550: Loss=2.7544, Acc=0.2952
+  Batch 600: Loss=3.2762, Acc=0.3014
+  Batch 650: Loss=2.8177, Acc=0.3140
+  Batch 700: Loss=3.1048, Acc=0.2777
+  Batch 750: Loss=3.5540, Acc=0.2989
+  Batch 800: Loss=3.4803, Acc=0.2794
+  Batch 850: Loss=3.2786, Acc=0.3068
+  Batch 900: Loss=3.2982, Acc=0.2940
+  Batch 950: Loss=3.1181, Acc=0.3176
+  Batch 1000: Loss=3.5752, Acc=0.2552
+  Batch 1050: Loss=2.6390, Acc=0.3136
+  Batch 1100: Loss=3.3910, Acc=0.2886
+  Batch 1150: Loss=3.3430, Acc=0.3165
+  Batch 1200: Loss=3.4451, Acc=0.2709
+  Batch 1250: Loss=3.7972, Acc=0.2746
+  Batch 1300: Loss=3.3664, Acc=0.2887
+  Batch 1350: Loss=3.4543, Acc=0.2994
+  Batch 1400: Loss=2.8552, Acc=0.2917
+
+  Train Loss: 3.2500, Train Acc: 0.2921
+  Val Loss: 3.9925, Val Acc: 0.2968
+  ✓ Saved best model (val_loss=3.9925)
+
+Epoch 6/30
+----------------------------------------
+  Batch 50: Loss=3.0305, Acc=0.2795
+  Batch 100: Loss=2.8866, Acc=0.3138
+  Batch 150: Loss=3.1459, Acc=0.3052
+  Batch 200: Loss=3.4381, Acc=0.2936
+  Batch 250: Loss=3.3377, Acc=0.2935
+  Batch 300: Loss=3.0027, Acc=0.3047
+  Batch 350: Loss=3.0424, Acc=0.3228
+  Batch 400: Loss=3.0991, Acc=0.3215
+  Batch 450: Loss=3.4689, Acc=0.2836
+  Batch 500: Loss=3.1443, Acc=0.3333
+  Batch 550: Loss=3.0420, Acc=0.3211
+  Batch 600: Loss=2.9839, Acc=0.3175
+  Batch 650: Loss=3.3652, Acc=0.3008
+  Batch 700: Loss=3.0003, Acc=0.3268
+  Batch 750: Loss=2.9032, Acc=0.3497
+  Batch 800: Loss=2.8439, Acc=0.3230
+  Batch 850: Loss=3.2344, Acc=0.2913
+  Batch 900: Loss=3.0823, Acc=0.2917
+  Batch 950: Loss=2.7441, Acc=0.3605
+  Batch 1000: Loss=2.9027, Acc=0.2713
+  Batch 1050: Loss=3.3057, Acc=0.2872
+  Batch 1100: Loss=3.1496, Acc=0.2768
+  Batch 1150: Loss=3.1543, Acc=0.3061
+  Batch 1200: Loss=3.5107, Acc=0.2740
+  Batch 1250: Loss=2.7760, Acc=0.3315
+  Batch 1300: Loss=3.4767, Acc=0.2948
+  Batch 1350: Loss=3.2397, Acc=0.3039
+  Batch 1400: Loss=3.4939, Acc=0.3055
+
+  Train Loss: 3.1329, Train Acc: 0.3032
+  Val Loss: 3.8667, Val Acc: 0.3058
+  ✓ Saved best model (val_loss=3.8667)
+
+Epoch 7/30
+----------------------------------------
+  Batch 50: Loss=2.5996, Acc=0.3489
+  Batch 100: Loss=3.1543, Acc=0.2896
+  Batch 150: Loss=3.4669, Acc=0.2922
+  Batch 200: Loss=3.2580, Acc=0.2704
+  Batch 250: Loss=3.3479, Acc=0.2760
+  Batch 300: Loss=3.2951, Acc=0.3287
+  Batch 350: Loss=3.2046, Acc=0.2949
+  Batch 400: Loss=2.1750, Acc=0.3333
+  Batch 450: Loss=3.4993, Acc=0.2878
+  Batch 500: Loss=3.0232, Acc=0.2972
+  Batch 550: Loss=3.1452, Acc=0.3006
+  Batch 600: Loss=3.5706, Acc=0.2946
+  Batch 650: Loss=3.1847, Acc=0.2982
+  Batch 700: Loss=2.8939, Acc=0.3110
+  Batch 750: Loss=2.8895, Acc=0.2884
+  Batch 800: Loss=3.2331, Acc=0.2924
+  Batch 850: Loss=3.4340, Acc=0.3264
+  Batch 900: Loss=2.8358, Acc=0.3324
+  Batch 950: Loss=2.8652, Acc=0.3190
+  Batch 1000: Loss=3.3170, Acc=0.3196
+  Batch 1050: Loss=2.5213, Acc=0.3474
+  Batch 1100: Loss=3.3148, Acc=0.2655
+  Batch 1150: Loss=2.7475, Acc=0.3253
+  Batch 1200: Loss=3.1828, Acc=0.3400
+  Batch 1250: Loss=3.1216, Acc=0.3239
+  Batch 1300: Loss=2.9559, Acc=0.3108
+  Batch 1350: Loss=2.9091, Acc=0.3169
+  Batch 1400: Loss=2.8339, Acc=0.3385
+
+  Train Loss: 3.0424, Train Acc: 0.3124
+  Val Loss: 3.7649, Val Acc: 0.3141
+  ✓ Saved best model (val_loss=3.7649)
+
+Epoch 8/30
+----------------------------------------
+  Batch 50: Loss=3.3794, Acc=0.2912
+  Batch 100: Loss=2.5904, Acc=0.3496
+  Batch 150: Loss=2.9440, Acc=0.2903
+  Batch 200: Loss=2.9941, Acc=0.3255
+  Batch 250: Loss=3.2859, Acc=0.3077
+  Batch 300: Loss=3.6651, Acc=0.2735
+  Batch 350: Loss=3.0233, Acc=0.3291
+  Batch 400: Loss=2.8169, Acc=0.3007
+  Batch 450: Loss=3.1809, Acc=0.2936
+  Batch 500: Loss=2.9636, Acc=0.2869
+  Batch 550: Loss=2.4249, Acc=0.3290

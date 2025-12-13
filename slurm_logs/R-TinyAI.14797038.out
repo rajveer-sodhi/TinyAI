@@ -1,0 +1,143 @@
+## SLURM PROLOG ###############################################################
+##    Job ID : 14797038
+##  Job Name : TinyAI
+##  Nodelist : gpu1402
+##      CPUs : 1
+##  Mem/Node : 64000 MB
+## Directory : /oscar/home/bpeckham/TinyAI
+##   Job Started : Thu Dec 11 06:31:46 AM EST 2025
+###############################################################################
+
+==========================================
+Job started at: Thu Dec 11 06:31:46 AM EST 2025
+Job ID: 14797038
+Node: gpu1402
+==========================================
+
+Python location: /users/bpeckham/.conda/envs/tinyai/bin/python
+Python version: Python 3.10.19
+Conda environment: tinyai
+Installing/verifying required packages...
+TensorFlow 2.15.0 and NumPy 1.26.4 imported successfully
+GPU Information:
+Thu Dec 11 06:31:56 2025       
++---------------------------------------------------------------------------------------+
+| NVIDIA-SMI 535.129.03             Driver Version: 535.129.03   CUDA Version: 12.2     |
+|-----------------------------------------+----------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |         Memory-Usage | GPU-Util  Compute M. |
+|                                         |                      |               MIG M. |
+|=========================================+======================+======================|
+|   0  NVIDIA TITAN RTX               On  | 00000000:3D:00.0 Off |                  N/A |
+| 41%   39C    P8              29W / 280W |     30MiB / 24576MiB |      0%      Default |
+|                                         |                      |                  N/A |
++-----------------------------------------+----------------------+----------------------+
+                                                                                         
++---------------------------------------------------------------------------------------+
+| Processes:                                                                            |
+|  GPU   GI   CI        PID   Type   Process name                            GPU Memory |
+|        ID   ID                                                             Usage      |
+|=======================================================================================|
+|    0   N/A  N/A     29134      G   /usr/libexec/Xorg                            27MiB |
++---------------------------------------------------------------------------------------+
+
+TensorFlow GPU Detection:
+TF version: 2.15.0
+Built with CUDA: True
+GPUs detected: 0
+GPU devices: []
+
+==========================================
+Starting main Python script at Thu Dec 11 06:31:59 AM EST 2025
+==========================================
+
+Configuration:
+  d_model: 64
+  num_layers: 2
+  num_heads: 4
+  ff_dim: 64
+  deep_rec_cycles: 2
+  num_l_steps: 3
+  epochs: 15
+  batch_size: 8
+  learning_rate: 1e-4
+  max_seq_length: 128
+
+To monitor training with WandB:
+  1. First, log in to WandB (one time only):
+     python wandb_login.py
+  2. Then view metrics at: https://wandb.ai
+  (No port forwarding needed - metrics upload automatically!)
+
+
+============================================================
+TinyAI TRAINING SCRIPT
+============================================================
+
+Configuration:
+  Data path: /oscar/home/bpeckham/TinyAI/preprocessing/data/final_train_data.txt
+  Vocab path: /oscar/home/bpeckham/TinyAI/preprocessing/data/vocab.json
+  Max sequence length: 128
+  Model dimension: 64
+  Layers: 2
+  Heads: 4
+  FF dim: 64
+  Dropout: 0.1
+  Deep recursion cycles: 2
+  Inner iterations: 3
+  Deep supervision steps: 2
+  Batch size: 8
+  Epochs: 15
+  Learning rate: 0.0001
+============================================================
+
+Loading tokenizer...
+Loaded vocabulary with 12443 tokens
+  PAD=0, UNK=1, BOS=12, EOS=2
+Using token ID 5 for 'a:'/'A:' detection
+Loading data...
+Loaded 7473 samples
+Train: 5979, Val: 747, Test: 747
+
+############################################################
+# RECURSIVE TRANSFORMER (TRM-Inspired)
+############################################################
+
+Recursive Model Parameters: 1,689,116
+
+============================================================
+TRAINING RECURSIVE TRANSFORMER (TRM-Inspired)
+============================================================
+  Deep recursion cycles (T): 2
+  Inner iterations (n): 3
+  Deep supervision steps: 2
+  ACT loss weight: 0.1
+  Halt exploration prob: 0.1
+  Max halt steps: 16
+============================================================
+
+
+Epoch 1/15
+----------------------------------------
+  Batch 50: Loss=8.9222, Acc=0.0000, AnsAcc=0.0000
+  Batch 100: Loss=8.2784, Acc=0.0000, AnsAcc=0.0000
+  Batch 150: Loss=7.5755, Acc=0.0000, AnsAcc=0.0000
+  Batch 200: Loss=7.1302, Acc=0.0000, AnsAcc=0.0000
+  Batch 250: Loss=6.8341, Acc=0.0000, AnsAcc=0.0000
+  Batch 300: Loss=6.3455, Acc=0.0000, AnsAcc=0.0000
+  Batch 350: Loss=5.7109, Acc=0.0000, AnsAcc=0.0000
+  Batch 400: Loss=5.3202, Acc=0.0000, AnsAcc=0.0000
+  Batch 450: Loss=5.2782, Acc=0.0000, AnsAcc=0.0000
+  Batch 500: Loss=5.0747, Acc=0.0000, AnsAcc=0.0000
+  Batch 550: Loss=4.6978, Acc=0.0000, AnsAcc=0.0000
+  Batch 600: Loss=4.0755, Acc=0.0000, AnsAcc=0.0000
+  Batch 650: Loss=4.7241, Acc=0.0000, AnsAcc=0.0000
+  Batch 700: Loss=4.0850, Acc=0.0000, AnsAcc=0.0000
+
+  Train Loss: 6.0714, Train Acc: 0.0000, Train AnsAcc: 0.0000
+  Val Loss: 6.5781, Val Acc: 0.0000, Val AnsAcc: 0.0000
+  ✓ Saved best model (val_loss=6.5781)
+
+Epoch 2/15
+----------------------------------------
+  Batch 50: Loss=3.4822, Acc=0.0000, AnsAcc=0.0000

@@ -1,0 +1,143 @@
+2025-12-10 21:31:37.574501: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-12-10 21:31:37.576509: I external/local_tsl/tsl/cuda/cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+2025-12-10 21:31:37.615819: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2025-12-10 21:31:37.615854: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2025-12-10 21:31:37.616913: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2025-12-10 21:31:37.622649: I external/local_tsl/tsl/cuda/cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+2025-12-10 21:31:37.622822: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-12-10 21:31:39.089608: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+2025-12-10 21:31:42.253219: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-12-10 21:31:42.255221: I external/local_tsl/tsl/cuda/cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+2025-12-10 21:31:42.293874: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2025-12-10 21:31:42.293905: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2025-12-10 21:31:42.294973: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2025-12-10 21:31:42.300815: I external/local_tsl/tsl/cuda/cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+2025-12-10 21:31:42.300994: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-12-10 21:31:43.428258: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+2025-12-10 21:31:44.854000: W tensorflow/core/common_runtime/gpu/gpu_device.cc:2256] Cannot dlopen some GPU libraries. Please make sure the missing libraries mentioned above are installed properly if you would like to use GPU. Follow the guide at https://www.tensorflow.org/install/gpu for how to download and setup the required libraries for your platform.
+Skipping registering GPU devices...
+2025-12-10 21:31:45.837851: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-12-10 21:31:45.839885: I external/local_tsl/tsl/cuda/cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+2025-12-10 21:31:45.879932: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2025-12-10 21:31:45.879967: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2025-12-10 21:31:45.881036: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2025-12-10 21:31:45.886820: I external/local_tsl/tsl/cuda/cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+2025-12-10 21:31:45.886992: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-12-10 21:31:46.991512: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+2025-12-10 21:31:50.475347: W tensorflow/core/common_runtime/gpu/gpu_device.cc:2256] Cannot dlopen some GPU libraries. Please make sure the missing libraries mentioned above are installed properly if you would like to use GPU. Follow the guide at https://www.tensorflow.org/install/gpu for how to download and setup the required libraries for your platform.
+Skipping registering GPU devices...
+wandb: Currently logged in as: benjamin_peckham (benjamin_peckham-brown-university) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: Tracking run with wandb version 0.23.1
+wandb: Run data is saved locally in /oscar/home/bpeckham/TinyAI/wandb/run-20251210_213151-g9q7akyb
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run recursive-transformer
+wandb: ⭐️ View project at https://wandb.ai/benjamin_peckham-brown-university/tinyai
+wandb: 🚀 View run at https://wandb.ai/benjamin_peckham-brown-university/tinyai/runs/g9q7akyb
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+WARNING:tensorflow:Gradients do not exist for variables ['y0:0', 'z0:0'] when minimizing the loss. If you're using `model.compile()`, did you forget to provide a `loss` argument?
+slurmstepd: error: *** JOB 14792468 ON gpu2006 CANCELLED AT 2025-12-10T21:32:49 ***

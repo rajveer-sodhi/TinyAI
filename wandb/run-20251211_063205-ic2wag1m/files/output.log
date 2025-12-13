@@ -1,0 +1,25 @@
+
+Epoch 1/15
+----------------------------------------
+  Batch 50: Loss=8.9222, Acc=0.0000, AnsAcc=0.0000
+  Batch 100: Loss=8.2784, Acc=0.0000, AnsAcc=0.0000
+  Batch 150: Loss=7.5755, Acc=0.0000, AnsAcc=0.0000
+  Batch 200: Loss=7.1302, Acc=0.0000, AnsAcc=0.0000
+  Batch 250: Loss=6.8341, Acc=0.0000, AnsAcc=0.0000
+  Batch 300: Loss=6.3455, Acc=0.0000, AnsAcc=0.0000
+  Batch 350: Loss=5.7109, Acc=0.0000, AnsAcc=0.0000
+  Batch 400: Loss=5.3202, Acc=0.0000, AnsAcc=0.0000
+  Batch 450: Loss=5.2782, Acc=0.0000, AnsAcc=0.0000
+  Batch 500: Loss=5.0747, Acc=0.0000, AnsAcc=0.0000
+  Batch 550: Loss=4.6978, Acc=0.0000, AnsAcc=0.0000
+  Batch 600: Loss=4.0755, Acc=0.0000, AnsAcc=0.0000
+  Batch 650: Loss=4.7241, Acc=0.0000, AnsAcc=0.0000
+  Batch 700: Loss=4.0850, Acc=0.0000, AnsAcc=0.0000
+
+  Train Loss: 6.0714, Train Acc: 0.0000, Train AnsAcc: 0.0000
+  Val Loss: 6.5781, Val Acc: 0.0000, Val AnsAcc: 0.0000
+  ✓ Saved best model (val_loss=6.5781)
+
+Epoch 2/15
+----------------------------------------
+  Batch 50: Loss=3.4822, Acc=0.0000, AnsAcc=0.0000

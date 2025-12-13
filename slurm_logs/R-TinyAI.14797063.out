@@ -1,0 +1,260 @@
+## SLURM PROLOG ###############################################################
+##    Job ID : 14797063
+##  Job Name : TinyAI
+##  Nodelist : gpu1402
+##      CPUs : 1
+##  Mem/Node : 64000 MB
+## Directory : /oscar/home/bpeckham/TinyAI
+##   Job Started : Thu Dec 11 06:55:34 AM EST 2025
+###############################################################################
+
+==========================================
+Job started at: Thu Dec 11 06:55:34 AM EST 2025
+Job ID: 14797063
+Node: gpu1402
+==========================================
+
+Python location: /users/bpeckham/.conda/envs/tinyai/bin/python
+Python version: Python 3.10.19
+Conda environment: tinyai
+Installing/verifying required packages...
+TensorFlow 2.15.0 and NumPy 1.26.4 imported successfully
+GPU Information:
+Thu Dec 11 06:55:43 2025       
++---------------------------------------------------------------------------------------+
+| NVIDIA-SMI 535.129.03             Driver Version: 535.129.03   CUDA Version: 12.2     |
+|-----------------------------------------+----------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |         Memory-Usage | GPU-Util  Compute M. |
+|                                         |                      |               MIG M. |
+|=========================================+======================+======================|
+|   0  NVIDIA TITAN RTX               On  | 00000000:3D:00.0 Off |                  N/A |
+| 41%   39C    P8              30W / 280W |     30MiB / 24576MiB |      0%      Default |
+|                                         |                      |                  N/A |
++-----------------------------------------+----------------------+----------------------+
+                                                                                         
++---------------------------------------------------------------------------------------+
+| Processes:                                                                            |
+|  GPU   GI   CI        PID   Type   Process name                            GPU Memory |
+|        ID   ID                                                             Usage      |
+|=======================================================================================|
+|    0   N/A  N/A     29134      G   /usr/libexec/Xorg                            27MiB |
++---------------------------------------------------------------------------------------+
+
+TensorFlow GPU Detection:
+TF version: 2.15.0
+Built with CUDA: True
+GPUs detected: 0
+GPU devices: []
+
+==========================================
+Starting main Python script at Thu Dec 11 06:55:47 AM EST 2025
+==========================================
+
+Configuration:
+  d_model: 64
+  num_layers: 2
+  num_heads: 4
+  ff_dim: 64
+  deep_rec_cycles: 2
+  num_l_steps: 3
+  epochs: 15
+  batch_size: 8
+  learning_rate: 1e-4
+  max_seq_length: 128
+
+To monitor training with WandB:
+  1. First, log in to WandB (one time only):
+     python wandb_login.py
+  2. Then view metrics at: https://wandb.ai
+  (No port forwarding needed - metrics upload automatically!)
+
+
+============================================================
+TinyAI TRAINING SCRIPT
+============================================================
+
+Configuration:
+  Data path: /oscar/home/bpeckham/TinyAI/preprocessing/data/final_train_data.txt
+  Vocab path: /oscar/home/bpeckham/TinyAI/preprocessing/data/vocab.json
+  Max sequence length: 128
+  Model dimension: 64
+  Layers: 2
+  Heads: 4
+  FF dim: 64
+  Dropout: 0.1
+  Deep recursion cycles: 2
+  Inner iterations: 3
+  Deep supervision steps: 2
+  Batch size: 8
+  Epochs: 15
+  Learning rate: 0.0001
+============================================================
+
+Loading tokenizer...
+Loaded vocabulary with 12443 tokens
+  PAD=0, UNK=1, BOS=12, EOS=2
+Using token ID 5 for 'a:'/'A:' detection
+Loading data...
+Loaded 7473 samples
+Train: 5979, Val: 747, Test: 747
+
+############################################################
+# RECURSIVE TRANSFORMER (TRM-Inspired)
+############################################################
+
+Recursive Model Parameters: 1,689,116
+
+============================================================
+TRAINING RECURSIVE TRANSFORMER (TRM-Inspired)
+============================================================
+  Deep recursion cycles (T): 2
+  Inner iterations (n): 3
+  Deep supervision steps: 2
+  ACT loss weight: 0.1
+  Halt exploration prob: 0.1
+  Max halt steps: 16
+============================================================
+
+
+Epoch 1/15
+----------------------------------------
+  Batch 50: Loss=8.8603 (CE=8.7896, ACT=0.7294, Penalty=-0.0022) | Acc=0.0000, AnsAcc=0.0000
+  Batch 100: Loss=8.3267 (CE=8.2504, ACT=0.7835, Penalty=-0.0021) | Acc=0.0000, AnsAcc=0.0000
+  Batch 150: Loss=7.8468 (CE=7.7794, ACT=0.7024, Penalty=-0.0029) | Acc=0.0000, AnsAcc=0.0000
+  Batch 200: Loss=7.2760 (CE=7.2021, ACT=0.7475, Penalty=-0.0008) | Acc=0.0000, AnsAcc=0.0000
+  Batch 250: Loss=6.8601 (CE=6.7913, ACT=0.7133, Penalty=-0.0026) | Acc=0.0000, AnsAcc=0.0000
+  Batch 300: Loss=6.5191 (CE=6.4441, ACT=0.7935, Penalty=-0.0044) | Acc=0.0000, AnsAcc=0.0000
+  Batch 400: Loss=5.3521 (CE=5.2822, ACT=0.7233, Penalty=-0.0025) | Acc=0.0000, AnsAcc=0.0000
+  Batch 450: Loss=5.3281 (CE=5.2555, ACT=0.7465, Penalty=-0.0020) | Acc=0.0000, AnsAcc=0.0000
+  Batch 500: Loss=4.5823 (CE=4.5123, ACT=0.7114, Penalty=-0.0011) | Acc=0.0000, AnsAcc=0.0000
+  Batch 550: Loss=4.5474 (CE=4.4750, ACT=0.7675, Penalty=-0.0043) | Acc=0.0000, AnsAcc=0.0000
+  Batch 600: Loss=3.9725 (CE=3.9079, ACT=0.6829, Penalty=-0.0037) | Acc=0.0000, AnsAcc=0.0000
+  Batch 650: Loss=4.0346 (CE=3.9642, ACT=0.7235, Penalty=-0.0019) | Acc=0.0000, AnsAcc=0.0000
+  Batch 700: Loss=4.6932 (CE=4.6215, ACT=0.7395, Penalty=-0.0022) | Acc=0.0000, AnsAcc=0.0000
+
+  Train Loss: 6.0510, Train Acc: 0.0002, Train AnsAcc: 0.0000
+  Val Loss: 6.5002, Val Acc: 0.0000, Val AnsAcc: 0.0000
+  ✓ Saved best model (val_loss=6.5002)
+
+Epoch 2/15
+----------------------------------------
+  Batch 50: Loss=3.7681 (CE=3.7013, ACT=0.6875, Penalty=-0.0019) | Acc=0.0000, AnsAcc=0.0000
+  Batch 100: Loss=3.6958 (CE=3.6299, ACT=0.6637, Penalty=-0.0004) | Acc=0.0000, AnsAcc=0.0000
+  Batch 150: Loss=3.1707 (CE=3.1044, ACT=0.6985, Penalty=-0.0036) | Acc=0.0000, AnsAcc=0.0000
+  Batch 200: Loss=3.5161 (CE=3.4456, ACT=0.7211, Penalty=-0.0015) | Acc=0.0000, AnsAcc=0.0000
+  Batch 250: Loss=3.3050 (CE=3.2393, ACT=0.6809, Penalty=-0.0024) | Acc=0.0000, AnsAcc=0.0000
+  Batch 300: Loss=3.2085 (CE=3.1363, ACT=0.7576, Penalty=-0.0036) | Acc=0.0000, AnsAcc=0.0000
+  Batch 350: Loss=2.6981 (CE=2.6313, ACT=0.6965, Penalty=-0.0028) | Acc=0.0024, AnsAcc=0.0046
+  Batch 400: Loss=3.1259 (CE=3.0593, ACT=0.6945, Penalty=-0.0029) | Acc=0.0297, AnsAcc=0.0357
+  Batch 450: Loss=3.3967 (CE=3.3305, ACT=0.6980, Penalty=-0.0036) | Acc=0.0504, AnsAcc=0.0453
+  Batch 500: Loss=2.9277 (CE=2.8610, ACT=0.7250, Penalty=-0.0058) | Acc=0.0640, AnsAcc=0.0645
+  Batch 550: Loss=2.8349 (CE=2.7710, ACT=0.6855, Penalty=-0.0046) | Acc=0.0966, AnsAcc=0.0772
+  Batch 600: Loss=3.2483 (CE=3.1828, ACT=0.7065, Penalty=-0.0052) | Acc=0.1058, AnsAcc=0.0591
+  Batch 650: Loss=3.0443 (CE=2.9789, ACT=0.6981, Penalty=-0.0045) | Acc=0.1288, AnsAcc=0.1179
+  Batch 700: Loss=3.0019 (CE=2.9372, ACT=0.6919, Penalty=-0.0045) | Acc=0.1367, AnsAcc=0.1364
+
+  Train Loss: 3.2804, Train Acc: 0.0451, Train AnsAcc: 0.0377
+  Val Loss: 5.6955, Val Acc: 0.1696, Val AnsAcc: 0.1520
+  ✓ Saved best model (val_loss=5.6955)
+
+Epoch 3/15
+----------------------------------------
+  Batch 50: Loss=2.7493 (CE=2.6891, ACT=0.6630, Penalty=-0.0061) | Acc=0.1653, AnsAcc=0.1606
+  Batch 100: Loss=2.6370 (CE=2.5778, ACT=0.6444, Penalty=-0.0052) | Acc=0.1688, AnsAcc=0.1283
+  Batch 150: Loss=2.5337 (CE=2.4726, ACT=0.6736, Penalty=-0.0063) | Acc=0.1867, AnsAcc=0.1521
+  Batch 200: Loss=2.5124 (CE=2.4556, ACT=0.6315, Penalty=-0.0063) | Acc=0.2014, AnsAcc=0.2222
+  Batch 250: Loss=2.8815 (CE=2.8194, ACT=0.6565, Penalty=-0.0035) | Acc=0.1680, AnsAcc=0.1360
+  Batch 300: Loss=2.7534 (CE=2.6921, ACT=0.6728, Penalty=-0.0061) | Acc=0.2020, AnsAcc=0.2160
+  Batch 350: Loss=2.6230 (CE=2.5649, ACT=0.6349, Penalty=-0.0054) | Acc=0.1880, AnsAcc=0.2756
+  Batch 400: Loss=2.4990 (CE=2.4400, ACT=0.6636, Penalty=-0.0073) | Acc=0.2185, AnsAcc=0.2149
+  Batch 450: Loss=2.3541 (CE=2.2969, ACT=0.6489, Penalty=-0.0077) | Acc=0.2455, AnsAcc=0.2189
+  Batch 500: Loss=3.1618 (CE=3.1004, ACT=0.6454, Penalty=-0.0032) | Acc=0.2123, AnsAcc=0.2241
+  Batch 550: Loss=3.1466 (CE=3.0806, ACT=0.6938, Penalty=-0.0034) | Acc=0.1907, AnsAcc=0.2828
+  Batch 600: Loss=2.6505 (CE=2.5916, ACT=0.6599, Penalty=-0.0071) | Acc=0.2220, AnsAcc=0.2036
+  Batch 650: Loss=2.5696 (CE=2.5147, ACT=0.6036, Penalty=-0.0054) | Acc=0.2100, AnsAcc=0.2275
+  Batch 700: Loss=2.4918 (CE=2.4362, ACT=0.6320, Penalty=-0.0076) | Acc=0.2365, AnsAcc=0.2000
+
+  Train Loss: 2.7521, Train Acc: 0.2041, Train AnsAcc: 0.2016
+  Val Loss: 5.1434, Val Acc: 0.2359, Val AnsAcc: 0.2387
+  ✓ Saved best model (val_loss=5.1434)
+
+Epoch 4/15
+----------------------------------------
+  Batch 50: Loss=2.2509 (CE=2.1934, ACT=0.6625, Penalty=-0.0088) | Acc=0.2589, AnsAcc=0.2440
+  Batch 100: Loss=2.2445 (CE=2.1906, ACT=0.6377, Penalty=-0.0098) | Acc=0.2647, AnsAcc=0.2276
+  Batch 150: Loss=2.8575 (CE=2.7972, ACT=0.6512, Penalty=-0.0048) | Acc=0.2169, AnsAcc=0.2151
+  Batch 200: Loss=2.5544 (CE=2.4940, ACT=0.6697, Penalty=-0.0066) | Acc=0.2604, AnsAcc=0.2480
+  Batch 250: Loss=2.9160 (CE=2.8578, ACT=0.6433, Penalty=-0.0061) | Acc=0.2218, AnsAcc=0.2286
+  Batch 300: Loss=2.6543 (CE=2.5990, ACT=0.6140, Penalty=-0.0061) | Acc=0.2645, AnsAcc=0.2148
+  Batch 350: Loss=1.9128 (CE=1.8599, ACT=0.6166, Penalty=-0.0088) | Acc=0.2971, AnsAcc=0.3122
+  Batch 400: Loss=2.4037 (CE=2.3475, ACT=0.6494, Penalty=-0.0088) | Acc=0.3015, AnsAcc=0.2932
+  Batch 450: Loss=1.9424 (CE=1.8898, ACT=0.6139, Penalty=-0.0088) | Acc=0.2906, AnsAcc=0.3793
+  Batch 500: Loss=2.2152 (CE=2.1570, ACT=0.6713, Penalty=-0.0089) | Acc=0.2795, AnsAcc=0.2727
+  Batch 550: Loss=2.7026 (CE=2.6408, ACT=0.6821, Penalty=-0.0064) | Acc=0.2341, AnsAcc=0.2544
+  Batch 600: Loss=2.2787 (CE=2.2207, ACT=0.6453, Penalty=-0.0065) | Acc=0.2664, AnsAcc=0.2372
+  Batch 650: Loss=2.8212 (CE=2.7593, ACT=0.6751, Penalty=-0.0056) | Acc=0.2632, AnsAcc=0.2291
+  Batch 700: Loss=2.2352 (CE=2.1799, ACT=0.6384, Penalty=-0.0085) | Acc=0.2741, AnsAcc=0.2336
+
+  Train Loss: 2.5122, Train Acc: 0.2528, Train AnsAcc: 0.2583
+  Val Loss: 4.8392, Val Acc: 0.2691, Val AnsAcc: 0.2719
+  ✓ Saved best model (val_loss=4.8392)
+
+Epoch 5/15
+----------------------------------------
+  Batch 50: Loss=2.9958 (CE=2.9321, ACT=0.6738, Penalty=-0.0037) | Acc=0.2388, AnsAcc=0.2067
+  Batch 100: Loss=2.3884 (CE=2.3393, ACT=0.5854, Penalty=-0.0094) | Acc=0.2758, AnsAcc=0.2455
+  Batch 150: Loss=2.2865 (CE=2.2279, ACT=0.6555, Penalty=-0.0070) | Acc=0.2647, AnsAcc=0.2422
+  Batch 200: Loss=2.5427 (CE=2.4814, ACT=0.6834, Penalty=-0.0070) | Acc=0.2491, AnsAcc=0.3543
+  Batch 250: Loss=1.7421 (CE=1.6936, ACT=0.5926, Penalty=-0.0108) | Acc=0.3105, AnsAcc=0.2833
+  Batch 300: Loss=2.8799 (CE=2.8197, ACT=0.6555, Penalty=-0.0054) | Acc=0.2479, AnsAcc=0.2547
+  Batch 350: Loss=2.8351 (CE=2.7781, ACT=0.6144, Penalty=-0.0045) | Acc=0.2577, AnsAcc=0.2356
+  Batch 400: Loss=2.2640 (CE=2.2098, ACT=0.6276, Penalty=-0.0086) | Acc=0.2872, AnsAcc=0.2481
+  Batch 450: Loss=2.1217 (CE=2.0635, ACT=0.6632, Penalty=-0.0082) | Acc=0.2647, AnsAcc=0.2367
+  Batch 500: Loss=2.1371 (CE=2.0825, ACT=0.6262, Penalty=-0.0081) | Acc=0.2711, AnsAcc=0.2821
+  Batch 550: Loss=2.5472 (CE=2.4849, ACT=0.6583, Penalty=-0.0035) | Acc=0.2712, AnsAcc=0.2406
+  Batch 600: Loss=2.0729 (CE=2.0196, ACT=0.6159, Penalty=-0.0083) | Acc=0.3072, AnsAcc=0.2852
+  Batch 650: Loss=2.5319 (CE=2.4725, ACT=0.6627, Penalty=-0.0069) | Acc=0.2854, AnsAcc=0.3390
+  Batch 700: Loss=2.1370 (CE=2.0857, ACT=0.6029, Penalty=-0.0090) | Acc=0.3042, AnsAcc=0.3731
+
+  Train Loss: 2.3716, Train Acc: 0.2814, Train AnsAcc: 0.2870
+  Val Loss: 4.6476, Val Acc: 0.2901, Val AnsAcc: 0.2918
+  ✓ Saved best model (val_loss=4.6476)
+
+Epoch 6/15
+----------------------------------------
+  Batch 50: Loss=2.0127 (CE=1.9624, ACT=0.5949, Penalty=-0.0092) | Acc=0.3093, AnsAcc=0.2692
+  Batch 100: Loss=2.0970 (CE=2.0460, ACT=0.6118, Penalty=-0.0101) | Acc=0.3248, AnsAcc=0.3219
+  Batch 150: Loss=2.6254 (CE=2.5668, ACT=0.6520, Penalty=-0.0066) | Acc=0.2929, AnsAcc=0.2675
+  Batch 200: Loss=2.2544 (CE=2.2007, ACT=0.6153, Penalty=-0.0078) | Acc=0.2834, AnsAcc=0.2378
+  Batch 250: Loss=2.0243 (CE=1.9694, ACT=0.6348, Penalty=-0.0086) | Acc=0.2941, AnsAcc=0.2796
+  Batch 300: Loss=2.0603 (CE=2.0055, ACT=0.6199, Penalty=-0.0071) | Acc=0.3264, AnsAcc=0.3346
+  Batch 350: Loss=1.9726 (CE=1.9225, ACT=0.6008, Penalty=-0.0100) | Acc=0.3073, AnsAcc=0.3005
+  Batch 400: Loss=2.2878 (CE=2.2345, ACT=0.6098, Penalty=-0.0076) | Acc=0.3125, AnsAcc=0.3198
+  Batch 450: Loss=3.0641 (CE=3.0010, ACT=0.6929, Penalty=-0.0061) | Acc=0.2559, AnsAcc=0.2579
+  Batch 500: Loss=1.9304 (CE=1.8804, ACT=0.5884, Penalty=-0.0089) | Acc=0.3248, AnsAcc=0.3400
+  Batch 550: Loss=2.9183 (CE=2.8597, ACT=0.6381, Penalty=-0.0051) | Acc=0.2425, AnsAcc=0.2586
+  Batch 600: Loss=2.4162 (CE=2.3620, ACT=0.6277, Penalty=-0.0086) | Acc=0.3037, AnsAcc=0.3160
+  Batch 650: Loss=2.5196 (CE=2.4624, ACT=0.6368, Penalty=-0.0065) | Acc=0.3000, AnsAcc=0.2699
+  Batch 700: Loss=2.2690 (CE=2.2111, ACT=0.6389, Penalty=-0.0060) | Acc=0.3101, AnsAcc=0.2924
+
+  Train Loss: 2.2791, Train Acc: 0.2973, Train AnsAcc: 0.3024
+  Val Loss: 4.5199, Val Acc: 0.3035, Val AnsAcc: 0.3053
+  ✓ Saved best model (val_loss=4.5199)
+
+Epoch 7/15
+----------------------------------------
+  Batch 50: Loss=2.5085 (CE=2.4478, ACT=0.6541, Penalty=-0.0046) | Acc=0.2777, AnsAcc=0.2406
+  Batch 100: Loss=1.8238 (CE=1.7744, ACT=0.6040, Penalty=-0.0110) | Acc=0.3267, AnsAcc=0.5556
+  Batch 150: Loss=2.8902 (CE=2.8315, ACT=0.6335, Penalty=-0.0047) | Acc=0.2475, AnsAcc=0.3298
+  Batch 200: Loss=2.4815 (CE=2.4250, ACT=0.6212, Penalty=-0.0056) | Acc=0.2877, AnsAcc=0.2648
+  Batch 250: Loss=1.7705 (CE=1.7214, ACT=0.5829, Penalty=-0.0092) | Acc=0.3389, AnsAcc=0.3623
+  Batch 300: Loss=2.8860 (CE=2.8226, ACT=0.6921, Penalty=-0.0058) | Acc=0.2704, AnsAcc=0.2441
+  Batch 350: Loss=1.9267 (CE=1.8725, ACT=0.6267, Penalty=-0.0085) | Acc=0.3038, AnsAcc=0.3514
+  Batch 400: Loss=1.7117 (CE=1.6648, ACT=0.5801, Penalty=-0.0111) | Acc=0.3515, AnsAcc=0.3832
+  Batch 450: Loss=2.4726 (CE=2.4160, ACT=0.6375, Penalty=-0.0071) | Acc=0.2889, AnsAcc=0.2980
+  Batch 500: Loss=2.7326 (CE=2.6724, ACT=0.6484, Penalty=-0.0047) | Acc=0.2900, AnsAcc=0.2513
+  Batch 550: Loss=1.8664 (CE=1.8173, ACT=0.5839, Penalty=-0.0093) | Acc=0.3434, AnsAcc=0.2925
+  Batch 600: Loss=2.8036 (CE=2.7489, ACT=0.5970, Penalty=-0.0050) | Acc=0.2537, AnsAcc=0.2016
+  Batch 650: Loss=2.0181 (CE=1.9649, ACT=0.6268, Penalty=-0.0095) | Acc=0.3028, AnsAcc=0.2803
+  Batch 700: Loss=2.0546 (CE=1.9996, ACT=0.6384, Penalty=-0.0089) | Acc=0.3174, AnsAcc=0.3156
